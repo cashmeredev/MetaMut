@@ -1,0 +1,7 @@
+CMake Error at CMakeLists.txt:2 (cmake_minimum_required):
+  CMake 3.31.0 or higher is required.  You are running version 3.22.1
+
+
+-- Configuring incomplete, errors occurred!
+exit=1
+/dev/mapper/cow-root  145G   50G   95G  35% /
