@@ -91,8 +91,9 @@ private:
 };
 
 // Collects local variables that are declared alone in their declaration
-// statement and whose address is never taken, so changing their type cannot
-// break a pointer that refers to them.
+// statement, whose address is never taken and that are not the value of a
+// statement expression, so changing their type cannot break a pointer that
+// refers to them or the type of an enclosing expression.
 class LocalVarCollector : public clang::RecursiveASTVisitor<LocalVarCollector> {
   using VisitorTy = clang::RecursiveASTVisitor<LocalVarCollector>;
 
@@ -118,6 +119,16 @@ public:
   bool VisitUnaryOperator(clang::UnaryOperator *UO) {
     if (UO->getOpcode() == clang::UO_AddrOf)
       exclude(UO->getSubExpr());
+    return true;
+  }
+
+  bool VisitStmtExpr(clang::StmtExpr *SE) {
+    // the value of a statement expression keeps the type of its last
+    // expression, qualifiers included
+    clang::CompoundStmt *body = SE->getSubStmt();
+    if (body && !body->body_empty())
+      if (auto *last = llvm::dyn_cast<clang::Expr>(body->body_back()))
+        exclude(last);
     return true;
   }
 

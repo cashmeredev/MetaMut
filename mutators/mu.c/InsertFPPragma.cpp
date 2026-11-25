@@ -81,7 +81,7 @@ std::string InsertFPPragma::makePragma() {
       "#pragma clang fp eval_method(extended)",
       "#pragma float_control(precise, on)",
       "#pragma float_control(precise, off)",
-      "#pragma float_control(except, on)"};
+      "#pragma float_control(precise, on)\n#pragma float_control(except, on)"};
   return randElement(pragmas);
 }
 
