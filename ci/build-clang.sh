@@ -9,6 +9,14 @@ LLVM_SHA=$2
 JOBS=$(nproc)
 INSTRUM_PATH=/root/MetaMut/instrumenter/output/afl-bins
 
+# the image ships a cmake that is too old for current llvm and lacks the
+# headers the gcc instrumentation plugin is built against
+apt-get update -qq
+apt-get install -y -qq gcc-11-plugin-dev python3-pip > /dev/null
+pip3 install -q 'cmake>=3.31'
+hash -r
+cmake --version | head -n1
+
 mkdir -p /root/llvm-src && cd /root/llvm-src
 git init -q
 git remote add origin https://github.com/llvm/llvm-project
