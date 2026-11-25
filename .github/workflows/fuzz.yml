@@ -1,14 +1,17 @@
 name: fuzz
 
-# Fuzz a compiler inside the upstream docker image and publish coverage and crashes.
+# Fuzz the clang from the latest build-clang run with two mutator setups:
+#   base  the original mutators
+#   mix   the original mutators plus a share of mutations by the custom ones
 on:
   push:
     branches: [clang-fuzz]
-    paths: [.github/workflows/fuzz.yml, ci/fuzz.env]
+    paths: [ci/fuzz.env]
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   fuzz:
@@ -17,83 +20,104 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        variant: [base, mix]
         shard: [0]
     steps:
       - uses: actions/checkout@v4
 
       - name: Load parameters
-        run: grep -v '^#' ci/fuzz.env >> "$GITHUB_ENV"
-
-      - name: Free disk space
         run: |
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
-          docker image prune -af
+          grep -v '^#' ci/fuzz.env >> "$GITHUB_ENV"
+          git fetch -q --depth 1 origin ci-results
+          git show FETCH_HEAD:clang/latest.env >> "$GITHUB_ENV"
 
-      - name: Pull image
-        run: docker pull -q metamut/metamut:latest
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq llvm-18-dev libclang-18-dev libclang-cpp18-dev \
+            ninja-build ccache gdb zstd python3-psutil python3-numpy python3-six
+          sudo apt-get install -y -qq python3-sysv-ipc || pip install --break-system-packages sysv_ipc
+          test -e /usr/lib/llvm-18/lib/libclang-cpp.so || \
+            sudo ln -s libclang-cpp.so.18.1 /usr/lib/llvm-18/lib/libclang-cpp.so
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: ccache-mutators-${{ hashFiles('mutators/**') }}
+          restore-keys: ccache-mutators-
+
+      - name: Build mutators
+        run: |
+          cmake -S mutators -B mutators/output -G Ninja \
+            -DLLVM_CONFIG_BINARY=/usr/bin/llvm-config-18 \
+            -DCMAKE_C_COMPILER=clang-18 -DCMAKE_CXX_COMPILER=clang++-18 \
+            -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_FLAGS="-O1 -w"
+          ninja -C mutators/output muss mu.c
+          mutators/output/muss --list-mutators | grep -c '"' || true
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: clang-*
+          run-id: ${{ env.CLANG_RUN_ID }}
+          github-token: ${{ github.token }}
+          path: artifacts
+          merge-multiple: true
+
+      - name: Unpack compilers
+        run: |
+          mkdir -p objects/llvm-project-trunk.obj objects/llvm-project-trunk.instrum report
+          tar -I zstd -xf artifacts/clang-plain.tar.zst -C objects/llvm-project-trunk.obj
+          tar -I zstd -xf artifacts/clang-instrum.tar.zst -C objects/llvm-project-trunk.instrum
+          rm -rf artifacts
+          nbrs=$(python3 -c "import json; print(json.load(open('objects/llvm-project-trunk.instrum/configs.json'))['nbrs'])")
+          echo "INSTRUM_CLANG_NBRS=$nbrs" >> "$GITHUB_ENV"
+          {
+            echo "CLANG_RUN_ID=$CLANG_RUN_ID"
+            echo "LLVM_SHA=$LLVM_SHA"
+            echo "INSTRUM_CLANG_NBRS=$nbrs"
+            objects/llvm-project-trunk.obj/bin/clang --version
+            echo 'int main(void) { return 0; }' > hello.c
+            objects/llvm-project-trunk.obj/bin/clang -O2 -c hello.c -o /dev/null && echo "plain clang ok"
+            objects/llvm-project-trunk.instrum/bin/clang -O2 -c hello.c -o /dev/null && echo "instrumented clang ok"
+            echo "## basic block map sample"
+            ls objects/llvm-project-trunk.instrum/basic-block-maps | head -3
+            head -c 1500 "$(ls -d objects/llvm-project-trunk.instrum/basic-block-maps/* | head -1)"
+          } > report/setup.txt 2>&1 || true
+          cp ci/fuzz.env report/
+
+      - name: Fetch seeds
+        run: git clone -q --depth 1 --branch assets https://github.com/icsnju/MetaMut seeds-repo
 
       - name: Fuzz
         run: |
-          mkdir -p workspace
-          docker run --rm --ulimit stack=-1 --ulimit core=0 \
-            -v "$PWD/fuzzer:/root/MetaMut/fuzzer" \
-            -v "$PWD/workspace:/root/MetaMut/workspace" \
-            -e DURATION_SECONDS -e INSTANCES -e COMPILER -e CC_OPT -e SHARD=${{ matrix.shard }} \
-            metamut/metamut:latest bash -c '
-              apt-get update -qq && apt-get install -y -qq gdb > /dev/null
-              cd /root/MetaMut/workspace
-              timeout $((DURATION_SECONDS + 600)) python3 ../fuzzer/run.py -j "$INSTANCES" \
-                --repeat-times "$INSTANCES" --duration "$DURATION_SECONDS" \
-                --cc "$COMPILER" --cc-opt="$CC_OPT" --seed $((12345678 + SHARD)) \
-                --seeds-dir /root/MetaMut/seeds --wdir "$(pwd)" > run.log 2>&1
-              echo "exit=$?" >> run.log
-              python3 ../fuzzer/show.py muss,* --summary > summary.txt 2>&1
-            ' || true
-          sudo chown -R "$USER" workspace
+          ulimit -s unlimited
+          ulimit -c 0
+          mkdir -p workspace && cd workspace
+          extra=""
+          if [ "${{ matrix.variant }}" = "mix" ]; then
+            extra="--extra-muss-bin $GITHUB_WORKSPACE/mutators/output/mu.c --extra-rate $EXTRA_RATE"
+          fi
+          timeout $((DURATION_SECONDS + 900)) python3 ../fuzzer/run.py -j "$INSTANCES" \
+            --repeat-times "$INSTANCES" --duration "$DURATION_SECONDS" \
+            --cc "$COMPILER" --cc-opt="$CC_OPT" --seed $((12345678 + ${{ matrix.shard }})) \
+            --name "${{ matrix.variant }}" $extra \
+            --seeds-dir "$GITHUB_WORKSPACE/seeds-repo/seeds" --wdir "$(pwd)" > run.log 2>&1 || true
+          python3 ../fuzzer/show.py *,*,* --summary > summary.txt 2>&1 || true
 
       - name: Collect results
-        run: |
-          mkdir -p report
-          cp ci/fuzz.env report/
-          tail -c 20000 workspace/run.log > report/run-tail.log || true
-          cp workspace/summary.txt report/ || true
-          for dir in workspace/muss,*; do
-            name=$(basename "$dir")
-            mkdir -p "report/$name"
-            for file in coverage-trend.txt crashes.json state.txt exceptions.txt; do
-              [ -f "$dir/$file" ] && cp "$dir/$file" "report/$name/"
-            done
-            [ -f "$dir/log.txt" ] && tail -c 20000 "$dir/log.txt" > "report/$name/log-tail.txt"
-            ls "$dir" | grep -c '\.c$' > "report/$name/kept-mutants.txt" || true
-            # keep only the source files that crashes.json refers to
-            if [ -f "$dir/crashes.json" ]; then
-              mkdir -p "report/$name/crash-inputs"
-              grep -oE '[A-Za-z]+\.c' "$dir/crashes.json" | sort -u | while read -r source; do
-                [ -f "$dir/$source" ] && cp "$dir/$source" "report/$name/crash-inputs/"
-              done
-            fi
-          done
+        if: always()
+        run: bash ci/collect.sh workspace report
 
       - name: Check out repository for publishing
+        if: always()
         uses: actions/checkout@v4
         with:
-          path: out
+          path: publish
           fetch-depth: 1
 
       - name: Publish report
+        if: always()
         run: |
-          cd out
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          target="fuzz/${GITHUB_RUN_ID}/shard-${{ matrix.shard }}"
-          for attempt in 1 2 3 4 5; do
-            if git fetch -q --depth 1 origin ci-results; then
-              git checkout -q -B ci-results FETCH_HEAD
-            else
-              git checkout -q --orphan ci-results && git rm -rqf .
-            fi
-            mkdir -p "$target" && cp -r ../report/. "$target/"
-            git add -A fuzz && git commit -q -m "fuzz: report for run ${GITHUB_RUN_ID} shard ${{ matrix.shard }}"
-            git push -q origin ci-results && break
-            sleep $((attempt * 7))
-          done
+          bash ci/publish.sh publish report \
+            "fuzz/${GITHUB_RUN_ID}/${{ matrix.variant }}-${{ matrix.shard }}" \
+            "fuzz: ${{ matrix.variant }} shard ${{ matrix.shard }} report for run ${GITHUB_RUN_ID}"
