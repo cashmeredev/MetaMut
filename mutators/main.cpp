@@ -167,7 +167,7 @@ int main(int argc, char **argv) {
   if (opt::syntaxOnly) return 0;
 
   // read file contents
-  std::ifstream file(std::string(opt::input));
+  std::ifstream file{std::string(opt::input)};
   std::stringstream buffer;
 
   if (file) {

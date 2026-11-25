@@ -153,7 +153,7 @@ else()
   _run_llvm_config(LLVM_TOOLS_BINARY_DIR "--bindir")
   _run_llvm_config(TARGET_TRIPLE "--host-target")
 
-  _run_llvm_config(LLVM_BUILD_MAIN_SRC_DIR "--src-root")
+  set(LLVM_BUILD_MAIN_SRC_DIR "")
   if (NOT EXISTS "${LLVM_BUILD_MAIN_SRC_DIR}")
     set(LLVM_BUILD_MAIN_SRC_DIR "")
   endif()

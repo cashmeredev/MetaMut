@@ -51,7 +51,7 @@ bool DuplicateWithBinaryOp::mutate() {
     Expr *lhs = expr->IgnoreImpCasts();
     Expr *rhs = expr->IgnoreImpCasts();
     BinaryOperator *newExpr = BinaryOperator::Create(
-        getASTContext(), lhs, rhs, op, lhs->getType(), VK_RValue, OK_Ordinary,
+        getASTContext(), lhs, rhs, op, lhs->getType(), VK_PRValue, OK_Ordinary,
         expr->getExprLoc(), FPOptionsOverride());
 
     // Check if the new expression is valid

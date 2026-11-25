@@ -49,7 +49,7 @@ bool DuplicateWithUnaryOp::mutate() {
   for (const auto &op : ops) {
     Expr *operand = expr->IgnoreImpCasts();
     UnaryOperator *newExpr = UnaryOperator::Create(
-        getASTContext(), operand, op, operand->getType(), VK_RValue,
+        getASTContext(), operand, op, operand->getType(), VK_PRValue,
         OK_Ordinary, expr->getExprLoc(), false, FPOptionsOverride{});
 
     // Check if the new expression is valid

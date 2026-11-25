@@ -6,26 +6,7 @@ include(cmake/find_llvm.cmake)
 option(DEBUG "enable debug information")
 
 set(LINK_LIBS
-  clangTooling
-  clangToolingASTDiff
-  clangToolingRefactoring
-  clangToolingCore
-  clangASTMatchers
-  clangFrontend
-  clangDriver
-  clangSerialization
-  clangTransformer
-  clangRewrite
-  clangFormat
-  clangToolingInclusions
-  clangParse
-  clangSema
-  clangAnalysis
-  clangEdit
-  clangAST
-  clangLex
-  clangBasic
-  clang
+  clang-cpp
   LLVM)
 
 if(DEBUG)

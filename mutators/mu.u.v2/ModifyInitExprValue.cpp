@@ -1,3 +1,4 @@
+#include <llvm/ADT/StringExtras.h>
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/AST/Stmt.h>
 #include <clang/Basic/SourceManager.h>
@@ -38,7 +39,7 @@ public:
             oldValue = oldValue - offset;
         }
 
-        getRewriter().ReplaceText(initExpr->getSourceRange(), oldValue.toString(/*Radix=*/10));
+        getRewriter().ReplaceText(initExpr->getSourceRange(), llvm::toString(oldValue, 10));
         return true;
     } else if (auto *IL = dyn_cast<InitListExpr>(initExpr)) {
         unsigned index = randIndex(IL->getNumInits());
@@ -60,7 +61,7 @@ public:
                     oldValue = oldValue - offset;
                 }
 
-                getRewriter().ReplaceText(selectedInit->getSourceRange(), oldValue.toString(/*Radix=*/10));
+                getRewriter().ReplaceText(selectedInit->getSourceRange(), llvm::toString(oldValue, 10));
                 return true;
             }
         }

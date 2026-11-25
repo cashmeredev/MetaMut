@@ -19,7 +19,7 @@
 #include <clang/Rewrite/Core/Rewriter.h>
 #include <llvm/ADT/SmallPtrSet.h>
 #include <llvm/Option/ArgList.h>
-#include <llvm/Support/Host.h>
+#include <llvm/TargetParser/Host.h>
 #include <llvm/Support/InitLLVM.h>
 #include <llvm/Support/VirtualFileSystem.h>
 
@@ -73,13 +73,13 @@ public:
         FrontendOptions::getInputKindForExtension(
             StringRef(filename).rsplit('.').second);
     if (IK.getLanguage() == Language::C) {
-      Invocation.setLangDefaults(
+      LangOptions::setLangDefaults(
           CI->getLangOpts(), Language::C, T, Includes);
     } else if (IK.getLanguage() == Language::CXX) {
       // ISSUE: it might cause some problems when building
       // AST for a function which has a non-declared callee,
       // e.g., It results an empty AST for the caller.
-      Invocation.setLangDefaults(
+      LangOptions::setLangDefaults(
           CI->getLangOpts(), Language::CXX, T, Includes);
     } else if (IK.getLanguage() == Language::OpenCL) {
       // Commandline parameters
@@ -96,14 +96,14 @@ public:
           Args.data(), Args.size());
       CompilerInvocation::CreateFromArgs(
           Invocation, ArgsRef, CI->getDiagnostics());
-      Invocation.setLangDefaults(
+      LangOptions::setLangDefaults(
           CI->getLangOpts(), Language::OpenCL, T, Includes);
     } else {
       ErrorMsg = "Unsupported file type!";
       return;
     }
 
-    Invocation.setLangDefaults(
+    LangOptions::setLangDefaults(
         CI->getLangOpts(), IK.getLanguage(), T, Includes);
 
     TargetInfo *Target =

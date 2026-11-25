@@ -1,3 +1,4 @@
+#include <llvm/ADT/StringExtras.h>
 #include <clang/AST/ASTContext.h>
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/AST/Stmt.h>
@@ -39,7 +40,7 @@ bool ChangeIntegerLiteral::mutate() {
   value += getManager().randint(-100, 100);
 
   getRewriter().ReplaceText(literal->getSourceRange(),
-                            value.toString(10, true));
+                            llvm::toString(value, 10, true));
 
   return true;
 }

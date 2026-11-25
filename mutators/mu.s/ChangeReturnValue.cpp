@@ -1,3 +1,4 @@
+#include <llvm/ADT/StringExtras.h>
 #include <clang/AST/ASTContext.h>
 #include <clang/AST/Decl.h>
 #include <clang/AST/RecursiveASTVisitor.h>
@@ -42,7 +43,7 @@ bool ChangeReturnValue::mutate() {
           clang::dyn_cast<clang::IntegerLiteral>(retval)) {
     llvm::APInt val = IL->getValue();
     val += getManager().randint(-100, 100);
-    getRewriter().ReplaceText(IL->getSourceRange(), val.toString(10, true));
+    getRewriter().ReplaceText(IL->getSourceRange(), llvm::toString(val, 10, true));
   } else {
     getRewriter().ReplaceText(retval->getSourceRange(), "{0}");
   }
