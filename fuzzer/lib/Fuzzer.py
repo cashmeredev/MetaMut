@@ -237,4 +237,5 @@ class Fuzzer:
           self.save_coverage(curr_coverage)
       # clean tmpdir
       Utils.remove_files(self.tmpdir)
+    self.sampler.write(f"{self.fuzz_args.wdir}/coverage.bin")
     self.mark_current_state('done')
