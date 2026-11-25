@@ -1,0 +1,120 @@
+## /root/MetaMut
+total 88
+drwxr-xr-x 1 root root 4096 Jun 21  2024 .
+drwx------ 1 root root 4096 Jun 21  2024 ..
+drwxr-xr-x 1 root root 4096 Jun 21  2024 .git
+drwxr-xr-x 2 root root 4096 Jun 13  2024 .github
+-rw-r--r-- 1 root root  501 Jun 21  2024 .gitignore
+drwxr-xr-x 1 root root 4096 Jun 21  2024 Core
+-rw-r--r-- 1 root root 1036 Jun 13  2024 LICENSE
+-rw-r--r-- 1 root root 3047 Jun 21  2024 README.md
+-rw-r--r-- 1 root root 3646 Jun 21  2024 README.ubuntu.md
+-rw-r--r-- 1 root root 4902 Jun 21  2024 bugs.md
+drwxr-xr-x 1 root root 4096 Jun 21  2024 fuzzer
+drwxr-xr-x 1 root root 4096 Jun 21  2024 instrumenter
+drwxr-xr-x 1 root root 4096 Jun 21  2024 mutators
+lrwxrwxrwx 1 root root   14 Jun 13  2024 objects -> /root/objects/
+lrwxrwxrwx 1 root root   25 Jun 13  2024 seeds -> /root/MetaMutAssets/seeds
+-rw-r--r-- 1 root root 3977 Jun 21  2024 setup.sh
+## objects
+gcc-project-trunk.instrum
+gcc-project-trunk.obj
+llvm-project-trunk.instrum
+llvm-project-trunk.obj
+2.7G	/root/MetaMut/objects/gcc-project-trunk.instrum
+1.9G	/root/MetaMut/objects/gcc-project-trunk.obj
+7.3G	/root/MetaMut/objects/llvm-project-trunk.instrum
+260M	/root/MetaMut/objects/llvm-project-trunk.obj
+## configs
+import os
+import pathlib
+
+####### CONFIGS ######
+homedir = pathlib.Path(__file__).parent.parent
+
+muss_homedir = f"{homedir}/mutators"
+muss_bin = f"{muss_homedir}/output/muss"
+
+seeds_dir = f"{homedir}/seeds"
+
+gcc_objdir = f"{homedir}/objects/gcc-project-trunk.obj"
+gcc_bin = f"{gcc_objdir}/install/bin/gcc"
+
+llvm_objdir = f"{homedir}/objects/llvm-project-trunk.obj"
+clang_bin = f"{llvm_objdir}/bin/clang"
+
+instrum_gcc_objdir = f"{homedir}/objects/gcc-project-trunk.instrum"
+instrum_gcc_bin = f"{instrum_gcc_objdir}/install/bin/gcc"
+instrum_gcc_nbrs = 1478061
+
+instrum_llvm_objdir = f"{homedir}/objects/llvm-project-trunk.instrum"
+instrum_clang_bin = f"{instrum_llvm_objdir}/bin/clang"
+instrum_clang_nbrs = 4915140
+
+cc_map = {
+    gcc_bin: instrum_gcc_bin,
+    clang_bin: instrum_clang_bin,
+    instrum_gcc_bin: gcc_bin,
+    instrum_clang_bin: clang_bin,
+}
+
+max_frames = 50
+## compilers
+import os
+import time
+import random
+import shutil
+import configs
+import pathlib
+import threading
+import subprocess
+
+class Compiler:
+  def __init__(self, name, cc_path,
+      instrum_path, instrum_nbrs):
+    self.name = name
+    self.cc_path = cc_path
+    self.instrum_path = instrum_path
+    self.instrum_nbrs = instrum_nbrs
+  def __str__(self):
+    return self.name
+
+def make_compilers():
+  return [
+      Compiler('clang',
+        configs.clang_bin,
+        configs.instrum_clang_bin,
+        configs.instrum_clang_nbrs),
+      Compiler('gcc',
+        configs.gcc_bin,
+        configs.instrum_gcc_bin,
+        configs.instrum_gcc_nbrs),
+  ]
+## versions
+/root/MetaMut/objects/llvm-project-trunk.instrum/bin/clang
+clang version 19.0.0git (wierton@114.212.81.121:~/llvm-project-trunk 74f200baedfed496880ca86ce9409788b0d0eaca)
+Target: x86_64-unknown-linux-gnu
+/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang
+clang version 19.0.0git (wierton@114.212.81.121:~/llvm-project-trunk 74f200baedfed496880ca86ce9409788b0d0eaca)
+Target: x86_64-unknown-linux-gnu
+/root/MetaMut/objects/gcc-project-trunk.instrum/install/bin/gcc
+gcc (GCC) 15.0.0 20240612 (experimental)
+Copyright (C) 2024 Free Software Foundation, Inc.
+/root/MetaMut/objects/gcc-project-trunk.obj/install/bin/gcc
+gcc (GCC) 15.0.0 20240612 (experimental)
+Copyright (C) 2024 Free Software Foundation, Inc.
+## mutators
+-rwxr-xr-x 1 1000 1000   80444088 Jun 11  2024 /usr/bin/mu.s
+-rwxr-xr-x 1 1000 1000   68254264 Jun 11  2024 /usr/bin/mu.u
+-rwxr-xr-x 1 1000 1000 1074617344 Jun 21  2024 /usr/bin/muss
+use seed 0
+377
+## seeds
+35514
+## toolchain
+12.0.1
+Python 3.10.12
+PRETTY_NAME="Ubuntu 22.04.4 LTS"
+NAME="Ubuntu"
+## git
+3ecbf0d37dd7f5c7a058bb7295e53c52f30248c5 Fri Jun 21 10:28:38 2024 +0800 update

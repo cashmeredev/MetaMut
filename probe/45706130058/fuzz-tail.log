@@ -1,0 +1,28 @@
+[2026-11-25 21:42:20.554487] DEBUG:Fuzzer.py:126:: start fuzzing, seed=2008587347, parent=19, affinity=[3]
+[2026-11-25 21:42:20.555345] DEBUG:Fuzzer.py:126:: start fuzzing, seed=51584765, parent=20, affinity=[2]
+Exception ignored in: <function ControlledGDB.__del__ at 0x14bebf1832e0>
+Traceback (most recent call last):
+  File "/root/MetaMut/fuzzer/lib/ControlledProcess.py", line 279, in __del__
+    self.send('q')
+  File "/root/MetaMut/fuzzer/lib/ControlledProcess.py", line 188, in send
+    self.p.stdin.write(data)
+AttributeError: 'ControlledGDB' object has no attribute 'p'
+======= 2026-11-25 21:47:09.795517 =======
+Traceback (most recent call last):
+  File "/root/MetaMut/workspace/../fuzzer/run.py", line 32, in worker
+    fuzzer.fuzz()
+  File "/root/MetaMut/fuzzer/lib/Fuzzer.py", line 206, in fuzz
+    has_crash = self.check_crash(ot)
+  File "/root/MetaMut/fuzzer/lib/Fuzzer.py", line 175, in check_crash
+    tracer = CompilerTracer(cmd, self.fuzz_args.timeout)
+  File "/root/MetaMut/fuzzer/lib/Fuzzer.py", line 27, in __init__
+    self.gdb = ControlledGDB(cmd, mlimit=mlimit)
+  File "/root/MetaMut/fuzzer/lib/ControlledProcess.py", line 171, in __init__
+    self.p = subprocess.Popen(argv,
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'gdb'
+
+exit=0
