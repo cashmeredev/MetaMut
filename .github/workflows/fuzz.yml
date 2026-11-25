@@ -1,0 +1,99 @@
+name: fuzz
+
+# Fuzz a compiler inside the upstream docker image and publish coverage and crashes.
+on:
+  push:
+    branches: [clang-fuzz]
+    paths: [.github/workflows/fuzz.yml, ci/fuzz.env]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load parameters
+        run: grep -v '^#' ci/fuzz.env >> "$GITHUB_ENV"
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          docker image prune -af
+
+      - name: Pull image
+        run: docker pull -q metamut/metamut:latest
+
+      - name: Fuzz
+        run: |
+          mkdir -p workspace
+          docker run --rm --ulimit stack=-1 --ulimit core=0 \
+            -v "$PWD/fuzzer:/root/MetaMut/fuzzer" \
+            -v "$PWD/workspace:/root/MetaMut/workspace" \
+            -e DURATION_SECONDS -e INSTANCES -e COMPILER -e CC_OPT -e SHARD=${{ matrix.shard }} \
+            metamut/metamut:latest bash -c '
+              apt-get update -qq && apt-get install -y -qq gdb > /dev/null
+              cd /root/MetaMut/workspace
+              timeout $((DURATION_SECONDS + 600)) python3 ../fuzzer/run.py -j "$INSTANCES" \
+                --repeat-times "$INSTANCES" --duration "$DURATION_SECONDS" \
+                --cc "$COMPILER" --cc-opt="$CC_OPT" --seed $((12345678 + SHARD)) \
+                --seeds-dir /root/MetaMut/seeds --wdir "$(pwd)" > run.log 2>&1
+              echo "exit=$?" >> run.log
+              python3 ../fuzzer/show.py muss,* --summary > summary.txt 2>&1
+            ' || true
+          sudo chown -R "$USER" workspace
+
+      - name: Collect results
+        run: |
+          mkdir -p report
+          cp ci/fuzz.env report/
+          tail -c 20000 workspace/run.log > report/run-tail.log || true
+          cp workspace/summary.txt report/ || true
+          for dir in workspace/muss,*; do
+            name=$(basename "$dir")
+            mkdir -p "report/$name"
+            for file in coverage-trend.txt crashes.json state.txt exceptions.txt; do
+              [ -f "$dir/$file" ] && cp "$dir/$file" "report/$name/"
+            done
+            [ -f "$dir/log.txt" ] && tail -c 20000 "$dir/log.txt" > "report/$name/log-tail.txt"
+            ls "$dir" | grep -c '\.c$' > "report/$name/kept-mutants.txt" || true
+            # keep only the source files that crashes.json refers to
+            if [ -f "$dir/crashes.json" ]; then
+              mkdir -p "report/$name/crash-inputs"
+              grep -oE '[A-Za-z]+\.c' "$dir/crashes.json" | sort -u | while read -r source; do
+                [ -f "$dir/$source" ] && cp "$dir/$source" "report/$name/crash-inputs/"
+              done
+            fi
+          done
+
+      - name: Check out repository for publishing
+        uses: actions/checkout@v4
+        with:
+          path: out
+          fetch-depth: 1
+
+      - name: Publish report
+        run: |
+          cd out
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          target="fuzz/${GITHUB_RUN_ID}/shard-${{ matrix.shard }}"
+          for attempt in 1 2 3 4 5; do
+            if git fetch -q --depth 1 origin ci-results; then
+              git checkout -q -B ci-results FETCH_HEAD
+            else
+              git checkout -q --orphan ci-results && git rm -rqf .
+            fi
+            mkdir -p "$target" && cp -r ../report/. "$target/"
+            git add -A fuzz && git commit -q -m "fuzz: report for run ${GITHUB_RUN_ID} shard ${{ matrix.shard }}"
+            git push -q origin ci-results && break
+            sleep $((attempt * 7))
+          done
