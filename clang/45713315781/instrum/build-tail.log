@@ -1,0 +1,39 @@
+[*] building the instrumenter
+-- The CXX compiler identification is GNU 11.4.0
+-- The C compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/g++-11 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc-11 - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- LLVM_CONFIG_BINARY: /usr/bin/llvm-config
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/MetaMut/instrumenter/output
+[ 30%] Building C object CMakeFiles/afl-cc-bin.dir/src/afl-cc.c.o
+[ 30%] Building CXX object CMakeFiles/afl-gcc-pass.dir/instrumentation/afl-gcc-pass.so.cc.o
+[ 30%] Building C object CMakeFiles/afl-ld-lto.dir/src/afl-ld-lto.c.o
+[ 40%] Building C object CMakeFiles/afl-compiler-rt.dir/instrumentation/afl-compiler-rt.o.c.o
+[ 50%] Linking C static library libafl-compiler-rt.a
+[ 60%] Linking C executable afl-ld-lto
+In file included from /root/MetaMut/instrumenter/instrumentation/afl-gcc-pass.so.cc:1:
+/root/MetaMut/instrumenter/include/afl-gcc-common.h:46:10: fatal error: gcc-plugin.h: No such file or directory
+   46 | #include <gcc-plugin.h>
+      |          ^~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [CMakeFiles/afl-gcc-pass.dir/build.make:76: CMakeFiles/afl-gcc-pass.dir/instrumentation/afl-gcc-pass.so.cc.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:169: CMakeFiles/afl-gcc-pass.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[ 60%] Built target afl-compiler-rt
+[ 70%] Building C object CMakeFiles/afl-cc-bin.dir/src/afl-common.c.o
+[ 70%] Built target afl-ld-lto
+[ 80%] Linking C executable afl-cc-bin
+[ 80%] Built target afl-cc-bin
+make: *** [Makefile:91: all] Error 2
+exit=2
+/dev/root       145G   54G   92G  37% /
