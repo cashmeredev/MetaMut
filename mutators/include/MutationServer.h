@@ -130,6 +130,8 @@ public:
   }
 
   ~MutationServer() {
+    // the client waits for requests forever, it would outlive this process
+    kill_client();
     if (task_req) clean_semaphore(task_req_name, task_req);
     if (task_res) clean_semaphore(task_res_name, task_res);
   }
