@@ -1,0 +1,40 @@
+[
+  {
+    "compiler": "/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2",
+    "traceback": [
+      "./stdlib/./stdlib/abort.c: __GI_abort: 49",
+      "./assert/./assert/assert.c: __assert_fail_base: 94",
+      "./assert/./assert/assert.c: __GI___assert_fail: 103",
+      "??: clang::CodeGen::CodeGenFunction::AddInitializerToStaticVarDecl(clang::VarDecl const&, llvm::GlobalVariable*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitStaticVarDecl(clang::VarDecl const&, llvm::GlobalValue::LinkageTypes): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) [clone .part.0]: ??",
+      "??: (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::ParseAST(clang::Sema&, bool, bool): ??",
+      "??: clang::FrontendAction::Execute(): ??",
+      "??: clang::CompilerInstance::ExecuteAction(clang::FrontendAction&): ??",
+      "??: clang::ExecuteCompilerInvocation(clang::CompilerInstance*): ??",
+      "??: cc1_main(llvm::ArrayRef<char const*>, char const*, void*): ??",
+      "??: ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&): ??",
+      "??: clang_main(int, char**, llvm::ToolContext const&): ??",
+      "??: main: ??"
+    ],
+    "srcfiles": [
+      [
+        "/root/MetaMut/workspace/muss,clang,2/mZVadSPmefXq.c",
+        115.54277515411377
+      ]
+    ]
+  }
+]

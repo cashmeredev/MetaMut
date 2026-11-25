@@ -1,0 +1,125 @@
+[
+  {
+    "compiler": "/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2",
+    "traceback": [
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::AddInitializerToStaticVarDecl(clang::VarDecl const&, llvm::GlobalVariable*)",
+        null
+      ],
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::EmitStaticVarDecl(clang::VarDecl const&, llvm::GlobalValue::LinkageTypes)",
+        null
+      ]
+    ],
+    "mutators": [
+      "muss"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "muss",
+        "date": 418.2393252849579,
+        "file": "/root/MetaMut/workspace/muss,clang,0/iKrvDwTjGkLN.c"
+      },
+      {
+        "mutator": "muss",
+        "date": 115.54277515411377,
+        "file": "/root/MetaMut/workspace/muss,clang,2/mZVadSPmefXq.c"
+      },
+      {
+        "mutator": "muss",
+        "date": 1075.4299523830414,
+        "file": "/root/MetaMut/workspace/muss,clang,3/ilGFRHQeSJli.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2",
+    "traceback": [
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef)",
+        null
+      ],
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::FormX86ResolverCondition(clang::CodeGen::CodeGenFunction::MultiVersionResolverOption const&)",
+        null
+      ]
+    ],
+    "mutators": [
+      "muss"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "muss",
+        "date": 711.7904751300812,
+        "file": "/root/MetaMut/workspace/muss,clang,0/FePFEHAlZmnY.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2",
+    "traceback": [
+      [
+        null,
+        "(anonymous namespace)::CGRecordLowering::lower(bool)",
+        null
+      ],
+      [
+        null,
+        "clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*)",
+        null
+      ]
+    ],
+    "mutators": [
+      "muss"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "muss",
+        "date": 1058.9492852687836,
+        "file": "/root/MetaMut/workspace/muss,clang,1/iAVvvuEOBlCU.c"
+      },
+      {
+        "mutator": "muss",
+        "date": 1182.5787694454193,
+        "file": "/root/MetaMut/workspace/muss,clang,1/xpACXkRrCSRH.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/root/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2",
+    "traceback": [
+      [
+        null,
+        "EvaluatePointer(clang::Expr const*, (anonymous namespace)::LValue&, (anonymous namespace)::EvalInfo&, bool)",
+        null
+      ],
+      [
+        null,
+        "(anonymous namespace)::PointerExprEvaluator::VisitBuiltinCallExpr(clang::CallExpr const*, unsigned int)",
+        null
+      ]
+    ],
+    "mutators": [
+      "muss"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "muss",
+        "date": 555.0866448879242,
+        "file": "/root/MetaMut/workspace/muss,clang,3/VOIwOddCgKWZ.c"
+      }
+    ]
+  }
+]
+
+{
+  "muss": 4
+}
