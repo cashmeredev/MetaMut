@@ -155,10 +155,16 @@ class Fuzzer:
         pRes.stderr, pRes.is_tle, pRes.is_oom)
 
   def run_for_crash(self, testcase):
-    for cc in [configs.gcc_bin, configs.clang_bin]:
-      chkRes = self.compile_and_check(cc, testcase)
+    # check the fuzzed compiler with the same options the coverage run uses,
+    # so crashes that only happen with optimization are found too
+    cc = self.fuzz_args.cc.cc_path
+    for opt_str in configs.options:
+      options = shlex.split(opt_str)
+      pRes = self.compile(cc, testcase, options=options, capture_stderr=True)
+      chkRes = CompilerStatus.analyze(pRes.retcode,
+          pRes.stderr, pRes.is_tle, pRes.is_oom)
       if chkRes == CompilerStatus.Crash:
-        cmd = self.get_cc_cmdline(cc, testcase, tolist=True)
+        cmd = self.get_cc_cmdline(cc, testcase, options=options, tolist=True)
         jlog(crash=cmd, invoke=self.fuzz_args.mutator.get_current_mutator_invoke_cmdline())
         return cc
     return None
@@ -213,6 +219,7 @@ class Fuzzer:
       curr_coverage = self.sampler.sample()
       if curr_coverage.outperforms(prev_coverage):
         # wlog(f"new branch: {ot}")
+        jlog(keep=str(ot), invoke=self.fuzz_args.mutator.get_current_mutator_invoke_cmdline())
         self.save_coverage(curr_coverage)
         if self.fuzz_args.mutator.is_generator():
           if not has_crash:
