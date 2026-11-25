@@ -64,14 +64,22 @@ jobs:
           sudo chown -R "$USER" report
           tail -c 20000 report/fuzz.log > report/fuzz-tail.log; rm report/fuzz.log
 
+      - name: Check out repository for publishing
+        uses: actions/checkout@v4
+        with:
+          path: out
+          fetch-depth: 1
+
       - name: Publish report
         run: |
-          git init -q out && cd out
+          cd out
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -q -b ci-results
+          if git fetch -q --depth 1 origin ci-results; then
+            git checkout -q -B ci-results FETCH_HEAD
+          else
+            git checkout -q --orphan ci-results && git rm -rqf .
+          fi
           mkdir -p "probe/${GITHUB_RUN_ID}" && cp -r ../report/. "probe/${GITHUB_RUN_ID}/"
-          git add -A && git commit -q -m "probe: report for run ${GITHUB_RUN_ID}"
-          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
-          git fetch -q origin ci-results && git rebase -q origin/ci-results || true
+          git add -A probe && git commit -q -m "probe: report for run ${GITHUB_RUN_ID}"
           git push -q origin ci-results
