@@ -44,7 +44,8 @@ def make_worker_list(args):
     for cc in make_compilers():
       if args.compilers and cc.name not in args.compilers:
         continue
-      muss = Muss('muss', configs.muss_bin)
+      muss = Muss(args.name, args.muss_bin,
+        args.extra_muss_bin, args.extra_rate)
       wdir = f"{args.wdir}/{muss.name},{cc},{i}"
       muss.setup_workdir(wdir)
       worker_args_list.append(FuzzArgs(
@@ -59,19 +60,22 @@ def make_worker_list(args):
   return worker_args_list
 
 def check_context(args):
-  if not os.access(configs.muss_bin, os.X_OK|os.F_OK):
-    print(f"The muss binary is not compiled, please refer to README to compile it")
+  for b in [args.muss_bin, args.extra_muss_bin]:
+    if b is None or os.access(b, os.X_OK|os.F_OK): continue
+    print(f"The mutator binary {b} is not compiled, please refer to README to compile it")
     sys.exit(0)
 
   if len(list(pathlib.Path(args.seeds_dir).glob('**/*.c'))) == 0:
     print(f"There are no seeds found in specified {args.seeds_dir}")
     sys.exit(0)
 
-  for b in [configs.gcc_bin, configs.clang_bin,
-      configs.instrum_gcc_bin, configs.instrum_clang_bin]:
-    if os.access(b, os.X_OK|os.F_OK): continue
-    print(f"The compiler binary {b} is not found, please refer to README to compile or obtain it")
-    sys.exit(0)
+  for cc in make_compilers():
+    if args.compilers and cc.name not in args.compilers:
+      continue
+    for b in [cc.cc_path, cc.instrum_path]:
+      if os.access(b, os.X_OK|os.F_OK): continue
+      print(f"The compiler binary {b} is not found, please refer to README to compile or obtain it")
+      sys.exit(0)
 
 def parse_args():
   parser = argparse.ArgumentParser('driver')
@@ -91,6 +95,15 @@ def parse_args():
   parser.add_argument('--cc', dest='compilers',
     nargs='+', default=[],
     help='specify compilers to fuzz, eg. --cc clang (default: all)')
+  parser.add_argument('--name', dest='name',
+    default='muss', help='specify the name of this mutator setup')
+  parser.add_argument('--muss-bin', dest='muss_bin',
+    default=configs.muss_bin, help='specify the mutator binary')
+  parser.add_argument('--extra-muss-bin', dest='extra_muss_bin',
+    default=None, help='specify a second mutator binary')
+  parser.add_argument('--extra-rate', dest='extra_rate',
+    default=0.0, type=float,
+    help='specify the share of mutations done by the second binary')
   parser.add_argument('--seed', dest='seed',
     type=int, default=12345678, help='specify seed')
   parser.add_argument('--duration', dest='duration',

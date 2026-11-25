@@ -44,10 +44,18 @@ class Mutator:
     return None
 
 class Muss(Mutator):
+  def __init__(self, name, mutator_bin, extra_bin=None, extra_rate=0.0):
+    super().__init__(name, mutator_bin)
+    # a second mutator binary that is used for a share of the mutations
+    self.extra_bin = extra_bin
+    self.extra_rate = extra_rate
   def mutate(self, ifile, opfx):
     ofile = f"{self.wdir}/{opfx}.c"
     seed = random.randint(0, 2**31 - 1)
-    cmd  = f'{self.mutator_bin} --seed {seed}'
+    mutator_bin = self.mutator_bin
+    if self.extra_bin and random.random() < self.extra_rate:
+      mutator_bin = self.extra_bin
+    cmd  = f'{mutator_bin} --seed {seed}'
     cmd += f' --randomly-try-all-mutators'
     cmd += f' -i {ifile} -o {ofile}'
     self.invoke_cmd = cmd

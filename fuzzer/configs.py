@@ -22,6 +22,9 @@ instrum_gcc_nbrs = 1478061
 instrum_llvm_objdir = f"{homedir}/objects/llvm-project-trunk.instrum"
 instrum_clang_bin = f"{instrum_llvm_objdir}/bin/clang"
 instrum_clang_nbrs = 4915140
+# a clang built elsewhere has a different number of instrumented branches
+if 'INSTRUM_CLANG_NBRS' in os.environ:
+  instrum_clang_nbrs = int(os.environ['INSTRUM_CLANG_NBRS'])
 
 cc_map = {
     gcc_bin: instrum_gcc_bin,
