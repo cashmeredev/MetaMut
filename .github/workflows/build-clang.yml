@@ -1,0 +1,110 @@
+name: build-clang
+
+# Build clang from llvm-project twice, plain and with coverage instrumentation,
+# and keep both as artifacts for the fuzz workflow.
+on:
+  push:
+    branches: [clang-fuzz]
+    paths: [.github/workflows/build-clang.yml, ci/build-clang.sh, ci/clang.env]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    outputs:
+      sha: ${{ steps.resolve.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: resolve
+        run: |
+          source ci/clang.env
+          sha=$(git ls-remote https://github.com/llvm/llvm-project "$LLVM_REF" | cut -f1 | head -n1)
+          test -n "$sha"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: resolve
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [plain, instrum]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          docker image prune -af
+
+      - name: Pull image
+        run: docker pull -q metamut/metamut:latest
+
+      - name: Build clang
+        run: |
+          mkdir -p build out
+          set +e
+          docker run --rm \
+            -v "$PWD/ci:/ci:ro" -v "$PWD/build:/root/build" -v "$PWD/out:/out" \
+            metamut/metamut:latest \
+            bash /ci/build-clang.sh ${{ matrix.mode }} ${{ needs.resolve.outputs.sha }} > build.log 2>&1
+          status=$?
+          set -e
+          sudo chown -R "$USER" build out
+          tail -c 30000 build.log > out/build-tail.log
+          echo "exit=$status" >> out/build-tail.log
+          df -h / | tail -1 >> out/build-tail.log
+          exit $status
+
+      - name: Pack compiler
+        run: |
+          cd build
+          files="bin/clang* lib/clang"
+          if [ "${{ matrix.mode }}" = "instrum" ]; then
+            files="$files configs.json basic-block-maps"
+          fi
+          tar -I 'zstd -T0 -6' -cf ../clang-${{ matrix.mode }}.tar.zst $files
+          ls -la ../clang-${{ matrix.mode }}.tar.zst | tee -a ../out/build-tail.log
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clang-${{ matrix.mode }}
+          path: clang-${{ matrix.mode }}.tar.zst
+          retention-days: 60
+          compression-level: 0
+
+      - name: Check out repository for publishing
+        if: always()
+        uses: actions/checkout@v4
+        with:
+          path: publish
+          fetch-depth: 1
+
+      - name: Publish build report
+        if: always()
+        run: |
+          bash ci/publish.sh publish out "clang/${GITHUB_RUN_ID}/${{ matrix.mode }}" \
+            "clang: ${{ matrix.mode }} build report for run ${GITHUB_RUN_ID}"
+
+  latest:
+    needs: [resolve, build]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out repository for publishing
+        uses: actions/checkout@v4
+        with:
+          path: publish
+          fetch-depth: 1
+      - name: Record the build as latest
+        run: |
+          mkdir -p latest
+          {
+            echo "CLANG_RUN_ID=${GITHUB_RUN_ID}"
+            echo "LLVM_SHA=${{ needs.resolve.outputs.sha }}"
+          } > latest/latest.env
+          bash ci/publish.sh publish latest clang "clang: mark run ${GITHUB_RUN_ID} as latest"
