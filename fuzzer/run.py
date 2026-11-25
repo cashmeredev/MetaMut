@@ -42,6 +42,8 @@ def make_worker_list(args):
   worker_args_list = []
   for i in range(args.repeat_times):
     for cc in make_compilers():
+      if args.compilers and cc.name not in args.compilers:
+        continue
       muss = Muss('muss', configs.muss_bin)
       wdir = f"{args.wdir}/{muss.name},{cc},{i}"
       muss.setup_workdir(wdir)
@@ -86,6 +88,9 @@ def parse_args():
   parser.add_argument('--cc-opt', dest='options',
     nargs='+', default=["-O2"],
     help='specify compiler options to fuzz (default: ["-O2"])')
+  parser.add_argument('--cc', dest='compilers',
+    nargs='+', default=[],
+    help='specify compilers to fuzz, eg. --cc clang (default: all)')
   parser.add_argument('--seed', dest='seed',
     type=int, default=12345678, help='specify seed')
   parser.add_argument('--duration', dest='duration',
