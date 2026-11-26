@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Re-run every crashing program of one fuzz run, record how the compiler
 # fails and group the programs by that failure.
-# usage: triage-classify.py <clang> <results dir of the fuzz run> <output dir> <compiler options>
+# usage: triage-classify.py <clang> <results dir of the fuzz run> <output dir>
 import collections
 import glob
 import json
@@ -16,7 +16,6 @@ from multiprocessing import Pool
 CLANG = sys.argv[1]
 RESULTS = sys.argv[2]
 OUTPUT = sys.argv[3]
-OPTIONS = shlex.split(sys.argv[4])
 LEVELS = ['-O0', '-O1', '-O2', '-O3']
 
 FRAME_PATTERN = re.compile(r'^\s*#\d+ 0x[0-9a-f]+ (.+?)(?: \(/|$)')
@@ -79,7 +78,8 @@ def get_signature(stderr):
 
 def classify(item):
   path, origin = item
-  retcode, stderr = run_clang(path, OPTIONS)
+  options = origin['options']
+  retcode, stderr = run_clang(path, options)
   result = {'path': path, 'origin': origin, 'size': os.path.getsize(path),
       'crashes': is_crash(retcode, stderr), 'timeout': retcode is None}
   if not result['crashes']:
@@ -89,7 +89,7 @@ def classify(item):
   result['stderr'] = stderr
   result['valid'] = not DIAG_ERROR_PATTERN.search(stderr)
   # which optimization levels crash in the same way
-  base_options = [opt for opt in OPTIONS if opt not in LEVELS]
+  base_options = [opt for opt in options if not opt.startswith('-O')]
   result['levels'] = []
   for level in LEVELS:
     code, text = run_clang(path, base_options + [level])
@@ -101,19 +101,24 @@ def classify(item):
 def find_inputs():
   items = []
   for instance in sorted(glob.glob(os.path.join(RESULTS, '*', '*,*,*'))):
-    custom = set()
+    records = {}
     log = os.path.join(instance, 'crash-log.txt')
     if os.path.exists(log):
       for line in open(log):
         if not line.strip():
           continue
         record = json.loads(line)
-        if 'output/mu.c ' in record['invoke']:
-          custom.add(os.path.basename(record['crash'][1]))
+        records[os.path.basename(record['crash'][1])] = record
     for path in sorted(glob.glob(os.path.join(instance, 'crash-inputs', '*.c'))):
+      record = records.get(os.path.basename(path))
+      if record is None:
+        continue
+      # the logged command is: <clang> <file> -o /dev/null -w <options>
       origin = {'job': os.path.basename(os.path.dirname(instance)),
           'instance': os.path.basename(instance),
-          'custom': os.path.basename(path) in custom}
+          'options': record['crash'][5:],
+          'custom': 'output/mu.c ' in record['invoke'],
+          'inherited': record.get('inherited', False)}
       items.append((path, origin))
   return items
 
@@ -133,8 +138,10 @@ if __name__ == '__main__':
   summary = []
   for number, (signature, members) in enumerate(ordered, start=1):
     group_id = 'g%02d' % number
-    members.sort(key=lambda m: m['size'])
+    # prefer a program whose crash was caused by its own mutation
+    members.sort(key=lambda m: (m['origin']['inherited'], m['size']))
     smallest = members[0]
+    first_hits = [m for m in members if not m['origin']['inherited']]
     group_dir = os.path.join(OUTPUT, group_id)
     os.makedirs(group_dir, exist_ok=True)
     shutil.copy(smallest['path'], os.path.join(group_dir, 'original.c'))
@@ -142,14 +149,18 @@ if __name__ == '__main__':
       fp.write(smallest['stderr'])
     with open(os.path.join(group_dir, 'signature.txt'), 'w') as fp:
       fp.write(signature + '\n')
+    with open(os.path.join(group_dir, 'options.txt'), 'w') as fp:
+      fp.write(shlex.join(smallest['origin']['options']) + '\n')
     info = {
       'id': group_id,
       'kind': smallest['kind'],
       'signature': signature,
       'frames': smallest['frames'],
       'inputs': len(members),
+      'first_hits': len(first_hits),
+      'first_hits_by_custom_mutation': sum(1 for m in first_hits if m['origin']['custom']),
+      'options': sorted(set(shlex.join(m['origin']['options']) for m in members)),
       'jobs': sorted(set(m['origin']['job'] for m in members)),
-      'by_custom_mutation': sum(1 for m in members if m['origin']['custom']),
       'levels': smallest['levels'],
       'valid': all(m['valid'] for m in members),
       'smallest': os.path.basename(smallest['path']),
@@ -166,16 +177,19 @@ if __name__ == '__main__':
     json.dump({'groups': summary, 'not_reproduced': not_reproduced}, fp, indent=1)
   with open(os.path.join(OUTPUT, 'groups.txt'), 'w') as fp:
     for info in summary:
-      fp.write('%s  inputs=%d  custom=%d  levels=%s  valid=%s  jobs=%s\n' % (
-          info['id'], info['inputs'], info['by_custom_mutation'],
+      fp.write('%s  inputs=%d  first_hits=%d  first_hits_custom=%d  levels=%s  valid=%s  jobs=%s\n' % (
+          info['id'], info['inputs'], info['first_hits'],
+          info['first_hits_by_custom_mutation'],
           ','.join(info['levels']), info['valid'], ','.join(info['jobs'])))
       fp.write('    %s\n' % info['signature'])
+      fp.write('    options: %s\n' % ' | '.join(info['options']))
       for frame in info['frames'][:3]:
         fp.write('      at %s\n' % frame)
     fp.write('not reproduced: %d\n' % len(not_reproduced))
     for name in not_reproduced:
       fp.write('    %s\n' % name)
   with open(os.path.join(OUTPUT, 'matrix.json'), 'w') as fp:
-    json.dump([info['id'] for info in summary], fp)
+    # groups that only hold inherited crashes are not worth a reduction
+    json.dump([info['id'] for info in summary if info['first_hits'] > 0], fp)
   print('%d inputs, %d crash, %d groups' % (
       len(results), sum(1 for r in results if r['crashes']), len(summary)))

@@ -26,6 +26,7 @@ for dir in "$WORKSPACE"/*,*,*; do
       echo "kept_by_custom=$(grep '"keep"' "$dir/log.txt" | grep -c 'output/mu\.c ' || true)"
       echo "crashes=$(grep -c '"crash"' "$dir/log.txt" || true)"
       echo "crashes_by_custom=$(grep '"crash"' "$dir/log.txt" | grep -c 'output/mu\.c ' || true)"
+      echo "crashes_first_hit=$(grep '"crash"' "$dir/log.txt" | grep -c '"inherited": false' || true)"
     } > "$REPORT/$name/counts.txt"
   fi
   # keep only the source files that crashes.json refers to

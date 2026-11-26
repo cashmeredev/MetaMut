@@ -22,7 +22,6 @@ jobs:
     outputs:
       groups: ${{ steps.classify.outputs.groups }}
       clang_run_id: ${{ steps.params.outputs.clang_run_id }}
-      cc_opt: ${{ steps.params.outputs.cc_opt }}
       fuzz_run_id: ${{ steps.params.outputs.fuzz_run_id }}
       reduce_minutes: ${{ steps.params.outputs.reduce_minutes }}
     steps:
@@ -37,12 +36,10 @@ jobs:
           mkdir -p results
           git archive FETCH_HEAD "fuzz/$fuzz_run_id" | tar -x -C results
           setup=$(ls results/fuzz/$fuzz_run_id/*/setup.txt | head -n1)
-          params=$(ls results/fuzz/$fuzz_run_id/*/fuzz.env | head -n1)
           {
             echo "fuzz_run_id=$fuzz_run_id"
             echo "reduce_minutes=$reduce_minutes"
             echo "clang_run_id=$(grep '^CLANG_RUN_ID=' "$setup" | cut -d= -f2)"
-            echo "cc_opt=$(grep '^CC_OPT=' "$params" | cut -d= -f2-)"
           } >> "$GITHUB_OUTPUT"
 
       - name: Install tools
@@ -63,8 +60,7 @@ jobs:
           mkdir -p clang
           tar -I zstd -xf artifacts/clang-plain.tar.zst -C clang
           python3 ci/triage-classify.py clang/bin/clang \
-            "results/fuzz/${{ steps.params.outputs.fuzz_run_id }}" triage \
-            "${{ steps.params.outputs.cc_opt }}"
+            "results/fuzz/${{ steps.params.outputs.fuzz_run_id }}" triage
           echo "groups=$(cat triage/matrix.json)" >> "$GITHUB_OUTPUT"
           cat triage/groups.txt
 
@@ -122,7 +118,7 @@ jobs:
           mkdir -p clang
           tar -I zstd -xf artifacts/clang-plain.tar.zst -C clang
           bash ci/triage-reduce.sh clang/bin/clang "triage/${{ matrix.group }}" \
-            "${{ needs.classify.outputs.cc_opt }}" "${{ needs.classify.outputs.reduce_minutes }}"
+            "${{ needs.classify.outputs.reduce_minutes }}"
           rm -f "triage/${{ matrix.group }}/interesting.sh"
           cat "triage/${{ matrix.group }}/reduce-log.txt"
 

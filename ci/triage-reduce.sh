@@ -1,13 +1,13 @@
 #!/bin/bash
 # Shrink the program of one crash group with cvise while the compiler keeps
 # failing in the same way.
-# usage: triage-reduce.sh <clang> <group dir> <compiler options> <minutes>
+# usage: triage-reduce.sh <clang> <group dir> <minutes>
 set -u
 
 CLANG=$(realpath "$1")
 GROUP=$(realpath "$2")
-OPTIONS=$3
-MINUTES=$4
+MINUTES=$3
+OPTIONS=$(cat "$GROUP/options.txt")
 
 cd "$GROUP"
 cp original.c reduced.c
