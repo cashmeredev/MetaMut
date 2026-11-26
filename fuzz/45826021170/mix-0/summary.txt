@@ -1,0 +1,244 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -fexperimental-new-constant-interpreter -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::APInt::APInt(unsigned int, unsigned long, bool, bool) [clone .constprop.0]",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 2314.9165694713593,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,0/ZEYLXMlVNEdW.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 15034.232020378113,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/KkEdKXiTJcEo.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -g -c",
+    "traceback": [
+      [
+        null,
+        "llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)",
+        null
+      ],
+      [
+        null,
+        "llvm::sys::RunSignalHandlers()",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 4680.395586967468,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,0/BmMIWFKOHoua.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 4160.850396633148,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/eGgsdSeDIwue.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 9322.005606889725,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/PtOKoTHSDQZl.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 11155.286640405655,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/kBQDSLeIkvKq.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 15443.896935462952,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/MguQabBrHEAw.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -fexperimental-new-constant-interpreter -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::DAGTypeLegalizer::ExpandIntOp_XINT_TO_FP(llvm::SDNode*)",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 3113.573880672455,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/ZEPdZbhhXzch.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -fexperimental-new-constant-interpreter -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "clang::interp::Integral<64u, false>& clang::interp::Pointer::deref<clang::interp::Integral<64u, false> >() const",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 8988.841841697693,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/hYzKyhedfLaD.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 14797.002379179,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/EKKjuzhgsKDZ.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -fexperimental-new-constant-interpreter -c",
+    "traceback": [
+      [
+        null,
+        "llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)",
+        null
+      ],
+      [
+        null,
+        "llvm::sys::RunSignalHandlers()",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 9095.04527258873,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/etDArLlDcRiv.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -fexperimental-new-constant-interpreter -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "clang::interp::Char<true> clang::interp::Pointer::load<clang::interp::Char<true> >() const",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 4666.3414034843445,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,2/eaSkPvNpjJxE.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O3 -march=x86-64-v4 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::DAGTypeLegalizer::ExpandIntOp_XINT_TO_FP(llvm::SDNode*)",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 466.870069026947,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/zpCxKretGhTl.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-Oz -ffast-math -c",
+    "traceback": [
+      [
+        null,
+        "llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)",
+        null
+      ],
+      [
+        null,
+        "llvm::sys::RunSignalHandlers()",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 11647.880655527115,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/vVFKLVQDGFlI.c"
+      }
+    ]
+  }
+]
+
+{
+  "mix": 8
+}
