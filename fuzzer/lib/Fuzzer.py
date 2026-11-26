@@ -154,26 +154,32 @@ class Fuzzer:
     return CompilerStatus.analyze(pRes.retcode,
         pRes.stderr, pRes.is_tle, pRes.is_oom)
 
-  def run_for_crash(self, testcase):
+  def crashes_compiler(self, cc, testcase, options):
+    pRes = self.compile(cc, testcase, options=options, capture_stderr=True)
+    chkRes = CompilerStatus.analyze(pRes.retcode,
+        pRes.stderr, pRes.is_tle, pRes.is_oom)
+    return chkRes == CompilerStatus.Crash
+
+  def run_for_crash(self, testcase, parent):
     # check the fuzzed compiler with the same options the coverage run uses,
     # so crashes that only happen with optimization are found too
     cc = self.fuzz_args.cc.cc_path
-    for opt_str in configs.options:
-      options = shlex.split(opt_str)
-      pRes = self.compile(cc, testcase, options=options, capture_stderr=True)
-      chkRes = CompilerStatus.analyze(pRes.retcode,
-          pRes.stderr, pRes.is_tle, pRes.is_oom)
-      if chkRes == CompilerStatus.Crash:
-        cmd = self.get_cc_cmdline(cc, testcase, options=options, tolist=True)
-        jlog(crash=cmd, invoke=self.fuzz_args.mutator.get_current_mutator_invoke_cmdline())
-        return cc
-    return None
+    options = shlex.split(self.current_options)
+    if not self.crashes_compiler(cc, testcase, options):
+      return None
+    # a crash the parent program shows as well was not caused by this mutation
+    inherited = self.crashes_compiler(cc,
+        Testcase(parent, wdir=testcase.wdir), options)
+    cmd = self.get_cc_cmdline(cc, testcase, options=options, tolist=True)
+    jlog(crash=cmd, inherited=inherited,
+        invoke=self.fuzz_args.mutator.get_current_mutator_invoke_cmdline())
+    return cc
 
-  def check_crash(self, testcase):
-    cc = self.run_for_crash(testcase)
+  def check_crash(self, testcase, parent):
+    cc = self.run_for_crash(testcase, parent)
     if cc is None: return False
     # crash is found, now extract the crash stacks
-    for opt_str in configs.options:
+    for opt_str in [self.current_options]:
       options = shlex.split(opt_str)
       for cfile in testcase.ifiles:
         t = Testcase(cfile, wdir=testcase.wdir)
@@ -206,16 +212,17 @@ class Fuzzer:
       opfx = self.next_opfx()
       ot = self.fuzz_args.mutator.mutate(ifile, opfx)
       if not ot: continue
+      # every mutant is compiled with one of the option sets
+      self.current_options = random.choice(configs.options)
       if self.fuzz_args.coverage_only:
         has_crash = False
       else:
-        has_crash = self.check_crash(ot)
+        has_crash = self.check_crash(ot, ifile)
       # check coverage
       prev_coverage = self.sampler.sample()
       with self.sampler:
-        for opt_str in configs.options:
-          self.compile(self.fuzz_args.cc.instrum_path,
-              ot, options=shlex.split(opt_str))
+        self.compile(self.fuzz_args.cc.instrum_path,
+            ot, options=shlex.split(self.current_options))
       curr_coverage = self.sampler.sample()
       if curr_coverage.outperforms(prev_coverage):
         # wlog(f"new branch: {ot}")
@@ -224,7 +231,9 @@ class Fuzzer:
         if self.fuzz_args.mutator.is_generator():
           if not has_crash:
             self.fuzz_args.mutator.clean(ot)
-        else:
+        elif not has_crash:
+          # a crashing program is kept on disk but not mutated further,
+          # its descendants would report the same crash again and again
           assert len(ot.ifiles) == 1
           self.fuzz_args.testcases.append(ot.ifiles[0])
         self.last_save_time = time.time()

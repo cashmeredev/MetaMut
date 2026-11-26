@@ -90,8 +90,10 @@ def parse_args():
     default=str(os.getcwd()),
     help='specify number of jobs')
   parser.add_argument('--cc-opt', dest='options',
-    nargs='+', default=["-O2"],
-    help='specify compiler options to fuzz (default: ["-O2"])')
+    action='append', default=None,
+    help='specify a set of compiler options to fuzz, may be given '
+      'several times, each mutant is compiled with one of the sets '
+      '(default: -O2)')
   parser.add_argument('--cc', dest='compilers',
     nargs='+', default=[],
     help='specify compilers to fuzz, eg. --cc clang (default: all)')
@@ -125,7 +127,7 @@ if __name__ == "__main__":
 
   args.duration = datetime.timedelta(seconds=args.duration)
   random.seed(args.seed)
-  configs.options = args.options
+  configs.options = args.options or ["-O2"]
   configs.max_frames = args.max_frames
   args.testcases = load_testcases(args)
   worker_args_list = make_worker_list(args)
