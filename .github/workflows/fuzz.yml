@@ -1,8 +1,8 @@
 name: fuzz
 
 # Fuzz the clang from the latest build-clang run with two mutator setups:
-#   base  the original mutators
-#   mix   the original mutators plus a share of mutations by the custom ones
+#   mix     the original mutators plus a share of mutations by the custom ones
+#   custom  the custom mutators only
 on:
   push:
     branches: [clang-fuzz]
@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        variant: [base, mix]
+        variant: [mix, custom]
         shard: [0, 1]
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +30,9 @@ jobs:
           grep -v '^#' ci/fuzz.env >> "$GITHUB_ENV"
           git fetch -q --depth 1 origin ci-results
           git show FETCH_HEAD:clang/latest.env >> "$GITHUB_ENV"
+          # the seeds are checked with the first option set only
+          cc_opts=$(grep '^CC_OPTS=' ci/fuzz.env | cut -d= -f2-)
+          echo "CC_OPT=${cc_opts%%;*}" >> "$GITHUB_ENV"
 
       - name: Derive the seed check key
         run: echo "SEED_CHECK_KEY=$(echo "$LLVM_SHA $CC_OPT" | sha1sum | cut -c1-16)" >> "$GITHUB_ENV"
@@ -113,14 +116,21 @@ jobs:
           ulimit -s unlimited
           ulimit -c 0
           mkdir -p workspace && cd workspace
-          extra=""
+          custom_bin="$GITHUB_WORKSPACE/mutators/output/mu.c"
           if [ "${{ matrix.variant }}" = "mix" ]; then
-            extra="--extra-muss-bin $GITHUB_WORKSPACE/mutators/output/mu.c --extra-rate $EXTRA_RATE"
+            mutators=(--extra-muss-bin "$custom_bin" --extra-rate "$EXTRA_RATE")
+          else
+            mutators=(--muss-bin "$custom_bin")
           fi
+          cc_opts=()
+          IFS=';' read -ra option_sets <<< "$CC_OPTS"
+          for option_set in "${option_sets[@]}"; do
+            cc_opts+=("--cc-opt=$option_set")
+          done
           timeout $((DURATION_SECONDS + 900)) python3 ../fuzzer/run.py -j "$INSTANCES" \
             --repeat-times "$INSTANCES" --duration "$DURATION_SECONDS" \
-            --cc "$COMPILER" --cc-opt="$CC_OPT" --seed $((12345678 + ${{ matrix.shard }})) \
-            --name "${{ matrix.variant }}" $extra \
+            --cc "$COMPILER" "${cc_opts[@]}" --seed $((12345678 + ${{ matrix.shard }})) \
+            --name "${{ matrix.variant }}" "${mutators[@]}" \
             --seeds-dir "$GITHUB_WORKSPACE/seeds-repo/seeds" --wdir "$(pwd)" > run.log 2>&1 || true
           python3 ../fuzzer/show.py *,*,* --summary > summary.txt 2>&1 || true
 
