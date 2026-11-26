@@ -1,0 +1,54 @@
+clang: /root/llvm-src/llvm/lib/CodeGen/SelectionDAG/SelectionDAGBuilder.cpp:13265: llvm::Register FollowCopyChain(llvm::MachineRegisterInfo&, llvm::Register): Assertion `MI->getOpcode() == TargetOpcode::COPY && "start of copy chain MUST be COPY"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang/bin/clang results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/VlhlyGXxIAZC.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module 'results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/VlhlyGXxIAZC.c'.
+4.	Running pass 'X86 DAG->DAG Instruction Selection' on function '@foo6'
+ #0 0x0000559cd15f33c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (clang/bin/clang+0x29c63c9)
+ #1 0x0000559cd15f00bc llvm::sys::RunSignalHandlers() (clang/bin/clang+0x29c30bc)
+ #2 0x0000559cd15f0978 llvm::sys::CleanupOnSignal(unsigned long) (clang/bin/clang+0x29c3978)
+ #3 0x0000559cd152e598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007fb3e9645330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007fb3e969ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007fb3e964527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007fb3e96288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007fb3e962881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007fb3e963b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000559cd2b743e9 llvm::SelectionDAGBuilder::visitCallBrLandingPad(llvm::CallInst const&) (clang/bin/clang+0x3f473e9)
+#11 0x0000559cd2bb002f llvm::SelectionDAGBuilder::visitIntrinsicCall(llvm::CallInst const&, unsigned int) (clang/bin/clang+0x3f8302f)
+#12 0x0000559cd2bb985d llvm::SelectionDAGBuilder::visit(llvm::Instruction const&) (clang/bin/clang+0x3f8c85d)
+#13 0x0000559cd2c5aa02 llvm::SelectionDAGISel::SelectBasicBlock(llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, llvm::ilist_iterator_w_bits<llvm::ilist_detail::node_options<llvm::Instruction, true, false, void, true, llvm::BasicBlock>, false, true>, bool&) (clang/bin/clang+0x402da02)
+#14 0x0000559cd2c5b38a llvm::SelectionDAGISel::SelectAllBasicBlocks(llvm::Function const&) (clang/bin/clang+0x402e38a)
+#15 0x0000559cd2c5ce6a llvm::SelectionDAGISel::runOnMachineFunction(llvm::MachineFunction&) (clang/bin/clang+0x402fe6a)
+#16 0x0000559cd2c450d8 llvm::SelectionDAGISelLegacy::runOnMachineFunction(llvm::MachineFunction&) (clang/bin/clang+0x40180d8)
+#17 0x0000559cd086634c llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (.part.0) MachineFunctionPass.cpp:0:0
+#18 0x0000559cd0fa40b6 llvm::FPPassManager::runOnFunction(llvm::Function&) (clang/bin/clang+0x23770b6)
+#19 0x0000559cd0fa4679 llvm::FPPassManager::runOnModule(llvm::Module&) (clang/bin/clang+0x2377679)
+#20 0x0000559cd0fa5071 (anonymous namespace)::MPPassManager::runOnModule(llvm::Module&) LegacyPassManager.cpp:0:0
+#21 0x0000559cd0fa58bb llvm::legacy::PassManagerImpl::run(llvm::Module&) (clang/bin/clang+0x23788bb)
+#22 0x0000559cd2796a17 runCodeGenPipelineLegacy(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, llvm::raw_pwrite_stream*, llvm::CodeGenFileType, bool, llvm::ModuleSummaryIndex const*, bool) RunCodeGen.cpp:0:0
+#23 0x0000559cd2796c63 llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, llvm::raw_pwrite_stream*, llvm::CodeGenFileType, bool, bool, llvm::ModuleSummaryIndex const*, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) (clang/bin/clang+0x3b69c63)
+#24 0x0000559cd187a009 (anonymous namespace)::EmitAssemblyHelper::emitAssembly(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) BackendUtil.cpp:0:0
+#25 0x0000559cd187a3dd clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) (clang/bin/clang+0x2c4d3dd)
+#26 0x0000559cd1f64d35 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) (clang/bin/clang+0x3337d35)
+#27 0x0000559cd576898c clang::ParseAST(clang::Sema&, bool, bool) (clang/bin/clang+0x6b3b98c)
+#28 0x0000559cd22d1711 clang::FrontendAction::Execute() (clang/bin/clang+0x36a4711)
+#29 0x0000559cd22598bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (clang/bin/clang+0x362c8bd)
+#30 0x0000559cd23a8f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (clang/bin/clang+0x377bf53)
+#31 0x0000559ccff8396a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (clang/bin/clang+0x135696a)
+#32 0x0000559ccff7a92a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#33 0x0000559ccff7aac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#34 0x0000559cd1fe5abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#35 0x0000559cd152e980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (clang/bin/clang+0x2901980)
+#36 0x0000559cd1fe6913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#37 0x0000559cd1fa0597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (clang/bin/clang+0x3373597)
+#38 0x0000559cd1fa4244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (clang/bin/clang+0x3377244)
+#39 0x0000559cd1fb3b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (clang/bin/clang+0x3386b84)
+#40 0x0000559ccff80028 clang_main(int, char**, llvm::ToolContext const&) (clang/bin/clang+0x1353028)
+#41 0x0000559ccff3727a main (clang/bin/clang+0x130a27a)
+#42 0x00007fb3e962a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#43 0x00007fb3e962a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#44 0x0000559ccff79f55 _start (clang/bin/clang+0x134cf55)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)

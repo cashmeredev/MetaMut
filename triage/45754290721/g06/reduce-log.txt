@@ -1,0 +1,38 @@
+    0.36        0        3              12
+  ClangPass::simplify-struct-union-decl                            0.11     0.12        0        1               4
+  ClangPass::move-global-var                                       0.11     0.12        0        1               4
+  IncludesPass                                                     0.11     0.12        0        1               4
+  ClangPass::unify-function-decl                                   0.11     0.12        0        1               4
+  ClangPass::combine-local-var                                     0.11     0.12        0        1               4
+  ClangPass::combine-global-var                                    0.11     0.12        0        1               4
+  IntsPass::a                                                      0.11     0.12        0        0               0
+  BalancedPass::curly3                                             0.00     0.00        0        0               0
+  IntsPass::c                                                      0.00     0.00        0        0               0
+  TernaryPass::b                                                   0.00     0.00        0        0               0
+  TernaryPass::c                                                   0.00     0.00        0        0               0
+  IntsPass::b                                                      0.00     0.00        0        0               0
+  SpecialPass::b                                                   0.00     0.00        0        0               0
+  IntsPass::d                                                      0.00     0.00        0        0               0
+  SpecialPass::c                                                   0.00     0.00        0        0               0
+  BalancedPass::angles-inside                                      0.00     0.00        0        0               0
+  BalancedPass::angles-only                                        0.00     0.00        0        0               0
+  BalancedPass::square                                             0.00     0.00        0        0               0
+  BalancedPass::angles                                             0.00     0.00        0        0               0
+  BalancedPass::square-only                                        0.00     0.00        0        0               0
+  BalancedPass::square-inside                                      0.00     0.00        0        0               0
+  SpecialPass::a                                                   0.00     0.00        0        0               0
+  IfPass                                                           0.00     0.00        0        0               0
+  LineMarkersPass                                                  0.00     0.00        0        0               0
+
+Runtime: 94 seconds
+Reduced test-cases:
+
+--- /home/runner/work/MetaMut/MetaMut/triage/g06/reduced.c ---
+int foo6_w;
+void foo6() {
+  asm goto("" : "+avL"(foo6_w) : : : lab5);
+lab5:
+}
+
+cvise exit=0
+reduced: 1147 -> 78 bytes, 5 lines

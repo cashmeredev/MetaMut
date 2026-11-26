@@ -1,0 +1,33 @@
+{
+ "id": "g06",
+ "kind": "message",
+ "signature": "Assertion `MI->getOpcode() == TargetOpcode::COPY && \"start of copy chain MUST be COPY\"' failed.",
+ "frames": [
+  "llvm::SelectionDAGBuilder::visitCallBrLandingPad",
+  "llvm::SelectionDAGBuilder::visitIntrinsicCall",
+  "llvm::SelectionDAGBuilder::visit",
+  "llvm::SelectionDAGISel::SelectBasicBlock",
+  "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+  "llvm::SelectionDAGISel::runOnMachineFunction",
+  "llvm::SelectionDAGISelLegacy::runOnMachineFunction",
+  "llvm::MachineFunctionPass::runOnFunction"
+ ],
+ "inputs": 2,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 1,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "VlhlyGXxIAZC.c",
+ "smallest_size": 1147,
+ "files": [
+  "mix,clang,0/VlhlyGXxIAZC.c",
+  "mix,clang,0/bNzcobjNccwi.c"
+ ]
+}
