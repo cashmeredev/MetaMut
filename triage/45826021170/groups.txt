@@ -1,0 +1,85 @@
+g01  inputs=9  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-0,mix-1
+    fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.array.access.index
+    options: -O2 -g -c
+      at llvm::sys::Process::Exit
+      at LLVMErrorHandler
+      at llvm::SelectionDAGISel::CannotYetSelect
+g02  inputs=8  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-0,mix-1
+    Assertion `llvm::isUIntN(BitWidth, val) && "Value is not an N-bit unsigned value"' failed.
+    options: -O2 -fexperimental-new-constant-interpreter -c
+      at llvm::APInt::APInt
+      at clang::interp::arrayElemPtrOpaque
+      at clang::interp::ArrayDecay
+g03  inputs=8  first_hits=0  first_hits_custom=0  levels=-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-0,mix-1
+    fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.struct.access.index
+    options: -O2 -g -c
+      at llvm::sys::Process::Exit
+      at LLVMErrorHandler
+      at llvm::SelectionDAGISel::CannotYetSelect
+g04  inputs=6  first_hits=6  first_hits_custom=6  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-0,mix-1
+    Assertion `LC != RTLIB::UNKNOWN_LIBCALL && "Don't know how to expand this XINT_TO_FP!"' failed.
+    options: -O2 -c | -O2 -fexperimental-new-constant-interpreter -c | -O2 -g -c | -O3 -march=x86-64-v4 -c
+      at llvm::DAGTypeLegalizer::ExpandIntOp_XINT_TO_FP
+      at llvm::DAGTypeLegalizer::ExpandIntegerOperand
+      at llvm::DAGTypeLegalizer::run
+g05  inputs=6  first_hits=6  first_hits_custom=6  levels=-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-1
+    Assertion `LC != RTLIB::UNKNOWN_LIBCALL && "Unexpected fp-to-xint conversion!"' failed.
+    options: -O2 -c | -O2 -fexperimental-new-constant-interpreter -c | -O3 -march=x86-64-v4 -c | -Oz -ffast-math -c
+      at llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT
+      at llvm::DAGTypeLegalizer::ExpandIntegerResult
+      at llvm::DAGTypeLegalizer::run
+g06  inputs=6  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=False  jobs=custom-1,mix-0,mix-1
+    Assertion `isBlockPointer()' failed.
+    options: -O2 -fexperimental-new-constant-interpreter -c
+      at clang::interp::Integral<64u, false>& clang::interp::Pointer::deref<clang::interp::Integral<64u, false>>
+      at clang::interp::assignIntegral
+      at clang::interp::interp__builtin_ia32_addcarry_subborrow
+g07  inputs=5  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-0,custom-1,mix-0,mix-1
+    Assertion `!isArrayRoot()' failed.
+    options: -O2 -fexperimental-new-constant-interpreter -c
+      at clang::interp::Char<true> clang::interp::Pointer::load<clang::interp::Char<true>>
+      at clang::interp::interp__builtin_memchr
+      at clang::interp::Compiler<clang::interp::EvalEmitter>::VisitBuiltinCallExpr
+g08  inputs=3  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=False  jobs=custom-0,custom-1
+    Assertion `!isNull() && "Cannot retrieve a NULL type pointer"' failed.
+    options: -O2 -fexperimental-new-constant-interpreter -c
+      at clang::ASTContext::getTargetNullPointerValue
+      at clang::interp::Compiler<clang::interp::EvalEmitter>::VisitCastExpr
+      at clang::interp::Compiler<clang::interp::EvalEmitter>::visit
+g09  inputs=3  first_hits=3  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-0
+    fatal error: error in backend: Broken module found, compilation aborted!
+    options: -O2 -fexperimental-new-constant-interpreter -c | -O2 -g -c | -Oz -ffast-math -c
+      at llvm::sys::Process::Exit
+      at LLVMErrorHandler
+      at llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl
+g10  inputs=2  first_hits=2  first_hits_custom=2  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-1
+    Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+    options: -O2 -c
+      at clang::CodeGen::ConstantEmitter::emitForMemory
+      at clang::CodeGen::ConstantEmitter::tryEmitForInitializer
+      at clang::CodeGen::CodeGenFunction::AddInitializerToStaticVarDecl
+g11  inputs=2  first_hits=0  first_hits_custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-1
+    fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.union.access.index
+    options: -O2 -g -c
+      at llvm::sys::Process::Exit
+      at LLVMErrorHandler
+      at llvm::SelectionDAGISel::CannotYetSelect
+g12  inputs=1  first_hits=1  first_hits_custom=0  levels=-O2,-O3  valid=True  jobs=mix-1
+    Assertion `!Traits::stopLess(b, a) && "Invalid interval"' failed.
+    options: -O2 -g -c
+      at llvm::IntervalMapImpl::LeafNode<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insertFro
+      at llvm::IntervalMap<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insert
+      at analyzeFunction
+g13  inputs=1  first_hits=1  first_hits_custom=1  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-1
+    Assertion `E && hasScalarEvaluationKind(E->getType()) && "Invalid scalar expression to emit"' failed.
+    options: -O2 -c
+      at clang::CodeGen::CodeGenFunction::EmitScalarExpr
+      at clang::CodeGen::CodeGenFunction::EmitBuiltinExpr
+      at clang::CodeGen::CodeGenFunction::EmitCallExpr
+g14  inputs=1  first_hits=1  first_hits_custom=1  levels=-O0,-O1,-O2,-O3  valid=True  jobs=custom-0
+    Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+    options: -O2 -g -c
+      at llvm::IRBuilderBase::CreateCast
+      at clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr
+      at clang::StmtVisitorBase<std::add_pointer,
+not reproduced: 0

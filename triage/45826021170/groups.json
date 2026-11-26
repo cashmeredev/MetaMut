@@ -1,0 +1,580 @@
+{
+ "groups": [
+  {
+   "id": "g01",
+   "kind": "message",
+   "signature": "fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.array.access.index",
+   "frames": [
+    "llvm::sys::Process::Exit",
+    "LLVMErrorHandler",
+    "llvm::SelectionDAGISel::CannotYetSelect",
+    "llvm::SelectionDAGISel::SelectCodeCommon",
+    "llvm::SelectionDAGISel::DoInstructionSelection",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction"
+   ],
+   "inputs": 9,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -g -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "NzeviGAjHpCy.c",
+   "smallest_size": 546,
+   "files": [
+    "mix,clang,1/NzeviGAjHpCy.c",
+    "custom,clang,3/DltUAQLqYKNh.c",
+    "custom,clang,3/OMtIWdXGcEPF.c",
+    "mix,clang,1/kBQDSLeIkvKq.c",
+    "custom,clang,2/uHLuRLOFzgXE.c",
+    "mix,clang,0/BmMIWFKOHoua.c",
+    "mix,clang,2/oqKPrCKvIwEL.c",
+    "custom,clang,2/JkIyJgNhEvYG.c",
+    "mix,clang,0/RMdtrQUchamB.c"
+   ]
+  },
+  {
+   "id": "g02",
+   "kind": "message",
+   "signature": "Assertion `llvm::isUIntN(BitWidth, val) && \"Value is not an N-bit unsigned value\"' failed.",
+   "frames": [
+    "llvm::APInt::APInt",
+    "clang::interp::arrayElemPtrOpaque",
+    "clang::interp::ArrayDecay",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitCastExpr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitArraySubscriptExpr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitCastExpr"
+   ],
+   "inputs": 8,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -fexperimental-new-constant-interpreter -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "xhWOxIecqTBz.c",
+   "smallest_size": 224,
+   "files": [
+    "custom,clang,2/xhWOxIecqTBz.c",
+    "mix,clang,3/KkEdKXiTJcEo.c",
+    "custom,clang,1/IZsFMHpDvKbt.c",
+    "mix,clang,0/ZEYLXMlVNEdW.c",
+    "mix,clang,3/vsjfeqGFBGbP.c",
+    "custom,clang,1/BuUUMdAXEENi.c",
+    "custom,clang,1/TFIyiIjJorLY.c",
+    "custom,clang,1/iwrrWNxOSRxz.c"
+   ]
+  },
+  {
+   "id": "g03",
+   "kind": "message",
+   "signature": "fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.struct.access.index",
+   "frames": [
+    "llvm::sys::Process::Exit",
+    "LLVMErrorHandler",
+    "llvm::SelectionDAGISel::CannotYetSelect",
+    "llvm::SelectionDAGISel::SelectCodeCommon",
+    "llvm::SelectionDAGISel::DoInstructionSelection",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction"
+   ],
+   "inputs": 8,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -g -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "PqzIRTLxbSgp.c",
+   "smallest_size": 553,
+   "files": [
+    "custom,clang,3/PqzIRTLxbSgp.c",
+    "custom,clang,2/gKrEmQJTDItB.c",
+    "mix,clang,3/MguQabBrHEAw.c",
+    "custom,clang,1/tuJvyPenbBaE.c",
+    "custom,clang,3/suqukJnMCdHA.c",
+    "mix,clang,0/iMJecKKraWPj.c",
+    "custom,clang,3/JeygOVCCatdu.c",
+    "mix,clang,1/PtOKoTHSDQZl.c"
+   ]
+  },
+  {
+   "id": "g04",
+   "kind": "message",
+   "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Don't know how to expand this XINT_TO_FP!\"' failed.",
+   "frames": [
+    "llvm::DAGTypeLegalizer::ExpandIntOp_XINT_TO_FP",
+    "llvm::DAGTypeLegalizer::ExpandIntegerOperand",
+    "llvm::DAGTypeLegalizer::run",
+    "llvm::SelectionDAG::LegalizeTypes",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction",
+    "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+   ],
+   "inputs": 6,
+   "first_hits": 6,
+   "first_hits_by_custom_mutation": 6,
+   "options": [
+    "-O2 -c",
+    "-O2 -fexperimental-new-constant-interpreter -c",
+    "-O2 -g -c",
+    "-O3 -march=x86-64-v4 -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "ZEPdZbhhXzch.c",
+   "smallest_size": 309,
+   "files": [
+    "mix,clang,1/ZEPdZbhhXzch.c",
+    "custom,clang,0/qvDZxAFnoddM.c",
+    "custom,clang,2/vshiIkHUPIfU.c",
+    "mix,clang,3/zpCxKretGhTl.c",
+    "mix,clang,2/cuiEtDkstLIA.c",
+    "mix,clang,3/rMsqwWFITMUt.c"
+   ]
+  },
+  {
+   "id": "g05",
+   "kind": "message",
+   "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Unexpected fp-to-xint conversion!\"' failed.",
+   "frames": [
+    "llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT",
+    "llvm::DAGTypeLegalizer::ExpandIntegerResult",
+    "llvm::DAGTypeLegalizer::run",
+    "llvm::SelectionDAG::LegalizeTypes",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction",
+    "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+   ],
+   "inputs": 6,
+   "first_hits": 6,
+   "first_hits_by_custom_mutation": 6,
+   "options": [
+    "-O2 -c",
+    "-O2 -fexperimental-new-constant-interpreter -c",
+    "-O3 -march=x86-64-v4 -c",
+    "-Oz -ffast-math -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-1"
+   ],
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "AwRLISJPRLif.c",
+   "smallest_size": 232,
+   "files": [
+    "custom,clang,3/AwRLISJPRLif.c",
+    "mix,clang,2/zjyenJbYCvJv.c",
+    "custom,clang,2/WOEkbdjKXuAb.c",
+    "custom,clang,1/ApKBhdFoFFXz.c",
+    "custom,clang,1/FXxPwQTmqLDQ.c",
+    "custom,clang,1/ADeJbJlLayMM.c"
+   ]
+  },
+  {
+   "id": "g06",
+   "kind": "message",
+   "signature": "Assertion `isBlockPointer()' failed.",
+   "frames": [
+    "clang::interp::Integral<64u, false>& clang::interp::Pointer::deref<clang::interp::Integral<64u, false>>",
+    "clang::interp::assignIntegral",
+    "clang::interp::interp__builtin_ia32_addcarry_subborrow",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitBuiltinCallExpr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visitExpr",
+    "clang::interp::EvalEmitter::interpretExpr",
+    "clang::interp::Context::evaluateAsRValue"
+   ],
+   "inputs": 6,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -fexperimental-new-constant-interpreter -c"
+   ],
+   "jobs": [
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": false,
+   "smallest": "hYzKyhedfLaD.c",
+   "smallest_size": 829,
+   "files": [
+    "mix,clang,1/hYzKyhedfLaD.c",
+    "mix,clang,1/fOvphgBycEmu.c",
+    "custom,clang,3/gXDOTxFaSIbe.c",
+    "mix,clang,1/EKKjuzhgsKDZ.c",
+    "custom,clang,3/MFVIiDnxQvHr.c",
+    "custom,clang,0/JjllmvLDpyEf.c"
+   ]
+  },
+  {
+   "id": "g07",
+   "kind": "message",
+   "signature": "Assertion `!isArrayRoot()' failed.",
+   "frames": [
+    "clang::interp::Char<true> clang::interp::Pointer::load<clang::interp::Char<true>>",
+    "clang::interp::interp__builtin_memchr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitBuiltinCallExpr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitBinaryOperator",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visitExpr",
+    "clang::interp::EvalEmitter::interpretExpr"
+   ],
+   "inputs": 5,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -fexperimental-new-constant-interpreter -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "VXgkzZyskuWf.c",
+   "smallest_size": 6082,
+   "files": [
+    "custom,clang,1/VXgkzZyskuWf.c",
+    "mix,clang,2/eaSkPvNpjJxE.c",
+    "custom,clang,2/gQrlwrKIbpoM.c",
+    "custom,clang,0/VFpJagWxPvoV.c",
+    "mix,clang,1/wyrCzzgrrvXs.c"
+   ]
+  },
+  {
+   "id": "g08",
+   "kind": "message",
+   "signature": "Assertion `!isNull() && \"Cannot retrieve a NULL type pointer\"' failed.",
+   "frames": [
+    "clang::ASTContext::getTargetNullPointerValue",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::VisitCastExpr",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visitAssignment",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visit",
+    "clang::interp::Compiler<clang::interp::EvalEmitter>::visitExpr",
+    "clang::interp::EvalEmitter::interpretExpr",
+    "clang::interp::Context::evaluateAsRValue"
+   ],
+   "inputs": 3,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -fexperimental-new-constant-interpreter -c"
+   ],
+   "jobs": [
+    "custom-0",
+    "custom-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": false,
+   "smallest": "uMHvBayCCyVw.c",
+   "smallest_size": 5771,
+   "files": [
+    "custom,clang,0/uMHvBayCCyVw.c",
+    "custom,clang,3/ckdaUAHFIqlV.c",
+    "custom,clang,3/fSfVrKeFlUiN.c"
+   ]
+  },
+  {
+   "id": "g09",
+   "kind": "message",
+   "signature": "fatal error: error in backend: Broken module found, compilation aborted!",
+   "frames": [
+    "llvm::sys::Process::Exit",
+    "LLVMErrorHandler",
+    "llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl",
+    "llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run",
+    "clang::emitBackendOutput",
+    "clang::BackendConsumer::HandleTranslationUnit",
+    "clang::ParseAST",
+    "clang::FrontendAction::Execute"
+   ],
+   "inputs": 3,
+   "first_hits": 3,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -fexperimental-new-constant-interpreter -c",
+    "-O2 -g -c",
+    "-Oz -ffast-math -c"
+   ],
+   "jobs": [
+    "mix-0"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "vVFKLVQDGFlI.c",
+   "smallest_size": 187,
+   "files": [
+    "mix,clang,3/vVFKLVQDGFlI.c",
+    "mix,clang,1/etDArLlDcRiv.c",
+    "mix,clang,1/eGgsdSeDIwue.c"
+   ]
+  },
+  {
+   "id": "g10",
+   "kind": "message",
+   "signature": "Assertion `isa<To>(Val) && \"cast<Ty>() argument of incompatible type!\"' failed.",
+   "frames": [
+    "clang::CodeGen::ConstantEmitter::emitForMemory",
+    "clang::CodeGen::ConstantEmitter::tryEmitForInitializer",
+    "clang::CodeGen::CodeGenFunction::AddInitializerToStaticVarDecl",
+    "clang::CodeGen::CodeGenFunction::EmitStaticVarDecl",
+    "clang::CodeGen::CodeGenFunction::EmitDecl",
+    "clang::CodeGen::CodeGenFunction::EmitDeclStmt",
+    "clang::CodeGen::CodeGenFunction::EmitSimpleStmt",
+    "clang::CodeGen::CodeGenFunction::EmitStmt"
+   ],
+   "inputs": 2,
+   "first_hits": 2,
+   "first_hits_by_custom_mutation": 2,
+   "options": [
+    "-O2 -c"
+   ],
+   "jobs": [
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "kySyDnGbcYgV.c",
+   "smallest_size": 444,
+   "files": [
+    "mix,clang,0/kySyDnGbcYgV.c",
+    "mix,clang,0/uFXVKNzDEUSa.c"
+   ]
+  },
+  {
+   "id": "g11",
+   "kind": "message",
+   "signature": "fatal error: error in backend: Cannot select: intrinsic %llvm.preserve.union.access.index",
+   "frames": [
+    "llvm::sys::Process::Exit",
+    "LLVMErrorHandler",
+    "llvm::SelectionDAGISel::CannotYetSelect",
+    "llvm::SelectionDAGISel::SelectCodeCommon",
+    "llvm::SelectionDAGISel::DoInstructionSelection",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction"
+   ],
+   "inputs": 2,
+   "first_hits": 0,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -g -c"
+   ],
+   "jobs": [
+    "mix-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "xjZhxXiAfRwf.c",
+   "smallest_size": 596,
+   "files": [
+    "mix,clang,0/xjZhxXiAfRwf.c",
+    "mix,clang,3/TZxUdKdCTIGd.c"
+   ]
+  },
+  {
+   "id": "g12",
+   "kind": "message",
+   "signature": "Assertion `!Traits::stopLess(b, a) && \"Invalid interval\"' failed.",
+   "frames": [
+    "llvm::IntervalMapImpl::LeafNode<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insertFro",
+    "llvm::IntervalMap<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insert",
+    "analyzeFunction",
+    "llvm::AssignmentTrackingAnalysis::runOnFunction",
+    "llvm::FPPassManager::runOnFunction",
+    "llvm::FPPassManager::runOnModule",
+    "llvm::legacy::PassManagerImpl::run",
+    "runCodeGenPipelineLegacy"
+   ],
+   "inputs": 1,
+   "first_hits": 1,
+   "first_hits_by_custom_mutation": 0,
+   "options": [
+    "-O2 -g -c"
+   ],
+   "jobs": [
+    "mix-1"
+   ],
+   "levels": [
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "uVsWTPDwHZdG.c",
+   "smallest_size": 1162,
+   "files": [
+    "mix,clang,0/uVsWTPDwHZdG.c"
+   ]
+  },
+  {
+   "id": "g13",
+   "kind": "message",
+   "signature": "Assertion `E && hasScalarEvaluationKind(E->getType()) && \"Invalid scalar expression to emit\"' failed.",
+   "frames": [
+    "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+    "clang::CodeGen::CodeGenFunction::EmitBuiltinExpr",
+    "clang::CodeGen::CodeGenFunction::EmitCallExpr",
+    "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+    "clang::CodeGen::CodeGenFunction::EvaluateExprAsBool",
+    "clang::CodeGen::CodeGenFunction::EmitBranchOnBoolExpr",
+    "clang::StmtVisitorBase<std::add_pointer,",
+    "clang::StmtVisitorBase<std::add_pointer,"
+   ],
+   "inputs": 1,
+   "first_hits": 1,
+   "first_hits_by_custom_mutation": 1,
+   "options": [
+    "-O2 -c"
+   ],
+   "jobs": [
+    "custom-1"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "mISaaMdBtlWE.c",
+   "smallest_size": 4663,
+   "files": [
+    "custom,clang,0/mISaaMdBtlWE.c"
+   ]
+  },
+  {
+   "id": "g14",
+   "kind": "message",
+   "signature": "Assertion `castIsValid(op, S, Ty) && \"Invalid cast!\"' failed.",
+   "frames": [
+    "llvm::IRBuilderBase::CreateCast",
+    "clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr",
+    "clang::StmtVisitorBase<std::add_pointer,",
+    "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+    "clang::CodeGen::CodeGenFunction::EmitReturnStmt",
+    "clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope",
+    "clang::CodeGen::CodeGenFunction::EmitFunctionBody",
+    "clang::CodeGen::CodeGenFunction::GenerateCode"
+   ],
+   "inputs": 1,
+   "first_hits": 1,
+   "first_hits_by_custom_mutation": 1,
+   "options": [
+    "-O2 -g -c"
+   ],
+   "jobs": [
+    "custom-0"
+   ],
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "SAOzWUNNDHcQ.c",
+   "smallest_size": 974,
+   "files": [
+    "custom,clang,1/SAOzWUNNDHcQ.c"
+   ]
+  }
+ ],
+ "not_reproduced": []
+}
