@@ -1,0 +1,31 @@
+{
+ "id": "g07",
+ "kind": "message",
+ "signature": "Assertion `&getSemantics() == &RHS.getSemantics() && \"Should only call on two APFloats with the same semantics\"' failed.",
+ "frames": [
+  "llvm::ConstantFoldBinaryInstruction",
+  "llvm::LibCallSimplifier::optimizeFMod",
+  "llvm::LibCallSimplifier::optimizeCall",
+  "llvm::InstCombinerImpl::tryOptimizeCall",
+  "llvm::InstCombinerImpl::visitCallBase",
+  "llvm::InstCombinerImpl::visitCallInst",
+  "llvm::InstCombinerImpl::run",
+  "combineInstructionsOverFunction"
+ ],
+ "inputs": 1,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "gOtIIczSUktu.c",
+ "smallest_size": 1451,
+ "files": [
+  "mix,clang,2/gOtIIczSUktu.c"
+ ]
+}

@@ -1,0 +1,14 @@
+Package: cvise 2.10.0
+Git version: c8606497
+LLVM version: 18.1.3
+System: uname_result(system='Linux', node='runnervmeozm8', release='7.0.0-1017-azure', version='#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026', machine='x86_64')
+***************************************************
+
+ClangPass::move-definition-to-declaration has encountered a bug:
+pass error
+state: 4
+
+Please consider tarring up cvise_bug_0
+and creating an issue at https://github.com/marxin/cvise/issues and we will try to fix the bug.
+
+***************************************************
