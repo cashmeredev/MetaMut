@@ -1,0 +1,1 @@
+0df59a090b8e5cdf454c1e0a923527be9d310c86 Wed Nov 25 22:41:17 2026 +0000 [flang][acc] Scalarize firstprivate array descriptors. (#246157)
