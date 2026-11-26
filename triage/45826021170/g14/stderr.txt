@@ -1,0 +1,54 @@
+clang: /root/llvm-src/llvm/lib/IR/Instructions.cpp:3237: static llvm::CastInst* llvm::CastInst::Create(llvm::Instruction::CastOps, llvm::Value*, llvm::Type*, const llvm::Twine&, llvm::InsertPosition): Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang/bin/clang results/fuzz/45826021170/custom-0/custom,clang,1/crash-inputs/SAOzWUNNDHcQ.c -o /dev/null -w -fno-crash-diagnostics -O2 -g -c
+1.	<eof> parser at end of file
+2.	results/fuzz/45826021170/custom-0/custom,clang,1/crash-inputs/SAOzWUNNDHcQ.c:20:1: LLVM IR generation of declaration 'foo'
+3.	results/fuzz/45826021170/custom-0/custom,clang,1/crash-inputs/SAOzWUNNDHcQ.c:20:1: Generating code for declaration 'foo'
+ #0 0x0000558dbb8d43c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (clang/bin/clang+0x29c63c9)
+ #1 0x0000558dbb8d10bc llvm::sys::RunSignalHandlers() (clang/bin/clang+0x29c30bc)
+ #2 0x0000558dbb8d1978 llvm::sys::CleanupOnSignal(unsigned long) (clang/bin/clang+0x29c3978)
+ #3 0x0000558dbb80f598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007f7548e45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007f7548e9ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007f7548e4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007f7548e288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007f7548e2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007f7548e3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x0000558dbb247159 (clang/bin/clang+0x2339159)
+#11 0x0000558dbbc5fc8b llvm::IRBuilderBase::CreateCast(llvm::Instruction::CastOps, llvm::Value*, llvm::Type*, llvm::Twine const&, llvm::MDNode*, llvm::FMFSource) (.isra.0) CGExprScalar.cpp:0:0
+#12 0x0000558dbbc7d781 (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#13 0x0000558dbbc78c9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#14 0x0000558dbbc855c1 clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr(clang::Expr const*, clang::QualType) (clang/bin/clang+0x2d775c1)
+#15 0x0000558dbbc85fdc (anonymous namespace)::ScalarExprEmitter::EmitBinOps(clang::BinaryOperator const*, clang::QualType) CGExprScalar.cpp:0:0
+#16 0x0000558dbbc76829 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*) CGExprScalar.cpp:0:0
+#17 0x0000558dbbc7c41d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#18 0x0000558dbbdaee88 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) (clang/bin/clang+0x2ea0e88)
+#19 0x0000558dbbdc07bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#20 0x0000558dbbe2cef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (clang/bin/clang+0x2f1eef1)
+#21 0x0000558dbbe408a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (clang/bin/clang+0x2f328a4)
+#22 0x0000558dbbeaace8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f9cce8)
+#23 0x0000558dbbea4425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f96425)
+#24 0x0000558dbbea4da3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (clang/bin/clang+0x2f96da3)
+#25 0x0000558dbbeb0485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#26 0x0000558dbc249f31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#27 0x0000558dbc23d2d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (clang/bin/clang+0x332f2d1)
+#28 0x0000558dbfa4975c clang::ParseAST(clang::Sema&, bool, bool) (clang/bin/clang+0x6b3b75c)
+#29 0x0000558dbc5b2711 clang::FrontendAction::Execute() (clang/bin/clang+0x36a4711)
+#30 0x0000558dbc53a8bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (clang/bin/clang+0x362c8bd)
+#31 0x0000558dbc689f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (clang/bin/clang+0x377bf53)
+#32 0x0000558dba26496a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (clang/bin/clang+0x135696a)
+#33 0x0000558dba25b92a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#34 0x0000558dba25bac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#35 0x0000558dbc2c6abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#36 0x0000558dbb80f980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (clang/bin/clang+0x2901980)
+#37 0x0000558dbc2c7913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#38 0x0000558dbc281597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (clang/bin/clang+0x3373597)
+#39 0x0000558dbc285244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (clang/bin/clang+0x3377244)
+#40 0x0000558dbc294b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (clang/bin/clang+0x3386b84)
+#41 0x0000558dba261028 clang_main(int, char**, llvm::ToolContext const&) (clang/bin/clang+0x1353028)
+#42 0x0000558dba21827a main (clang/bin/clang+0x130a27a)
+#43 0x00007f7548e2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#44 0x00007f7548e2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#45 0x0000558dba25af55 _start (clang/bin/clang+0x134cf55)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)

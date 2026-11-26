@@ -1,0 +1,36 @@
+{
+ "id": "g14",
+ "kind": "message",
+ "signature": "Assertion `castIsValid(op, S, Ty) && \"Invalid cast!\"' failed.",
+ "frames": [
+  "llvm::IRBuilderBase::CreateCast",
+  "clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr",
+  "clang::StmtVisitorBase<std::add_pointer,",
+  "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+  "clang::CodeGen::CodeGenFunction::EmitReturnStmt",
+  "clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope",
+  "clang::CodeGen::CodeGenFunction::EmitFunctionBody",
+  "clang::CodeGen::CodeGenFunction::GenerateCode"
+ ],
+ "inputs": 1,
+ "first_hits": 1,
+ "first_hits_by_custom_mutation": 1,
+ "options": [
+  "-O2 -g -c"
+ ],
+ "jobs": [
+  "custom-0"
+ ],
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "SAOzWUNNDHcQ.c",
+ "smallest_size": 974,
+ "files": [
+  "custom,clang,1/SAOzWUNNDHcQ.c"
+ ]
+}
