@@ -1,0 +1,51 @@
+{
+ "id": "g01",
+ "kind": "message",
+ "signature": "fatal error: error in backend: Broken module found, compilation aborted!",
+ "frames": [
+  "llvm::sys::Process::Exit",
+  "LLVMErrorHandler",
+  "llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl",
+  "llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run",
+  "clang::emitBackendOutput",
+  "clang::BackendConsumer::HandleTranslationUnit",
+  "clang::ParseAST",
+  "clang::FrontendAction::Execute"
+ ],
+ "inputs": 17,
+ "jobs": [
+  "base-0",
+  "base-1",
+  "mix-0",
+  "mix-1"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "zmtIUPSSEqZD.c",
+ "smallest_size": 145,
+ "files": [
+  "base,clang,1/zmtIUPSSEqZD.c",
+  "base,clang,1/qJpwotQsvnSk.c",
+  "base,clang,3/gTzEiRcOkyWv.c",
+  "base,clang,3/CZumPgENBUjR.c",
+  "base,clang,3/FYdfRDBfDgLA.c",
+  "mix,clang,2/UXQSbupmbYEo.c",
+  "mix,clang,2/GQbJaOTftHCc.c",
+  "base,clang,2/atjcOzoYJOfy.c",
+  "base,clang,2/NuxHBXfwebfX.c",
+  "base,clang,2/MNEtEHBsOkNR.c",
+  "mix,clang,1/oCDBFtprbofb.c",
+  "mix,clang,1/cfbDyJdyrNKQ.c",
+  "mix,clang,1/yADgrmJnPJTk.c",
+  "base,clang,3/LOhVNcJozrsH.c",
+  "base,clang,3/wgfDzoxYrKWC.c",
+  "mix,clang,3/LxEXcFbAFwka.c",
+  "mix,clang,3/onMQKchUuzHY.c"
+ ]
+}
