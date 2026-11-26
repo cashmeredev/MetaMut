@@ -1,0 +1,52 @@
+clang-24: /root/llvm-src/llvm/include/llvm/ADT/IntervalMap.h:634: unsigned int llvm::IntervalMapImpl::LeafNode<KeyT, ValT, N, Traits>::insertFrom(unsigned int&, unsigned int, KeyT, KeyT, ValT) [with KeyT = unsigned int; ValT = unsigned int; unsigned int N = 16; Traits = llvm::IntervalMapHalfOpenInfo<unsigned int>]: Assertion `!Traits::stopLess(b, a) && "Invalid interval"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/runner/work/MetaMut/MetaMut/clang/bin/clang-24 reduced.c -o /dev/null -w -fno-crash-diagnostics -O2 -g -c
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module 'reduced.c'.
+4.	Running pass 'Assignment Tracking Analysis' on function '@__attribute__bar'
+ #0 0x000055f51f3513c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c63c9)
+ #1 0x000055f51f34e0bc llvm::sys::RunSignalHandlers() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c30bc)
+ #2 0x000055f51f34e978 llvm::sys::CleanupOnSignal(unsigned long) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c3978)
+ #3 0x000055f51f28c598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007f87e7645330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007f87e769ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007f87e764527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007f87e76288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007f87e762881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007f87e763b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000055f51eb21188 llvm::IntervalMapImpl::LeafNode<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insertFrom(unsigned int&, unsigned int, unsigned int, unsigned int, unsigned int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2196188)
+#11 0x000055f51eb3d7a2 llvm::IntervalMap<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insert(unsigned int, unsigned int, unsigned int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x21b27a2)
+#12 0x000055f51eb4247a (anonymous namespace)::MemLocFragmentFill::run(FunctionVarLocsBuilder*) AssignmentTrackingAnalysis.cpp:0:0
+#13 0x000055f51eb44be9 analyzeFunction(llvm::Function&, llvm::DataLayout const&, FunctionVarLocsBuilder*) AssignmentTrackingAnalysis.cpp:0:0
+#14 0x000055f51eb463fe llvm::AssignmentTrackingAnalysis::runOnFunction(llvm::Function&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x21bb3fe)
+#15 0x000055f51ed020b6 llvm::FPPassManager::runOnFunction(llvm::Function&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x23770b6)
+#16 0x000055f51ed02679 llvm::FPPassManager::runOnModule(llvm::Module&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2377679)
+#17 0x000055f51ed03071 (anonymous namespace)::MPPassManager::runOnModule(llvm::Module&) LegacyPassManager.cpp:0:0
+#18 0x000055f51ed038bb llvm::legacy::PassManagerImpl::run(llvm::Module&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x23788bb)
+#19 0x000055f5204f4a17 runCodeGenPipelineLegacy(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, llvm::raw_pwrite_stream*, llvm::CodeGenFileType, bool, llvm::ModuleSummaryIndex const*, bool) RunCodeGen.cpp:0:0
+#20 0x000055f5204f4c63 llvm::runCodeGenPipeline(llvm::TargetMachine&, llvm::Module&, llvm::raw_pwrite_stream&, llvm::raw_pwrite_stream*, llvm::CodeGenFileType, bool, bool, llvm::ModuleSummaryIndex const*, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3b69c63)
+#21 0x000055f51f5d8009 (anonymous namespace)::EmitAssemblyHelper::emitAssembly(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) BackendUtil.cpp:0:0
+#22 0x000055f51f5d83dd clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2c4d3dd)
+#23 0x000055f51fcc2d35 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3337d35)
+#24 0x000055f5234c698c clang::ParseAST(clang::Sema&, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b3b98c)
+#25 0x000055f52002f711 clang::FrontendAction::Execute() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x36a4711)
+#26 0x000055f51ffb78bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x362c8bd)
+#27 0x000055f520106f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x377bf53)
+#28 0x000055f51dce196a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x135696a)
+#29 0x000055f51dcd892a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#30 0x000055f51dcd8ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#31 0x000055f51fd43abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#32 0x000055f51f28c980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901980)
+#33 0x000055f51fd44913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#34 0x000055f51fcfe597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3373597)
+#35 0x000055f51fd02244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3377244)
+#36 0x000055f51fd11b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3386b84)
+#37 0x000055f51dcde028 clang_main(int, char**, llvm::ToolContext const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x1353028)
+#38 0x000055f51dc9527a main (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x130a27a)
+#39 0x00007f87e762a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#40 0x00007f87e762a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#41 0x000055f51dcd7f55 _start (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x134cf55)
+clang-24: error: clang frontend command failed due to signal (use -v to see invocation)
+timeout: the monitored command dumped core

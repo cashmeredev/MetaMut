@@ -1,0 +1,39 @@
+     1        0               2
+  ClangBinarySearchPass::remove-unused-enum-member                 0.29     0.50        0        0               0
+  ClangBinarySearchPass::remove-unused-var                         0.28     0.47        0        0               0
+  BalancedPass::parens-only                                        0.21     0.36        0        0               6
+  ClangPass::local-to-global                                       0.21     0.36        0        2               8
+  IntsPass::a                                                      0.21     0.36        0        0               2
+  IntsPass::d                                                      0.21     0.35        1        0               1
+  IntsPass::c                                                      0.21     0.35        1        0               1
+  IncludesPass                                                     0.11     0.18        0        1               4
+  IntsPass::b                                                      0.11     0.18        0        0               1
+  ClangPass::combine-global-var                                    0.11     0.18        0        1               4
+  ClangPass::simplify-struct-union-decl                            0.11     0.18        0        1               4
+  ClangPass::move-global-var                                       0.11     0.18        0        1               4
+  ClangPass::combine-local-var                                     0.11     0.18        0        1               4
+  ClangPass::unify-function-decl                                   0.11     0.18        0        1               4
+  TernaryPass::b                                                   0.00     0.00        0        0               0
+  TernaryPass::c                                                   0.00     0.00        0        0               0
+  BalancedPass::curly3                                             0.00     0.00        0        0               0
+  SpecialPass::b                                                   0.00     0.00        0        0               0
+  SpecialPass::c                                                   0.00     0.00        0        0               0
+  BalancedPass::angles                                             0.00     0.00        0        0               0
+  BalancedPass::angles-inside                                      0.00     0.00        0        0               0
+  BalancedPass::angles-only                                        0.00     0.00        0        0               0
+  SpecialPass::a                                                   0.00     0.00        0        0               0
+  LineMarkersPass                                                  0.00     0.00        0        0               0
+
+Runtime: 59 seconds
+Reduced test-cases:
+
+--- /home/runner/work/MetaMut/MetaMut/triage/g12/reduced.c ---
+void foo();
+void __attribute__bar() {
+  char s[1099511627776];
+  foo(s);
+  s[0] = 'a';
+}
+
+cvise exit=0
+reduced: 1162 -> 89 bytes, 6 lines

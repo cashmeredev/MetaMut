@@ -1,0 +1,34 @@
+{
+ "id": "g12",
+ "kind": "message",
+ "signature": "Assertion `!Traits::stopLess(b, a) && \"Invalid interval\"' failed.",
+ "frames": [
+  "llvm::IntervalMapImpl::LeafNode<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insertFro",
+  "llvm::IntervalMap<unsigned int, unsigned int, 16u, llvm::IntervalMapHalfOpenInfo<unsigned int>>::insert",
+  "analyzeFunction",
+  "llvm::AssignmentTrackingAnalysis::runOnFunction",
+  "llvm::FPPassManager::runOnFunction",
+  "llvm::FPPassManager::runOnModule",
+  "llvm::legacy::PassManagerImpl::run",
+  "runCodeGenPipelineLegacy"
+ ],
+ "inputs": 1,
+ "first_hits": 1,
+ "first_hits_by_custom_mutation": 0,
+ "options": [
+  "-O2 -g -c"
+ ],
+ "jobs": [
+  "mix-1"
+ ],
+ "levels": [
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "uVsWTPDwHZdG.c",
+ "smallest_size": 1162,
+ "files": [
+  "mix,clang,0/uVsWTPDwHZdG.c"
+ ]
+}
