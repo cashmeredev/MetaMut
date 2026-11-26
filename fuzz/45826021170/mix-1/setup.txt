@@ -1,0 +1,10 @@
+CLANG_RUN_ID=45734671771
+LLVM_SHA=99503c9d5b71ba9012b2a97898ca0a5af2a3fced
+INSTRUM_CLANG_NBRS=3884944
+clang version 24.0.0git (https://github.com/llvm/llvm-project 99503c9d5b71ba9012b2a97898ca0a5af2a3fced)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin
+Build config: +assertions
+plain clang ok
+instrumented clang ok
