@@ -1,0 +1,65 @@
+name: release-check
+
+# Build and run the programs in ci/release-cases with released clang versions
+# (no assertions) to see what a crash found in the assertions build means
+# for a normal compiler.
+on:
+  push:
+    branches: [clang-fuzz]
+    paths: [ci/release-cases/**]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install released clang versions
+        run: |
+          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key \
+            | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc > /dev/null
+          sudo apt-get update -qq
+          for version in 19 20 21 22 23; do
+            if sudo apt-get install -y -qq "clang-$version"; then
+              continue
+            fi
+            list="/etc/apt/sources.list.d/llvm-$version.list"
+            echo "deb http://apt.llvm.org/noble/ llvm-toolchain-noble-$version main" \
+              | sudo tee "$list" > /dev/null
+            if sudo apt-get update -qq -o Dir::Etc::sourcelist="$list" \
+                -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=0; then
+              sudo apt-get install -y -qq "clang-$version" || true
+            else
+              sudo rm -f "$list"
+            fi
+          done
+
+      - name: Build and run the cases
+        run: |
+          mkdir -p out
+          for version in 18 19 20 21 22 23; do
+            if ! command -v "clang-$version" > /dev/null; then
+              printf 'clang-%s\tnot installed\n' "$version" >> out/results.txt
+              continue
+            fi
+            bash ci/release-check.sh "clang-$version" "clang-$version" \
+              ci/release-cases ci/cases/g14-d-int-vector-plus-bitint67.c out
+          done
+          cat out/results.txt
+          cat out/*/version.txt
+
+      - name: Check out repository for publishing
+        uses: actions/checkout@v4
+        with:
+          path: publish
+          fetch-depth: 1
+
+      - name: Publish the results
+        run: |
+          bash ci/publish.sh publish out "release-check/${{ github.run_id }}" \
+            "release-check: results of run ${{ github.run_id }}"
