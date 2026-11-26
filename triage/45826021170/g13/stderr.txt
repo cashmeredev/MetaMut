@@ -1,0 +1,65 @@
+clang: /root/llvm-src/clang/lib/CodeGen/CGExprScalar.cpp:6222: llvm::Value* clang::CodeGen::CodeGenFunction::EmitScalarExpr(const clang::Expr*, bool): Assertion `E && hasScalarEvaluationKind(E->getType()) && "Invalid scalar expression to emit"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang/bin/clang results/fuzz/45826021170/custom-1/custom,clang,0/crash-inputs/mISaaMdBtlWE.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	results/fuzz/45826021170/custom-1/custom,clang,0/crash-inputs/mISaaMdBtlWE.c:91:1: current parser token 'void'
+2.	results/fuzz/45826021170/custom-1/custom,clang,0/crash-inputs/mISaaMdBtlWE.c:74:1: LLVM IR generation of declaration 'var_complex_to_int'
+3.	results/fuzz/45826021170/custom-1/custom,clang,0/crash-inputs/mISaaMdBtlWE.c:74:1: Generating code for declaration 'var_complex_to_int'
+ #0 0x000055c832e9e3c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (clang/bin/clang+0x29c63c9)
+ #1 0x000055c832e9b0bc llvm::sys::RunSignalHandlers() (clang/bin/clang+0x29c30bc)
+ #2 0x000055c832e9b978 llvm::sys::CleanupOnSignal(unsigned long) (clang/bin/clang+0x29c3978)
+ #3 0x000055c832dd9598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007fd4c1445330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007fd4c149ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007fd4c144527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007fd4c14288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007fd4c142881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007fd4c143b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000055c833246465 clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e465)
+#11 0x000055c8336cdc12 clang::CodeGen::CodeGenFunction::EmitBuiltinExpr(clang::GlobalDecl, unsigned int, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot) (clang/bin/clang+0x31f5c12)
+#12 0x000055c8331d93fb clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**) (clang/bin/clang+0x2d013fb)
+#13 0x000055c83324b5c1 (anonymous namespace)::ScalarExprEmitter::VisitCallExpr(clang::CallExpr const*) CGExprScalar.cpp:0:0
+#14 0x000055c83324641d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#15 0x000055c8331a4099 clang::CodeGen::CodeGenFunction::EvaluateExprAsBool(clang::Expr const*) (clang/bin/clang+0x2ccc099)
+#16 0x000055c8333fb116 clang::CodeGen::CodeGenFunction::EmitBranchOnBoolExpr(clang::Expr const*, llvm::BasicBlock*, llvm::BasicBlock*, unsigned long, clang::Stmt::Likelihood, clang::Expr const*, clang::VarDecl const*) (clang/bin/clang+0x2f23116)
+#17 0x000055c8332094aa (anonymous namespace)::ComplexExprEmitter::VisitAbstractConditionalOperator(clang::AbstractConditionalOperator const*) CGExprComplex.cpp:0:0
+#18 0x000055c83320a600 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ComplexExprEmitter, std::pair<llvm::Value*, llvm::Value*>>::Visit(clang::Stmt*) CGExprComplex.cpp:0:0
+#19 0x000055c83320a600 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ComplexExprEmitter, std::pair<llvm::Value*, llvm::Value*>>::Visit(clang::Stmt*) CGExprComplex.cpp:0:0
+#20 0x000055c83320de26 clang::CodeGen::CodeGenFunction::EmitComplexExpr(clang::Expr const*, bool, bool) (clang/bin/clang+0x2d35e26)
+#21 0x000055c83324747d (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#22 0x000055c833242c9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#23 0x000055c833247508 (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#24 0x000055c833242c9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#25 0x000055c83324e00b (anonymous namespace)::ScalarExprEmitter::VisitBinAssign(clang::BinaryOperator const*) CGExprScalar.cpp:0:0
+#26 0x000055c83324641d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#27 0x000055c8331b06be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) (clang/bin/clang+0x2cd86be)
+#28 0x000055c8331d2d7a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (clang/bin/clang+0x2cfad7a)
+#29 0x000055c833381499 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2ea9499)
+#30 0x000055c83338a7bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#31 0x000055c8333f6ef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (clang/bin/clang+0x2f1eef1)
+#32 0x000055c83340a8a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (clang/bin/clang+0x2f328a4)
+#33 0x000055c833474ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f9cce8)
+#34 0x000055c83346e425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f96425)
+#35 0x000055c83346eda3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (clang/bin/clang+0x2f96da3)
+#36 0x000055c83347a485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#37 0x000055c833813f31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#38 0x000055c8338072d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (clang/bin/clang+0x332f2d1)
+#39 0x000055c83701375c clang::ParseAST(clang::Sema&, bool, bool) (clang/bin/clang+0x6b3b75c)
+#40 0x000055c833b7c711 clang::FrontendAction::Execute() (clang/bin/clang+0x36a4711)
+#41 0x000055c833b048bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (clang/bin/clang+0x362c8bd)
+#42 0x000055c833c53f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (clang/bin/clang+0x377bf53)
+#43 0x000055c83182e96a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (clang/bin/clang+0x135696a)
+#44 0x000055c83182592a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#45 0x000055c831825ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#46 0x000055c833890abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#47 0x000055c832dd9980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (clang/bin/clang+0x2901980)
+#48 0x000055c833891913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#49 0x000055c83384b597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (clang/bin/clang+0x3373597)
+#50 0x000055c83384f244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (clang/bin/clang+0x3377244)
+#51 0x000055c83385eb84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (clang/bin/clang+0x3386b84)
+#52 0x000055c83182b028 clang_main(int, char**, llvm::ToolContext const&) (clang/bin/clang+0x1353028)
+#53 0x000055c8317e227a main (clang/bin/clang+0x130a27a)
+#54 0x00007fd4c142a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#55 0x00007fd4c142a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#56 0x000055c831824f55 _start (clang/bin/clang+0x134cf55)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)

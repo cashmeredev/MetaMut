@@ -1,0 +1,36 @@
+{
+ "id": "g13",
+ "kind": "message",
+ "signature": "Assertion `E && hasScalarEvaluationKind(E->getType()) && \"Invalid scalar expression to emit\"' failed.",
+ "frames": [
+  "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+  "clang::CodeGen::CodeGenFunction::EmitBuiltinExpr",
+  "clang::CodeGen::CodeGenFunction::EmitCallExpr",
+  "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+  "clang::CodeGen::CodeGenFunction::EvaluateExprAsBool",
+  "clang::CodeGen::CodeGenFunction::EmitBranchOnBoolExpr",
+  "clang::StmtVisitorBase<std::add_pointer,",
+  "clang::StmtVisitorBase<std::add_pointer,"
+ ],
+ "inputs": 1,
+ "first_hits": 1,
+ "first_hits_by_custom_mutation": 1,
+ "options": [
+  "-O2 -c"
+ ],
+ "jobs": [
+  "custom-1"
+ ],
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "mISaaMdBtlWE.c",
+ "smallest_size": 4663,
+ "files": [
+  "custom,clang,0/mISaaMdBtlWE.c"
+ ]
+}
