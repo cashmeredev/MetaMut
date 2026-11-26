@@ -1,0 +1,47 @@
+{
+ "id": "g04",
+ "kind": "message",
+ "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Don't know how to expand this XINT_TO_FP!\"' failed.",
+ "frames": [
+  "llvm::DAGTypeLegalizer::ExpandIntOp_XINT_TO_FP",
+  "llvm::DAGTypeLegalizer::ExpandIntegerOperand",
+  "llvm::DAGTypeLegalizer::run",
+  "llvm::SelectionDAG::LegalizeTypes",
+  "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+  "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+  "llvm::SelectionDAGISel::runOnMachineFunction",
+  "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+ ],
+ "inputs": 6,
+ "first_hits": 6,
+ "first_hits_by_custom_mutation": 6,
+ "options": [
+  "-O2 -c",
+  "-O2 -fexperimental-new-constant-interpreter -c",
+  "-O2 -g -c",
+  "-O3 -march=x86-64-v4 -c"
+ ],
+ "jobs": [
+  "custom-0",
+  "custom-1",
+  "mix-0",
+  "mix-1"
+ ],
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "ZEPdZbhhXzch.c",
+ "smallest_size": 309,
+ "files": [
+  "mix,clang,1/ZEPdZbhhXzch.c",
+  "custom,clang,0/qvDZxAFnoddM.c",
+  "custom,clang,2/vshiIkHUPIfU.c",
+  "mix,clang,3/zpCxKretGhTl.c",
+  "mix,clang,2/cuiEtDkstLIA.c",
+  "mix,clang,3/rMsqwWFITMUt.c"
+ ]
+}
