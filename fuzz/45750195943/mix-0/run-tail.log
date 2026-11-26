@@ -1,0 +1,4 @@
+[2026-11-26 03:56:41.029652] DEBUG:Fuzzer.py:126:: start fuzzing, seed=2008587347, parent=4011, affinity=[3]
+[2026-11-26 03:56:41.030173] DEBUG:Fuzzer.py:126:: start fuzzing, seed=51584765, parent=4012, affinity=[2]
+[2026-11-26 03:56:41.040683] DEBUG:Fuzzer.py:126:: start fuzzing, seed=358639221, parent=4022, affinity=[0, 2]
+[2026-11-26 03:56:41.041407] DEBUG:Fuzzer.py:126:: start fuzzing, seed=620750915, parent=4013, affinity=[1, 3]

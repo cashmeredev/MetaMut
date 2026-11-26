@@ -1,0 +1,63 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "clang::CodeGen::TargetCodeGenInfo::getDeviceKernelCallingConv() const",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 409.6365041732788,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/IbbGecesdbwz.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*)",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 380.52793860435486,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/pwOIEaXUHODg.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 639.1478788852692,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/KaEYsuFugIaX.c"
+      }
+    ]
+  }
+]
+
+{
+  "mix": 2
+}

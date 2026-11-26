@@ -1,0 +1,68 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      "./stdlib/./stdlib/abort.c: __GI_abort: 49",
+      "./assert/./assert/assert.c: __assert_fail_base: 96",
+      "./assert/./assert/assert.c: __assert_fail: 105",
+      "??: clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::{lambda()#1}>(long): ??",
+      "??: clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::EmitLoadOfLValue(clang::Expr const*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr(clang::Expr const*, clang::QualType): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::EmitBinOps(clang::BinaryOperator const*, clang::QualType): ??",
+      "??: clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitAnyExprToTemp(clang::Expr const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCallArg(clang::CodeGen::CallArgList&, clang::Expr const*, clang::QualType): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCallArgs(clang::CodeGen::CallArgList&, clang::CodeGen::CodeGenFunction::PrototypeWrapper, llvm::iterator_range<clang::Stmt::CastIterator<clang::Expr, clang::Expr const* const, clang::Stmt const* const> >, clang::CodeGen::CodeGenFunction::AbstractCallee, unsigned int, clang::CodeGenUtils::EvaluationOrder): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCall(clang::QualType, clang::CodeGen::CGCallee const&, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::Value*, llvm::CallBase**, clang::CodeGen::CGFunctionInfo const**): ??",
+      "??: emitLibraryCall(clang::CodeGen::CodeGenFunction&, clang::FunctionDecl const*, clang::CallExpr const*, llvm::Constant*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitBuiltinExpr(clang::GlobalDecl, unsigned int, clang::CallExpr const*, clang::CodeGen::ReturnValueSlot): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCallExpr(clang::CallExpr const*, clang::CodeGen::ReturnValueSlot, llvm::CallBase**): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::VisitCallExpr(clang::CallExpr const*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitScalarInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitExprAsInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitAutoVarInit(clang::CodeGen::CodeGenFunction::AutoVarEmission const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitVarDecl(clang::VarDecl const&) [clone .part.0]: ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot): ??",
+      "??: (anonymous namespace)::ScalarExprEmitter::VisitStmtExpr(clang::StmtExpr const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool): ??",
+      "??: EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue(clang::UnaryOperator const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::{lambda()#1}>(long): ??",
+      "??: clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t): ??"
+    ],
+    "srcfiles": [
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/pwOIEaXUHODg.c",
+        380.52793860435486
+      ],
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/KaEYsuFugIaX.c",
+        639.1478788852692
+      ]
+    ]
+  }
+]

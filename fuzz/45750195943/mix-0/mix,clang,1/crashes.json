@@ -1,0 +1,42 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      "./stdlib/./stdlib/abort.c: __GI_abort: 49",
+      "./assert/./assert/assert.c: __assert_fail_base: 96",
+      "./assert/./assert/assert.c: __assert_fail: 105",
+      "??: clang::CodeGen::TargetCodeGenInfo::getDeviceKernelCallingConv() const: ??",
+      "??: clang::CodeGen::CodeGenTypes::findOrInsertCGFunctionInfo(bool, bool, bool, unsigned int, clang::FunctionType::ExtInfo const&, llvm::ArrayRef<clang::FunctionType::ExtParameterInfo>, clang::CodeGen::RequiredArgs, clang::CanQual<clang::Type>, llvm::ArrayRef<clang::CanQual<clang::Type> >): ??",
+      "??: clang::CodeGen::CodeGenTypes::arrangeLLVMFunctionInfo(clang::CanQual<clang::Type>, clang::CodeGen::FnInfoOpts, llvm::ArrayRef<clang::CanQual<clang::Type> >, clang::FunctionType::ExtInfo, llvm::ArrayRef<clang::FunctionType::ExtParameterInfo>, clang::CodeGen::RequiredArgs, clang::FunctionDecl const*) [clone .constprop.0]: ??",
+      "??: clang::CodeGen::CodeGenTypes::arrangeFunctionDeclaration(clang::GlobalDecl): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) [clone .part.0]: ??",
+      "??: (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::ParseAST(clang::Sema&, bool, bool): ??",
+      "??: clang::FrontendAction::Execute(): ??",
+      "??: clang::CompilerInstance::ExecuteAction(clang::FrontendAction&): ??",
+      "??: clang::ExecuteCompilerInvocation(clang::CompilerInstance*): ??",
+      "??: cc1_main(llvm::ArrayRef<char const*>, char const*, void*): ??",
+      "??: ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>): ??",
+      "??: int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::{lambda(llvm::SmallVectorImpl<char const*>&)#1}>(long, llvm::SmallVectorImpl<char const*>&): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const::{lambda()#1}>(long): ??",
+      "??: llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>): ??",
+      "??: clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const [clone .part.0]: ??",
+      "??: clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const: ??",
+      "??: clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&, bool) const: ??",
+      "??: clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&): ??",
+      "??: clang_main(int, char**, llvm::ToolContext const&): ??",
+      "??: main: ??"
+    ],
+    "srcfiles": [
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/IbbGecesdbwz.c",
+        409.6365041732788
+      ]
+    ]
+  }
+]
