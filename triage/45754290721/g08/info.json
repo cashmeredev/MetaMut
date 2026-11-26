@@ -1,0 +1,32 @@
+{
+ "id": "g08",
+ "kind": "message",
+ "signature": "Assertion `E->isNonOdrUse() != NOUR_Unevaluated && \"should not emit an unevaluated operand\"' failed.",
+ "frames": [
+  "clang::CodeGen::CodeGenFunction::EmitDeclRefLValue",
+  "clang::CodeGen::CodeGenFunction::EmitLValueHelper",
+  "void llvm::function_ref<void",
+  "clang::StackExhaustionHandler::runWithSufficientStackSpace",
+  "clang::CodeGen::CodeGenFunction::EmitLValue",
+  "clang::StmtVisitorBase<std::add_pointer,",
+  "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+  "clang::CodeGen::CodeGenFunction::EmitScalarInit"
+ ],
+ "inputs": 1,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": false,
+ "smallest": "WwPIWadUVDmy.c",
+ "smallest_size": 841,
+ "files": [
+  "mix,clang,0/WwPIWadUVDmy.c"
+ ]
+}

@@ -1,0 +1,98 @@
+results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c:38:56: error: incompatible pointer types initializing 'int (*)[9][N]' with an expression of type 'int *' [-Wincompatible-pointer-types]
+   38 |         if (2 * sizeof(int) != sizeof(*((*({ int N = 2; int (*x)[9][N] = &N; x; }) + 0))))
+      |                                                               ^          ~~
+clang: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang/bin/clang results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c:45:1: current parser token 'int'
+2.	results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c:36:6: LLVM IR generation of declaration 'bar1'
+3.	results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c:36:6: Generating code for declaration 'bar1'
+4.	results/fuzz/45754290721/mix-0/mix,clang,0/crash-inputs/WwPIWadUVDmy.c:38:37: LLVM IR generation of compound statement ('{}')
+ #0 0x000055f1aa5763c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (clang/bin/clang+0x29c63c9)
+ #1 0x000055f1aa5730bc llvm::sys::RunSignalHandlers() (clang/bin/clang+0x29c30bc)
+ #2 0x000055f1aa573978 llvm::sys::CleanupOnSignal(unsigned long) (clang/bin/clang+0x29c3978)
+ #3 0x000055f1aa4b1598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007fbf6d445330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007fbf6d49ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007fbf6d44527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007fbf6d4288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007fbf6d42881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007fbf6d43b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000055f1aa8a789b clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*) (clang/bin/clang+0x2cf789b)
+#11 0x000055f1aa8b1ac4 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2d01ac4)
+#12 0x000055f1aa8b24fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#13 0x000055f1b034d885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (clang/bin/clang+0x879d885)
+#14 0x000055f1aa874faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2cc4faa)
+#15 0x000055f1aa91a6a8 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*) CGExprScalar.cpp:0:0
+#16 0x000055f1aa91ac9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#17 0x000055f1aa91f58b (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#18 0x000055f1aa91e41d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#19 0x000055f1aae2e4eb clang::CodeGen::CodeGenFunction::EmitScalarInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (clang/bin/clang+0x327e4eb)
+#20 0x000055f1aae2f1f7 clang::CodeGen::CodeGenFunction::EmitExprAsInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (clang/bin/clang+0x327f1f7)
+#21 0x000055f1aae3547a clang::CodeGen::CodeGenFunction::EmitAutoVarInit(clang::CodeGen::CodeGenFunction::AutoVarEmission const&) (clang/bin/clang+0x328547a)
+#22 0x000055f1aae3cce9 clang::CodeGen::CodeGenFunction::EmitVarDecl(clang::VarDecl const&) (.part.0) CGDecl.cpp:0:0
+#23 0x000055f1aae3d729 clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&, bool) (clang/bin/clang+0x328d729)
+#24 0x000055f1aaa47374 clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&) (clang/bin/clang+0x2e97374)
+#25 0x000055f1aaa62d35 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2eb2d35)
+#26 0x000055f1aaa5937d clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2ea937d)
+#27 0x000055f1aaa627bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#28 0x000055f1aaa62b64 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb2b64)
+#29 0x000055f1aa904bc2 (anonymous namespace)::ScalarExprEmitter::VisitStmtExpr(clang::StmtExpr const*) CGExprScalar.cpp:0:0
+#30 0x000055f1aa91e41d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#31 0x000055f1aa881478 EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&) CGExpr.cpp:0:0
+#32 0x000055f1aa8829f9 clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue(clang::UnaryOperator const*) (clang/bin/clang+0x2cd29f9)
+#33 0x000055f1aa8b1a9e clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2d01a9e)
+#34 0x000055f1aa8b24fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#35 0x000055f1b034d885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (clang/bin/clang+0x879d885)
+#36 0x000055f1aa874faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2cc4faa)
+#37 0x000055f1aa880d83 clang::CodeGen::CodeGenFunction::EmitArrayToPointerDecay(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*) (clang/bin/clang+0x2cd0d83)
+#38 0x000055f1aa881822 EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&) CGExpr.cpp:0:0
+#39 0x000055f1aa881704 EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&) CGExpr.cpp:0:0
+#40 0x000055f1aa8829f9 clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue(clang::UnaryOperator const*) (clang/bin/clang+0x2cd29f9)
+#41 0x000055f1aa8b1a9e clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2d01a9e)
+#42 0x000055f1aa8b24fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#43 0x000055f1b034d885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (clang/bin/clang+0x879d885)
+#44 0x000055f1aa874faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2cc4faa)
+#45 0x000055f1aa8b18b3 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2d018b3)
+#46 0x000055f1aa8b24fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#47 0x000055f1b034d885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (clang/bin/clang+0x879d885)
+#48 0x000055f1aa874faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (clang/bin/clang+0x2cc4faa)
+#49 0x000055f1aa8aaceb clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (clang/bin/clang+0x2cfaceb)
+#50 0x000055f1aa90345c (anonymous namespace)::ScalarExprEmitter::VisitUnaryExprOrTypeTraitExpr(clang::UnaryExprOrTypeTraitExpr const*) CGExprScalar.cpp:0:0
+#51 0x000055f1aa91ac9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#52 0x000055f1aa9275c1 clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr(clang::Expr const*, clang::QualType) (clang/bin/clang+0x2d775c1)
+#53 0x000055f1aa927fdc (anonymous namespace)::ScalarExprEmitter::EmitBinOps(clang::BinaryOperator const*, clang::QualType) CGExprScalar.cpp:0:0
+#54 0x000055f1aa929e65 (anonymous namespace)::ScalarExprEmitter::EmitCompare(clang::BinaryOperator const*, llvm::CmpInst::Predicate, llvm::CmpInst::Predicate, llvm::CmpInst::Predicate, bool) CGExprScalar.cpp:0:0
+#55 0x000055f1aa91e41d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (clang/bin/clang+0x2d6e41d)
+#56 0x000055f1aa87c099 clang::CodeGen::CodeGenFunction::EvaluateExprAsBool(clang::Expr const*) (clang/bin/clang+0x2ccc099)
+#57 0x000055f1aaad3116 clang::CodeGen::CodeGenFunction::EmitBranchOnBoolExpr(clang::Expr const*, llvm::BasicBlock*, llvm::BasicBlock*, unsigned long, clang::Stmt::Likelihood, clang::Expr const*, clang::VarDecl const*) (clang/bin/clang+0x2f23116)
+#58 0x000055f1aaa61d9c clang::CodeGen::CodeGenFunction::EmitIfStmt(clang::IfStmt const&) (clang/bin/clang+0x2eb1d9c)
+#59 0x000055f1aaa627bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#60 0x000055f1aaaceef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (clang/bin/clang+0x2f1eef1)
+#61 0x000055f1aaae28a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (clang/bin/clang+0x2f328a4)
+#62 0x000055f1aab4cce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f9cce8)
+#63 0x000055f1aab46425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f96425)
+#64 0x000055f1aab46da3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (clang/bin/clang+0x2f96da3)
+#65 0x000055f1aab52485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#66 0x000055f1aaeebf31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#67 0x000055f1aaedf2d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (clang/bin/clang+0x332f2d1)
+#68 0x000055f1ae6eb75c clang::ParseAST(clang::Sema&, bool, bool) (clang/bin/clang+0x6b3b75c)
+#69 0x000055f1ab254711 clang::FrontendAction::Execute() (clang/bin/clang+0x36a4711)
+#70 0x000055f1ab1dc8bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (clang/bin/clang+0x362c8bd)
+#71 0x000055f1ab32bf53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (clang/bin/clang+0x377bf53)
+#72 0x000055f1a8f0696a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (clang/bin/clang+0x135696a)
+#73 0x000055f1a8efd92a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#74 0x000055f1a8efdac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#75 0x000055f1aaf68abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#76 0x000055f1aa4b1980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (clang/bin/clang+0x2901980)
+#77 0x000055f1aaf69913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#78 0x000055f1aaf23597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (clang/bin/clang+0x3373597)
+#79 0x000055f1aaf27244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (clang/bin/clang+0x3377244)
+#80 0x000055f1aaf36b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (clang/bin/clang+0x3386b84)
+#81 0x000055f1a8f03028 clang_main(int, char**, llvm::ToolContext const&) (clang/bin/clang+0x1353028)
+#82 0x000055f1a8eba27a main (clang/bin/clang+0x130a27a)
+#83 0x00007fbf6d42a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#84 0x00007fbf6d42a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#85 0x000055f1a8efcf55 _start (clang/bin/clang+0x134cf55)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)

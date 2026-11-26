@@ -1,0 +1,101 @@
+reduced.c:1:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+    1 | bar1_N;
+      | ^
+      | int 
+reduced.c:2:1: error: type specifier missing, defaults to 'int'; ISO C99 and later do not support implicit int [-Wimplicit-int]
+    2 | bar1() {
+      | ^
+      | int 
+reduced.c:4:10: error: incompatible integer to pointer conversion initializing 'int (*)[][bar1_N]' with an expression of type 'int' [-Wint-conversion]
+    4 |     int(*x)[][bar1_N] = bar1_N;
+      |          ^              ~~~~~~
+clang-24: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/runner/work/MetaMut/MetaMut/clang/bin/clang-24 reduced.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	<eof> parser at end of file
+2.	reduced.c:2:1: LLVM IR generation of declaration 'bar1'
+3.	reduced.c:2:1: Generating code for declaration 'bar1'
+4.	reduced.c:3:13: LLVM IR generation of compound statement ('{}')
+ #0 0x000056123d32b3c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c63c9)
+ #1 0x000056123d3280bc llvm::sys::RunSignalHandlers() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c30bc)
+ #2 0x000056123d328978 llvm::sys::CleanupOnSignal(unsigned long) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c3978)
+ #3 0x000056123d266598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007f26a8e45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007f26a8e9ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007f26a8e4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007f26a8e288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007f26a8e2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007f26a8e3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000056123d65c89b clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(clang::DeclRefExpr const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cf789b)
+#11 0x000056123d666ac4 clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d01ac4)
+#12 0x000056123d6674fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#13 0x0000561243102885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x879d885)
+#14 0x000056123d629faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cc4faa)
+#15 0x000056123d650980 clang::CodeGen::CodeGenFunction::EmitCheckedLValue(clang::Expr const*, clang::CodeGen::CodeGenFunction::TypeCheckKind) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2ceb980)
+#16 0x000056123d6d3b3b (anonymous namespace)::ScalarExprEmitter::EmitLoadOfLValue(clang::Expr const*) CGExprScalar.cpp:0:0
+#17 0x000056123d6cfc9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#18 0x000056123d6d44cb (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#19 0x000056123d6cfc9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#20 0x000056123d6d5edc (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#21 0x000056123d6d341d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d6e41d)
+#22 0x000056123dbe34eb clang::CodeGen::CodeGenFunction::EmitScalarInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x327e4eb)
+#23 0x000056123dbe41f7 clang::CodeGen::CodeGenFunction::EmitExprAsInit(clang::Expr const*, clang::ValueDecl const*, clang::CodeGen::LValue, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x327f1f7)
+#24 0x000056123dbea47a clang::CodeGen::CodeGenFunction::EmitAutoVarInit(clang::CodeGen::CodeGenFunction::AutoVarEmission const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x328547a)
+#25 0x000056123dbf1ce9 clang::CodeGen::CodeGenFunction::EmitVarDecl(clang::VarDecl const&) (.part.0) CGDecl.cpp:0:0
+#26 0x000056123dbf2729 clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x328d729)
+#27 0x000056123d7fc374 clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2e97374)
+#28 0x000056123d817d35 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2eb2d35)
+#29 0x000056123d80e37d clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2ea937d)
+#30 0x000056123d8177bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2eb27bc)
+#31 0x000056123d817b64 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2eb2b64)
+#32 0x000056123d6b9bc2 (anonymous namespace)::ScalarExprEmitter::VisitStmtExpr(clang::StmtExpr const*) CGExprScalar.cpp:0:0
+#33 0x000056123d6d341d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d6e41d)
+#34 0x000056123d636478 EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&) CGExpr.cpp:0:0
+#35 0x000056123d6379f9 clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue(clang::UnaryOperator const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cd29f9)
+#36 0x000056123d666a9e clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d01a9e)
+#37 0x000056123d6674fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#38 0x0000561243102885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x879d885)
+#39 0x000056123d629faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cc4faa)
+#40 0x000056123d635d83 clang::CodeGen::CodeGenFunction::EmitArrayToPointerDecay(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cd0d83)
+#41 0x000056123d636822 EmitPointerWithAlignment(clang::Expr const*, clang::CodeGen::LValueBaseInfo*, clang::CodeGen::TBAAAccessInfo*, clang::CodeGen::KnownNonNull_t, clang::CodeGen::CodeGenFunction&) CGExpr.cpp:0:0
+#42 0x000056123d6379f9 clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue(clang::UnaryOperator const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cd29f9)
+#43 0x000056123d666a9e clang::CodeGen::CodeGenFunction::EmitLValueHelper(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d01a9e)
+#44 0x000056123d6674fe void llvm::function_ref<void ()>::callback_fn<clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t)::'lambda'()>(long) CGExpr.cpp:0:0
+#45 0x0000561243102885 clang::StackExhaustionHandler::runWithSufficientStackSpace(clang::SourceLocation, llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x879d885)
+#46 0x000056123d629faa clang::CodeGen::CodeGenFunction::EmitLValue(clang::Expr const*, clang::CodeGen::KnownNonNull_t) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cc4faa)
+#47 0x000056123d65fceb clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cfaceb)
+#48 0x000056123d6b845c (anonymous namespace)::ScalarExprEmitter::VisitUnaryExprOrTypeTraitExpr(clang::UnaryExprOrTypeTraitExpr const*) CGExprScalar.cpp:0:0
+#49 0x000056123d6d341d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d6e41d)
+#50 0x000056123d63d6be clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cd86be)
+#51 0x000056123d65fd7a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2cfad7a)
+#52 0x000056123d80e499 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2ea9499)
+#53 0x000056123d8177bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2eb27bc)
+#54 0x000056123d883ef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f1eef1)
+#55 0x000056123d8978a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f328a4)
+#56 0x000056123d901ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f9cce8)
+#57 0x000056123d8fb425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f96425)
+#58 0x000056123d8fbda3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f96da3)
+#59 0x000056123d907485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#60 0x000056123dca0f31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#61 0x000056123dc942d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x332f2d1)
+#62 0x00005612414a075c clang::ParseAST(clang::Sema&, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b3b75c)
+#63 0x000056123e009711 clang::FrontendAction::Execute() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x36a4711)
+#64 0x000056123df918bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x362c8bd)
+#65 0x000056123e0e0f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x377bf53)
+#66 0x000056123bcbb96a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x135696a)
+#67 0x000056123bcb292a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#68 0x000056123bcb2ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#69 0x000056123dd1dabd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#70 0x000056123d266980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901980)
+#71 0x000056123dd1e913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#72 0x000056123dcd8597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3373597)
+#73 0x000056123dcdc244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3377244)
+#74 0x000056123dcebb84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3386b84)
+#75 0x000056123bcb8028 clang_main(int, char**, llvm::ToolContext const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x1353028)
+#76 0x000056123bc6f27a main (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x130a27a)
+#77 0x00007f26a8e2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#78 0x00007f26a8e2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#79 0x000056123bcb1f55 _start (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x134cf55)
+clang-24: error: clang frontend command failed due to signal (use -v to see invocation)
+timeout: the monitored command dumped core
