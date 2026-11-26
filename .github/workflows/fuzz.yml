@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         variant: [base, mix]
-        shard: [0]
+        shard: [0, 1]
     steps:
       - uses: actions/checkout@v4
 
@@ -30,6 +30,9 @@ jobs:
           grep -v '^#' ci/fuzz.env >> "$GITHUB_ENV"
           git fetch -q --depth 1 origin ci-results
           git show FETCH_HEAD:clang/latest.env >> "$GITHUB_ENV"
+
+      - name: Derive the seed check key
+        run: echo "SEED_CHECK_KEY=$(echo "$LLVM_SHA $CC_OPT" | sha1sum | cut -c1-16)" >> "$GITHUB_ENV"
 
       - name: Install tools
         run: |
@@ -79,14 +82,31 @@ jobs:
             echo 'int main(void) { return 0; }' > hello.c
             objects/llvm-project-trunk.obj/bin/clang -O2 -c hello.c -o /dev/null && echo "plain clang ok"
             objects/llvm-project-trunk.instrum/bin/clang -O2 -c hello.c -o /dev/null && echo "instrumented clang ok"
-            echo "## basic block map sample"
-            ls objects/llvm-project-trunk.instrum/basic-block-maps | head -3
-            head -c 1500 "$(ls -d objects/llvm-project-trunk.instrum/basic-block-maps/* | head -1)"
           } > report/setup.txt 2>&1 || true
           cp ci/fuzz.env report/
 
       - name: Fetch seeds
         run: git clone -q --depth 1 --branch assets https://github.com/icsnju/MetaMut seeds-repo
+
+      - uses: actions/cache@v4
+        id: seed-check
+        with:
+          path: seed-crashes.txt
+          key: seed-crashes-${{ env.SEED_CHECK_KEY }}
+
+      - name: Find seeds that crash the compiler on their own
+        if: steps.seed-check.outputs.cache-hit != 'true'
+        run: |
+          python3 ci/check-seeds.py objects/llvm-project-trunk.obj/bin/clang \
+            seeds-repo/seeds seed-crashes.txt "$CC_OPT"
+
+      - name: Drop those seeds
+        run: |
+          cp seed-crashes.txt report/
+          cut -f1 seed-crashes.txt | while read -r name; do
+            rm -f "seeds-repo/seeds/$name"
+          done
+          ls seeds-repo/seeds | wc -l
 
       - name: Fuzz
         run: |
@@ -106,7 +126,10 @@ jobs:
 
       - name: Collect results
         if: always()
-        run: bash ci/collect.sh workspace report
+        run: |
+          bash ci/collect.sh workspace report
+          python3 ci/coverage-by-file.py objects/llvm-project-trunk.instrum/basic-block-maps \
+            workspace report/coverage-by-file.txt || true
 
       - name: Check out repository for publishing
         if: always()
