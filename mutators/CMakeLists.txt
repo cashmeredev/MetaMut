@@ -62,6 +62,9 @@ function(add_muss_library name)
 endfunction()
 
 add_muss_library(Driver FILES main.cpp "lib/*.cpp" "lib/*/*.cpp")
+# the same driver without the mutators that live in lib/
+add_muss_library(DriverCore FILES main.cpp lib/Mutator.cpp
+  lib/MutatorManager.cpp lib/fmtlog.cpp lib/format.cpp lib/utils.cpp)
 add_muss_library(MuSLib FILES "mu.s/*.cpp" "mu.s/*.cpp")
 add_muss_library(MuULib FILES "mu.u/*.cpp" "mu.u/*.cpp")
 add_muss_library(MuU2Lib FILES "mu.u.v2/*.cpp" "mu.u.v2/*.cpp")
@@ -82,4 +85,4 @@ add_muss_executable(mu.u2
   DEPENDS MuU2Lib Driver)
 add_muss_executable(mu.c
   FILES ${CMAKE_BINARY_DIR}/dummy.cpp
-  DEPENDS MuCLib Driver)
+  DEPENDS MuCLib DriverCore)
