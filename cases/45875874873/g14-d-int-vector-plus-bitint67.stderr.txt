@@ -1,0 +1,69 @@
+clang-24: /root/llvm-src/llvm/lib/IR/Instructions.cpp:3237: static llvm::CastInst* llvm::CastInst::Create(llvm::Instruction::CastOps, llvm::Value*, llvm::Type*, const llvm::Twine&, llvm::InsertPosition): Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/runner/work/MetaMut/MetaMut/clang/bin/clang-24 -O2 -c -w -o /dev/null /home/runner/work/MetaMut/MetaMut/ci/cases/g14-d-int-vector-plus-bitint67.c
+1.	<eof> parser at end of file
+2.	/home/runner/work/MetaMut/MetaMut/ci/cases/g14-d-int-vector-plus-bitint67.c:3:6: LLVM IR generation of declaration 'foo'
+3.	/home/runner/work/MetaMut/MetaMut/ci/cases/g14-d-int-vector-plus-bitint67.c:3:6: Generating code for declaration 'foo'
+ #0 0x000055f9543623c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c63c9)
+ #1 0x000055f95435f0bc llvm::sys::RunSignalHandlers() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c30bc)
+ #2 0x000055f95435f978 llvm::sys::CleanupOnSignal(unsigned long) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c3978)
+ #3 0x000055f95429d598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007f8d60045330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007f8d6009ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007f8d6004527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007f8d600288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007f8d6002881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007f8d6003b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000055f953cd5159 (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2339159)
+#11 0x000055f9546edc8b llvm::IRBuilderBase::CreateCast(llvm::Instruction::CastOps, llvm::Value*, llvm::Type*, llvm::Twine const&, llvm::MDNode*, llvm::FMFSource) (.isra.0) CGExprScalar.cpp:0:0
+#12 0x000055f95470b781 (anonymous namespace)::ScalarExprEmitter::VisitCastExpr(clang::CastExpr*) CGExprScalar.cpp:0:0
+#13 0x000055f954706c9b (anonymous namespace)::ScalarExprEmitter::Visit(clang::Expr*) CGExprScalar.cpp:0:0
+#14 0x000055f9547135c1 clang::CodeGen::CodeGenFunction::EmitPromotedScalarExpr(clang::Expr const*, clang::QualType) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d775c1)
+#15 0x000055f954713fdc (anonymous namespace)::ScalarExprEmitter::EmitBinOps(clang::BinaryOperator const*, clang::QualType) CGExprScalar.cpp:0:0
+#16 0x000055f954704829 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::ScalarExprEmitter, llvm::Value*>::Visit(clang::Stmt*) CGExprScalar.cpp:0:0
+#17 0x000055f95470a41d clang::CodeGen::CodeGenFunction::EmitScalarExpr(clang::Expr const*, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2d6e41d)
+#18 0x000055f95483ce88 clang::CodeGen::CodeGenFunction::EmitReturnStmt(clang::ReturnStmt const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2ea0e88)
+#19 0x000055f95484e7bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2eb27bc)
+#20 0x000055f9548baef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f1eef1)
+#21 0x000055f9548ce8a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f328a4)
+#22 0x000055f954938ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f9cce8)
+#23 0x000055f954932425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f96425)
+#24 0x000055f954932da3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2f96da3)
+#25 0x000055f95493e485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#26 0x000055f954cd7f31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#27 0x000055f954ccb2d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x332f2d1)
+#28 0x000055f9584d775c clang::ParseAST(clang::Sema&, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b3b75c)
+#29 0x000055f955040711 clang::FrontendAction::Execute() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x36a4711)
+#30 0x000055f954fc88bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x362c8bd)
+#31 0x000055f955117f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x377bf53)
+#32 0x000055f952cf296a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x135696a)
+#33 0x000055f952ce992a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#34 0x000055f952ce9ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#35 0x000055f954d54abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#36 0x000055f95429d980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901980)
+#37 0x000055f954d55913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#38 0x000055f954d0f597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3373597)
+#39 0x000055f954d13244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3377244)
+#40 0x000055f954d22b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3386b84)
+#41 0x000055f952cef028 clang_main(int, char**, llvm::ToolContext const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x1353028)
+#42 0x000055f952ca627a main (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x130a27a)
+#43 0x00007f8d6002a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#44 0x00007f8d6002a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#45 0x000055f952ce8f55 _start (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x134cf55)
+clang-24: error: clang frontend command failed due to signal (use -v to see invocation)
+clang version 24.0.0git (https://github.com/llvm/llvm-project 99503c9d5b71ba9012b2a97898ca0a5af2a3fced)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/runner/work/MetaMut/MetaMut/clang/bin
+Build config: +assertions
+clang-24: note: diagnostic msg: 
+********************
+
+PLEASE ATTACH THE FOLLOWING CRASH REPRODUCER FILES TO THE BUG REPORT:
+clang-24: note: diagnostic msg: /tmp/g14-d-int-vector-plus-bitint67-d72eee.c
+clang-24: note: diagnostic msg: /tmp/g14-d-int-vector-plus-bitint67-d72eee.sh
+clang-24: note: diagnostic msg: 
+
+********************
+timeout: the monitored command dumped core

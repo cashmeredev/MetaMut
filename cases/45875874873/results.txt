@@ -1,0 +1,18 @@
+g10-a-label-diff-bitint23	crash	-O2 -c	Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+g10-b-label-diff-bitint32	compiles	-O2 -c	
+g10-c-label-diff-bitint64	compiles	-O2 -c	
+g10-d-label-diff-unsigned-bitint128	rejected	-O2 -c	initializer element is not a compile-time constant
+g10-e-label-diff-int	compiles	-O2 -c	
+g10-f-label-diff-bitint-array	crash	-O2 -c	Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+g10-g-label-diff-bitint-struct	crash	-O2 -c	Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+g10-h-global-address-bitint64	compiles	-O2 -c	
+g10-i-global-address-unsigned-bitint64	compiles	-O2 -c	
+g10-j-label-diff-no-opt	crash	-O0 -c	Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+g14-a-char-vector-plus-bitint46	crash	-O2 -g -c	Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+g14-b-char-vector-plus-bitint46-no-debug	crash	-O2 -c	Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+g14-c-issue-130830	crash	-std=c2x -O2 -c	Assertion `CastInst::castIsValid(Instruction::BitCast, C, DestTy) && "Invalid constantexpr bitcast!"' failed.
+g14-d-int-vector-plus-bitint67	crash	-O2 -c	Assertion `castIsValid(op, S, Ty) && "Invalid cast!"' failed.
+g14-e-int-vector-plus-bitint17	compiles	-O2 -c	
+g14-f-int-vector-plus-bitint32	compiles	-O2 -c	
+g14-g-char-vector-plus-long	compiles	-O2 -c	
+g14-h-char-vector-plus-bitint8	compiles	-O2 -c	
