@@ -1,0 +1,61 @@
+g01  inputs=17  custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=base-0,base-1,mix-0,mix-1
+    fatal error: error in backend: Broken module found, compilation aborted!
+      at llvm::sys::Process::Exit
+      at LLVMErrorHandler
+      at llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl
+g02  inputs=5  custom=1  levels=-O0,-O1,-O2,-O3  valid=True  jobs=base-1,mix-0
+    Assertion `Result.isAbsent() && "local created multiple times"' failed.
+      at EvaluateLValue
+      at EvaluateRecord
+      at EvaluateInPlace
+g03  inputs=4  custom=0  levels=-O1,-O2,-O3  valid=True  jobs=base-0,mix-1
+    Assertion `LocalsTop >= FixedEnd && "Local object overlaps the fixed area"' failed.
+      at llvm::X86FrameLowering::emitPrologue
+      at llvm::MachineFunctionPass::runOnFunction
+      at llvm::FPPassManager::runOnFunction
+g04  inputs=3  custom=0  levels=-O1,-O2,-O3  valid=True  jobs=base-1,mix-1
+    Assertion `(i >= FTy->getNumParams() || FTy->getParamType(i) == Args[i]->getType()) && "Calling a function with a bad signature!"' failed.
+      at llvm::CallInst::init
+      at llvm::IRBuilderBase::CreateCall
+      at llvm::IRBuilderBase::createCallHelper
+g05  inputs=3  custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=base-0
+    Assertion `llvm::isUIntN(BitWidth, val) && "Value is not an N-bit unsigned value"' failed.
+      at llvm::APInt::APInt
+      at llvm::ConstantInt::get
+      at EmitX86_64VAArgFromMemory
+g06  inputs=2  custom=1  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-0
+    Assertion `MI->getOpcode() == TargetOpcode::COPY && "start of copy chain MUST be COPY"' failed.
+      at llvm::SelectionDAGBuilder::visitCallBrLandingPad
+      at llvm::SelectionDAGBuilder::visitIntrinsicCall
+      at llvm::SelectionDAGBuilder::visit
+g07  inputs=1  custom=0  levels=-O1,-O2,-O3  valid=True  jobs=mix-0
+    Assertion `&getSemantics() == &RHS.getSemantics() && "Should only call on two APFloats with the same semantics"' failed.
+      at llvm::ConstantFoldBinaryInstruction
+      at llvm::LibCallSimplifier::optimizeFMod
+      at llvm::LibCallSimplifier::optimizeCall
+g08  inputs=1  custom=0  levels=-O0,-O1,-O2,-O3  valid=False  jobs=mix-0
+    Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+      at clang::CodeGen::CodeGenFunction::EmitDeclRefLValue
+      at clang::CodeGen::CodeGenFunction::EmitLValueHelper
+      at void llvm::function_ref<void
+g09  inputs=1  custom=1  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-0
+    Assertion `LC != RTLIB::UNKNOWN_LIBCALL && "Unexpected fp-to-xint conversion!"' failed.
+      at llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT
+      at llvm::DAGTypeLegalizer::ExpandIntegerResult
+      at llvm::DAGTypeLegalizer::run
+g10  inputs=1  custom=0  levels=-O1,-O2,-O3  valid=True  jobs=mix-0
+    Assertion `New->getType() == getType() && "replaceAllUses of value with new value of different type!"' failed.
+      at llvm::Value::doRAUW
+      at llvm::InstCombiner::replaceInstUsesWith
+      at llvm::InstCombinerImpl::tryOptimizeCall
+g11  inputs=1  custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=mix-0
+    Assertion `NumBits <= MAX_INT_BITS && "bitwidth too large"' failed.
+      at llvm::IntegerType::get
+      at clang::CodeGen::CodeGenFunction::EmitAtomicExpr
+      at clang::StmtVisitorBase<std::add_pointer,
+g12  inputs=1  custom=0  levels=-O0,-O1,-O2,-O3  valid=True  jobs=base-0
+    UNREACHABLE executed at /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3944!
+      at clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue
+      at clang::CodeGen::CodeGenFunction::EmitLValueHelper
+      at void llvm::function_ref<void
+not reproduced: 0

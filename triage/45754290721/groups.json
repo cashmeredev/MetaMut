@@ -1,0 +1,419 @@
+{
+ "groups": [
+  {
+   "id": "g01",
+   "kind": "message",
+   "signature": "fatal error: error in backend: Broken module found, compilation aborted!",
+   "frames": [
+    "llvm::sys::Process::Exit",
+    "LLVMErrorHandler",
+    "llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl",
+    "llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run",
+    "clang::emitBackendOutput",
+    "clang::BackendConsumer::HandleTranslationUnit",
+    "clang::ParseAST",
+    "clang::FrontendAction::Execute"
+   ],
+   "inputs": 17,
+   "jobs": [
+    "base-0",
+    "base-1",
+    "mix-0",
+    "mix-1"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "zmtIUPSSEqZD.c",
+   "smallest_size": 145,
+   "files": [
+    "base,clang,1/zmtIUPSSEqZD.c",
+    "base,clang,1/qJpwotQsvnSk.c",
+    "base,clang,3/gTzEiRcOkyWv.c",
+    "base,clang,3/CZumPgENBUjR.c",
+    "base,clang,3/FYdfRDBfDgLA.c",
+    "mix,clang,2/UXQSbupmbYEo.c",
+    "mix,clang,2/GQbJaOTftHCc.c",
+    "base,clang,2/atjcOzoYJOfy.c",
+    "base,clang,2/NuxHBXfwebfX.c",
+    "base,clang,2/MNEtEHBsOkNR.c",
+    "mix,clang,1/oCDBFtprbofb.c",
+    "mix,clang,1/cfbDyJdyrNKQ.c",
+    "mix,clang,1/yADgrmJnPJTk.c",
+    "base,clang,3/LOhVNcJozrsH.c",
+    "base,clang,3/wgfDzoxYrKWC.c",
+    "mix,clang,3/LxEXcFbAFwka.c",
+    "mix,clang,3/onMQKchUuzHY.c"
+   ]
+  },
+  {
+   "id": "g02",
+   "kind": "message",
+   "signature": "Assertion `Result.isAbsent() && \"local created multiple times\"' failed.",
+   "frames": [
+    "EvaluateLValue",
+    "EvaluateRecord",
+    "EvaluateInPlace",
+    "EvaluateArray",
+    "EvaluateInPlace",
+    "EvaluateArray",
+    "EvaluateInPlace",
+    "EvaluateLValue"
+   ],
+   "inputs": 5,
+   "jobs": [
+    "base-1",
+    "mix-0"
+   ],
+   "by_custom_mutation": 1,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "WYzarSdWdfrH.c",
+   "smallest_size": 2381,
+   "files": [
+    "base,clang,3/WYzarSdWdfrH.c",
+    "base,clang,3/HLETijfRUrMA.c",
+    "mix,clang,0/ggJlewVvQHZt.c",
+    "mix,clang,0/XbaEiVPUhwwd.c",
+    "mix,clang,0/MjIGrgWEfvDB.c"
+   ]
+  },
+  {
+   "id": "g03",
+   "kind": "message",
+   "signature": "Assertion `LocalsTop >= FixedEnd && \"Local object overlaps the fixed area\"' failed.",
+   "frames": [
+    "llvm::X86FrameLowering::emitPrologue",
+    "llvm::MachineFunctionPass::runOnFunction",
+    "llvm::FPPassManager::runOnFunction",
+    "llvm::FPPassManager::runOnModule",
+    "llvm::legacy::PassManagerImpl::run",
+    "runCodeGenPipelineLegacy",
+    "llvm::runCodeGenPipeline",
+    "clang::emitBackendOutput"
+   ],
+   "inputs": 4,
+   "jobs": [
+    "base-0",
+    "mix-1"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "JTdcVKASqHWU.c",
+   "smallest_size": 350,
+   "files": [
+    "base,clang,1/JTdcVKASqHWU.c",
+    "base,clang,1/phlhjqdLfUmy.c",
+    "mix,clang,2/DhrvcdImPehU.c",
+    "base,clang,1/UnjvsYAZFyTw.c"
+   ]
+  },
+  {
+   "id": "g04",
+   "kind": "message",
+   "signature": "Assertion `(i >= FTy->getNumParams() || FTy->getParamType(i) == Args[i]->getType()) && \"Calling a function with a bad signature!\"' failed.",
+   "frames": [
+    "llvm::CallInst::init",
+    "llvm::IRBuilderBase::CreateCall",
+    "llvm::IRBuilderBase::createCallHelper",
+    "llvm::IRBuilderBase::CreateBinaryIntrinsic",
+    "replaceBinaryCall",
+    "llvm::LibCallSimplifier::optimizeCall",
+    "llvm::InstCombinerImpl::tryOptimizeCall",
+    "llvm::InstCombinerImpl::visitCallBase"
+   ],
+   "inputs": 3,
+   "jobs": [
+    "base-1",
+    "mix-1"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "PCmVJMkYaOBr.c",
+   "smallest_size": 1334,
+   "files": [
+    "mix,clang,2/PCmVJMkYaOBr.c",
+    "base,clang,3/TYOlpXMEbmFw.c",
+    "mix,clang,2/gdBjVvymKQzI.c"
+   ]
+  },
+  {
+   "id": "g05",
+   "kind": "message",
+   "signature": "Assertion `llvm::isUIntN(BitWidth, val) && \"Value is not an N-bit unsigned value\"' failed.",
+   "frames": [
+    "llvm::APInt::APInt",
+    "llvm::ConstantInt::get",
+    "EmitX86_64VAArgFromMemory",
+    "clang::CodeGen::CodeGenFunction::EmitVAArg",
+    "clang::StmtVisitorBase<std::add_pointer,",
+    "clang::CodeGen::CodeGenFunction::EmitAggExpr",
+    "clang::CodeGen::CodeGenFunction::EmitAggExpr",
+    "clang::CodeGen::CodeGenFunction::EmitAnyExpr"
+   ],
+   "inputs": 3,
+   "jobs": [
+    "base-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "YlRitTBApdOZ.c",
+   "smallest_size": 629,
+   "files": [
+    "base,clang,1/YlRitTBApdOZ.c",
+    "base,clang,1/XTzskubfQoLV.c",
+    "base,clang,1/ZbFBOWLRfday.c"
+   ]
+  },
+  {
+   "id": "g06",
+   "kind": "message",
+   "signature": "Assertion `MI->getOpcode() == TargetOpcode::COPY && \"start of copy chain MUST be COPY\"' failed.",
+   "frames": [
+    "llvm::SelectionDAGBuilder::visitCallBrLandingPad",
+    "llvm::SelectionDAGBuilder::visitIntrinsicCall",
+    "llvm::SelectionDAGBuilder::visit",
+    "llvm::SelectionDAGISel::SelectBasicBlock",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction",
+    "llvm::SelectionDAGISelLegacy::runOnMachineFunction",
+    "llvm::MachineFunctionPass::runOnFunction"
+   ],
+   "inputs": 2,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 1,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "VlhlyGXxIAZC.c",
+   "smallest_size": 1147,
+   "files": [
+    "mix,clang,0/VlhlyGXxIAZC.c",
+    "mix,clang,0/bNzcobjNccwi.c"
+   ]
+  },
+  {
+   "id": "g07",
+   "kind": "message",
+   "signature": "Assertion `&getSemantics() == &RHS.getSemantics() && \"Should only call on two APFloats with the same semantics\"' failed.",
+   "frames": [
+    "llvm::ConstantFoldBinaryInstruction",
+    "llvm::LibCallSimplifier::optimizeFMod",
+    "llvm::LibCallSimplifier::optimizeCall",
+    "llvm::InstCombinerImpl::tryOptimizeCall",
+    "llvm::InstCombinerImpl::visitCallBase",
+    "llvm::InstCombinerImpl::visitCallInst",
+    "llvm::InstCombinerImpl::run",
+    "combineInstructionsOverFunction"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "gOtIIczSUktu.c",
+   "smallest_size": 1451,
+   "files": [
+    "mix,clang,2/gOtIIczSUktu.c"
+   ]
+  },
+  {
+   "id": "g08",
+   "kind": "message",
+   "signature": "Assertion `E->isNonOdrUse() != NOUR_Unevaluated && \"should not emit an unevaluated operand\"' failed.",
+   "frames": [
+    "clang::CodeGen::CodeGenFunction::EmitDeclRefLValue",
+    "clang::CodeGen::CodeGenFunction::EmitLValueHelper",
+    "void llvm::function_ref<void",
+    "clang::StackExhaustionHandler::runWithSufficientStackSpace",
+    "clang::CodeGen::CodeGenFunction::EmitLValue",
+    "clang::StmtVisitorBase<std::add_pointer,",
+    "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+    "clang::CodeGen::CodeGenFunction::EmitScalarInit"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": false,
+   "smallest": "WwPIWadUVDmy.c",
+   "smallest_size": 841,
+   "files": [
+    "mix,clang,0/WwPIWadUVDmy.c"
+   ]
+  },
+  {
+   "id": "g09",
+   "kind": "message",
+   "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Unexpected fp-to-xint conversion!\"' failed.",
+   "frames": [
+    "llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT",
+    "llvm::DAGTypeLegalizer::ExpandIntegerResult",
+    "llvm::DAGTypeLegalizer::run",
+    "llvm::SelectionDAG::LegalizeTypes",
+    "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+    "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+    "llvm::SelectionDAGISel::runOnMachineFunction",
+    "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 1,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "naESWhtdXlfF.c",
+   "smallest_size": 26439,
+   "files": [
+    "mix,clang,2/naESWhtdXlfF.c"
+   ]
+  },
+  {
+   "id": "g10",
+   "kind": "message",
+   "signature": "Assertion `New->getType() == getType() && \"replaceAllUses of value with new value of different type!\"' failed.",
+   "frames": [
+    "llvm::Value::doRAUW",
+    "llvm::InstCombiner::replaceInstUsesWith",
+    "llvm::InstCombinerImpl::tryOptimizeCall",
+    "llvm::InstCombinerImpl::visitCallBase",
+    "llvm::InstCombinerImpl::visitCallInst",
+    "llvm::InstCombinerImpl::run",
+    "combineInstructionsOverFunction",
+    "llvm::InstCombinePass::run"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "QgqgbZpWvIWg.c",
+   "smallest_size": 3680,
+   "files": [
+    "mix,clang,3/QgqgbZpWvIWg.c"
+   ]
+  },
+  {
+   "id": "g11",
+   "kind": "message",
+   "signature": "Assertion `NumBits <= MAX_INT_BITS && \"bitwidth too large\"' failed.",
+   "frames": [
+    "llvm::IntegerType::get",
+    "clang::CodeGen::CodeGenFunction::EmitAtomicExpr",
+    "clang::StmtVisitorBase<std::add_pointer,",
+    "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+    "clang::CodeGen::CodeGenFunction::EmitAnyExpr",
+    "clang::CodeGen::CodeGenFunction::EmitIgnoredExpr",
+    "clang::CodeGen::CodeGenFunction::EmitStmt",
+    "clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "mix-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "hSSceLHsEvQQ.c",
+   "smallest_size": 181,
+   "files": [
+    "mix,clang,2/hSSceLHsEvQQ.c"
+   ]
+  },
+  {
+   "id": "g12",
+   "kind": "message",
+   "signature": "UNREACHABLE executed at /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3944!",
+   "frames": [
+    "clang::CodeGen::CodeGenFunction::EmitUnaryOpLValue",
+    "clang::CodeGen::CodeGenFunction::EmitLValueHelper",
+    "void llvm::function_ref<void",
+    "clang::StackExhaustionHandler::runWithSufficientStackSpace",
+    "clang::CodeGen::CodeGenFunction::EmitLValue",
+    "clang::CodeGen::CodeGenFunction::EmitAsmInput",
+    "clang::AsmConstraintsInfo::HandleInputConstraints",
+    "clang::AsmConstraintsInfo::EmitAsmStmt"
+   ],
+   "inputs": 1,
+   "jobs": [
+    "base-0"
+   ],
+   "by_custom_mutation": 0,
+   "levels": [
+    "-O0",
+    "-O1",
+    "-O2",
+    "-O3"
+   ],
+   "valid": true,
+   "smallest": "gKQVIDnTeRZH.c",
+   "smallest_size": 451,
+   "files": [
+    "base,clang,1/gKQVIDnTeRZH.c"
+   ]
+  }
+ ],
+ "not_reproduced": []
+}
