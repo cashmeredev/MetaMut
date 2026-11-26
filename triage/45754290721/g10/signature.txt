@@ -1,0 +1,1 @@
+Assertion `New->getType() == getType() && "replaceAllUses of value with new value of different type!"' failed.

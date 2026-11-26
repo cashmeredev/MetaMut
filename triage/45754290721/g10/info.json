@@ -1,0 +1,31 @@
+{
+ "id": "g10",
+ "kind": "message",
+ "signature": "Assertion `New->getType() == getType() && \"replaceAllUses of value with new value of different type!\"' failed.",
+ "frames": [
+  "llvm::Value::doRAUW",
+  "llvm::InstCombiner::replaceInstUsesWith",
+  "llvm::InstCombinerImpl::tryOptimizeCall",
+  "llvm::InstCombinerImpl::visitCallBase",
+  "llvm::InstCombinerImpl::visitCallInst",
+  "llvm::InstCombinerImpl::run",
+  "combineInstructionsOverFunction",
+  "llvm::InstCombinePass::run"
+ ],
+ "inputs": 1,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "QgqgbZpWvIWg.c",
+ "smallest_size": 3680,
+ "files": [
+  "mix,clang,3/QgqgbZpWvIWg.c"
+ ]
+}
