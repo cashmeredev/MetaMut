@@ -1,0 +1,34 @@
+{
+ "id": "g04",
+ "kind": "message",
+ "signature": "Assertion `(i >= FTy->getNumParams() || FTy->getParamType(i) == Args[i]->getType()) && \"Calling a function with a bad signature!\"' failed.",
+ "frames": [
+  "llvm::CallInst::init",
+  "llvm::IRBuilderBase::CreateCall",
+  "llvm::IRBuilderBase::createCallHelper",
+  "llvm::IRBuilderBase::CreateBinaryIntrinsic",
+  "replaceBinaryCall",
+  "llvm::LibCallSimplifier::optimizeCall",
+  "llvm::InstCombinerImpl::tryOptimizeCall",
+  "llvm::InstCombinerImpl::visitCallBase"
+ ],
+ "inputs": 3,
+ "jobs": [
+  "base-1",
+  "mix-1"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "PCmVJMkYaOBr.c",
+ "smallest_size": 1334,
+ "files": [
+  "mix,clang,2/PCmVJMkYaOBr.c",
+  "base,clang,3/TYOlpXMEbmFw.c",
+  "mix,clang,2/gdBjVvymKQzI.c"
+ ]
+}
