@@ -1,0 +1,1 @@
+Assertion `LocalsTop >= FixedEnd && "Local object overlaps the fixed area"' failed.

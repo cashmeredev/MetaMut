@@ -1,0 +1,35 @@
+{
+ "id": "g03",
+ "kind": "message",
+ "signature": "Assertion `LocalsTop >= FixedEnd && \"Local object overlaps the fixed area\"' failed.",
+ "frames": [
+  "llvm::X86FrameLowering::emitPrologue",
+  "llvm::MachineFunctionPass::runOnFunction",
+  "llvm::FPPassManager::runOnFunction",
+  "llvm::FPPassManager::runOnModule",
+  "llvm::legacy::PassManagerImpl::run",
+  "runCodeGenPipelineLegacy",
+  "llvm::runCodeGenPipeline",
+  "clang::emitBackendOutput"
+ ],
+ "inputs": 4,
+ "jobs": [
+  "base-0",
+  "mix-1"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "JTdcVKASqHWU.c",
+ "smallest_size": 350,
+ "files": [
+  "base,clang,1/JTdcVKASqHWU.c",
+  "base,clang,1/phlhjqdLfUmy.c",
+  "mix,clang,2/DhrvcdImPehU.c",
+  "base,clang,1/UnjvsYAZFyTw.c"
+ ]
+}
