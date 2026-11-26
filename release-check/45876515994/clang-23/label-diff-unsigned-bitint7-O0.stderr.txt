@@ -1,0 +1,4 @@
+/home/runner/work/MetaMut/MetaMut/ci/release-cases/label-diff-unsigned-bitint7.c:4:39: error: initializer element is not a compile-time constant
+    4 |   static unsigned _BitInt(7) narrow = &&l2 - &&l1;
+      |                                       ^~~~~~~~~~~
+1 error generated.

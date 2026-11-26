@@ -1,0 +1,54 @@
+clang-18	control	-	compiles	
+clang-18	label-diff-bitint23-array	-O0	right	bitint=12,1 int=12,1
+clang-18	label-diff-bitint23-array	-O2	right	bitint=15,1 int=15,1
+clang-18	label-diff-bitint23-struct	-O0	right	bitint=12 int=12 before=7 after=9
+clang-18	label-diff-bitint23-struct	-O2	right	bitint=15 int=15 before=7 after=9
+clang-18	label-diff-bitint23	-O0	right	bitint=12 int=12
+clang-18	label-diff-bitint23	-O2	right	bitint=15 int=15
+clang-18	label-diff-unsigned-bitint7	-O0	right	bitint=12 int=12
+clang-18	label-diff-unsigned-bitint7	-O2	right	bitint=13 int=13
+clang-19	control	-	compiles	
+clang-19	label-diff-bitint23-array	-O0	rejected	
+clang-19	label-diff-bitint23-array	-O2	rejected	
+clang-19	label-diff-bitint23-struct	-O0	rejected	
+clang-19	label-diff-bitint23-struct	-O2	rejected	
+clang-19	label-diff-bitint23	-O0	rejected	
+clang-19	label-diff-bitint23	-O2	rejected	
+clang-19	label-diff-unsigned-bitint7	-O0	rejected	
+clang-19	label-diff-unsigned-bitint7	-O2	rejected	
+clang-20	control	-	compiles	
+clang-20	label-diff-bitint23-array	-O0	rejected	
+clang-20	label-diff-bitint23-array	-O2	rejected	
+clang-20	label-diff-bitint23-struct	-O0	rejected	
+clang-20	label-diff-bitint23-struct	-O2	rejected	
+clang-20	label-diff-bitint23	-O0	rejected	
+clang-20	label-diff-bitint23	-O2	rejected	
+clang-20	label-diff-unsigned-bitint7	-O0	rejected	
+clang-20	label-diff-unsigned-bitint7	-O2	rejected	
+clang-21	control	-	compiles	
+clang-21	label-diff-bitint23-array	-O0	rejected	
+clang-21	label-diff-bitint23-array	-O2	rejected	
+clang-21	label-diff-bitint23-struct	-O0	rejected	
+clang-21	label-diff-bitint23-struct	-O2	rejected	
+clang-21	label-diff-bitint23	-O0	rejected	
+clang-21	label-diff-bitint23	-O2	rejected	
+clang-21	label-diff-unsigned-bitint7	-O0	rejected	
+clang-21	label-diff-unsigned-bitint7	-O2	rejected	
+clang-22	control	-	compiles	
+clang-22	label-diff-bitint23-array	-O0	rejected	
+clang-22	label-diff-bitint23-array	-O2	rejected	
+clang-22	label-diff-bitint23-struct	-O0	rejected	
+clang-22	label-diff-bitint23-struct	-O2	rejected	
+clang-22	label-diff-bitint23	-O0	rejected	
+clang-22	label-diff-bitint23	-O2	rejected	
+clang-22	label-diff-unsigned-bitint7	-O0	rejected	
+clang-22	label-diff-unsigned-bitint7	-O2	rejected	
+clang-23	control	-	compiles	
+clang-23	label-diff-bitint23-array	-O0	rejected	
+clang-23	label-diff-bitint23-array	-O2	rejected	
+clang-23	label-diff-bitint23-struct	-O0	rejected	
+clang-23	label-diff-bitint23-struct	-O2	rejected	
+clang-23	label-diff-bitint23	-O0	rejected	
+clang-23	label-diff-bitint23	-O2	rejected	
+clang-23	label-diff-unsigned-bitint7	-O0	rejected	
+clang-23	label-diff-unsigned-bitint7	-O2	rejected	

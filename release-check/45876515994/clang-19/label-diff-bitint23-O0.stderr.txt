@@ -1,0 +1,4 @@
+/home/runner/work/MetaMut/MetaMut/ci/release-cases/label-diff-bitint23.c:4:31: error: cannot compile this constant l-value expression yet
+    4 |   static _BitInt(23) narrow = &&l2 - &&l1;
+      |                               ^~~~~~~~~~~
+1 error generated.
