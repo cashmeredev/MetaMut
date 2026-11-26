@@ -1,0 +1,114 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        null,
+        "llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)",
+        null
+      ],
+      [
+        null,
+        "llvm::sys::RunSignalHandlers()",
+        null
+      ]
+    ],
+    "mutators": [
+      "base"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "base",
+        "date": 4915.14595913887,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,1/qJpwotQsvnSk.c"
+      },
+      {
+        "mutator": "base",
+        "date": 8332.20929813385,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,1/zmtIUPSSEqZD.c"
+      },
+      {
+        "mutator": "base",
+        "date": 11180.349855422974,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,2/MNEtEHBsOkNR.c"
+      },
+      {
+        "mutator": "base",
+        "date": 803.9021053314209,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/gTzEiRcOkyWv.c"
+      },
+      {
+        "mutator": "base",
+        "date": 3181.3486297130585,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/LOhVNcJozrsH.c"
+      },
+      {
+        "mutator": "base",
+        "date": 15429.529004573822,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/wgfDzoxYrKWC.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "(anonymous namespace)::CallStackFrame::createLocal(clang::APValue::LValueBase, void const*, clang::QualType, (anonymous namespace)::ScopeKind)",
+        null
+      ]
+    ],
+    "mutators": [
+      "base"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "base",
+        "date": 9379.093996047974,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/WYzarSdWdfrH.c"
+      },
+      {
+        "mutator": "base",
+        "date": 16110.876465797424,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/HLETijfRUrMA.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::CallInst::init(llvm::FunctionType*, llvm::Value*, llvm::ArrayRef<llvm::Value*>, llvm::ArrayRef<llvm::OperandBundleDefT<llvm::Value*> >, llvm::Twine const&)",
+        null
+      ]
+    ],
+    "mutators": [
+      "base"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "base",
+        "date": 13624.955854415894,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,3/TYOlpXMEbmFw.c"
+      }
+    ]
+  }
+]
+
+{
+  "base": 3
+}

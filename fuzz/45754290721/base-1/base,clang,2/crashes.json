@@ -1,0 +1,44 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      "??: llvm::sys::PrintStackTrace(llvm::raw_ostream&, int): ??",
+      "??: llvm::sys::RunSignalHandlers(): ??",
+      "??: llvm::sys::CleanupOnSignal(unsigned long): ??",
+      "??: llvm::CrashRecoveryContext::HandleExit(int): ??",
+      "??: llvm::sys::Process::Exit(int, bool): ??",
+      "??: LLVMErrorHandler(void*, char const*, bool): ??",
+      "??: llvm::report_fatal_error(llvm::Twine const&, bool): ??",
+      "??: llvm::report_fatal_error(char const*, bool): ??",
+      "??: llvm::VerifierPass::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&): ??",
+      "??: llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl(llvm::detail::PassConcept<llvm::Module, llvm::AnalysisManager<llvm::Module>>&, llvm::Module&, llvm::AnalysisManager<llvm::Module>&): ??",
+      "??: llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&): ??",
+      "??: (anonymous namespace)::EmitAssemblyHelper::RunOptimizationPipeline(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream> >&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile> >&, clang::BackendConsumer*): ??",
+      "??: (anonymous namespace)::EmitAssemblyHelper::emitAssembly(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream> >, clang::BackendConsumer*): ??",
+      "??: clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream> >, clang::BackendConsumer*): ??",
+      "??: clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&): ??",
+      "??: clang::ParseAST(clang::Sema&, bool, bool): ??",
+      "??: clang::FrontendAction::Execute(): ??",
+      "??: clang::CompilerInstance::ExecuteAction(clang::FrontendAction&): ??",
+      "??: clang::ExecuteCompilerInvocation(clang::CompilerInstance*): ??",
+      "??: cc1_main(llvm::ArrayRef<char const*>, char const*, void*): ??",
+      "??: ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>): ??",
+      "??: int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::{lambda(llvm::SmallVectorImpl<char const*>&)#1}>(long, llvm::SmallVectorImpl<char const*>&): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const::{lambda()#1}>(long): ??",
+      "??: llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>): ??",
+      "??: clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const [clone .part.0]: ??",
+      "??: clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const: ??",
+      "??: clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&, bool) const: ??",
+      "??: clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&): ??",
+      "??: clang_main(int, char**, llvm::ToolContext const&): ??",
+      "??: main: ??"
+    ],
+    "srcfiles": [
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,2/MNEtEHBsOkNR.c",
+        11180.349855422974
+      ]
+    ]
+  }
+]
