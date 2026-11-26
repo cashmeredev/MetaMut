@@ -1,0 +1,32 @@
+{
+ "id": "g09",
+ "kind": "message",
+ "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Unexpected fp-to-xint conversion!\"' failed.",
+ "frames": [
+  "llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT",
+  "llvm::DAGTypeLegalizer::ExpandIntegerResult",
+  "llvm::DAGTypeLegalizer::run",
+  "llvm::SelectionDAG::LegalizeTypes",
+  "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+  "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+  "llvm::SelectionDAGISel::runOnMachineFunction",
+  "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+ ],
+ "inputs": 1,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 1,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "naESWhtdXlfF.c",
+ "smallest_size": 26439,
+ "files": [
+  "mix,clang,2/naESWhtdXlfF.c"
+ ]
+}
