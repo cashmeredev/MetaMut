@@ -1,0 +1,45 @@
+{
+ "id": "g05",
+ "kind": "message",
+ "signature": "Assertion `LC != RTLIB::UNKNOWN_LIBCALL && \"Unexpected fp-to-xint conversion!\"' failed.",
+ "frames": [
+  "llvm::DAGTypeLegalizer::ExpandIntRes_FP_TO_XINT",
+  "llvm::DAGTypeLegalizer::ExpandIntegerResult",
+  "llvm::DAGTypeLegalizer::run",
+  "llvm::SelectionDAG::LegalizeTypes",
+  "llvm::SelectionDAGISel::CodeGenAndEmitDAG",
+  "llvm::SelectionDAGISel::SelectAllBasicBlocks",
+  "llvm::SelectionDAGISel::runOnMachineFunction",
+  "llvm::SelectionDAGISelLegacy::runOnMachineFunction"
+ ],
+ "inputs": 6,
+ "first_hits": 6,
+ "first_hits_by_custom_mutation": 6,
+ "options": [
+  "-O2 -c",
+  "-O2 -fexperimental-new-constant-interpreter -c",
+  "-O3 -march=x86-64-v4 -c",
+  "-Oz -ffast-math -c"
+ ],
+ "jobs": [
+  "custom-0",
+  "custom-1",
+  "mix-1"
+ ],
+ "levels": [
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "AwRLISJPRLif.c",
+ "smallest_size": 232,
+ "files": [
+  "custom,clang,3/AwRLISJPRLif.c",
+  "mix,clang,2/zjyenJbYCvJv.c",
+  "custom,clang,2/WOEkbdjKXuAb.c",
+  "custom,clang,1/ApKBhdFoFFXz.c",
+  "custom,clang,1/FXxPwQTmqLDQ.c",
+  "custom,clang,1/ADeJbJlLayMM.c"
+ ]
+}
