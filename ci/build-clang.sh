@@ -27,6 +27,8 @@ git log -1 --format='%H %cd %s' > /out/llvm-commit.txt
 CMAKE_ARGS="-DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86"
 CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=ON"
 CMAKE_ARGS="$CMAKE_ARGS -DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF -DLLVM_INCLUDE_EXAMPLES=OFF"
+# linking the instrumented clang needs more memory than the runner has
+CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_EXE_LINKER_FLAGS=-Wl,--no-keep-memory"
 
 cd /root/build
 if [ "$MODE" = "plain" ]; then
