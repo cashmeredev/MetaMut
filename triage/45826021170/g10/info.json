@@ -1,0 +1,37 @@
+{
+ "id": "g10",
+ "kind": "message",
+ "signature": "Assertion `isa<To>(Val) && \"cast<Ty>() argument of incompatible type!\"' failed.",
+ "frames": [
+  "clang::CodeGen::ConstantEmitter::emitForMemory",
+  "clang::CodeGen::ConstantEmitter::tryEmitForInitializer",
+  "clang::CodeGen::CodeGenFunction::AddInitializerToStaticVarDecl",
+  "clang::CodeGen::CodeGenFunction::EmitStaticVarDecl",
+  "clang::CodeGen::CodeGenFunction::EmitDecl",
+  "clang::CodeGen::CodeGenFunction::EmitDeclStmt",
+  "clang::CodeGen::CodeGenFunction::EmitSimpleStmt",
+  "clang::CodeGen::CodeGenFunction::EmitStmt"
+ ],
+ "inputs": 2,
+ "first_hits": 2,
+ "first_hits_by_custom_mutation": 2,
+ "options": [
+  "-O2 -c"
+ ],
+ "jobs": [
+  "mix-1"
+ ],
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "kySyDnGbcYgV.c",
+ "smallest_size": 444,
+ "files": [
+  "mix,clang,0/kySyDnGbcYgV.c",
+  "mix,clang,0/uFXVKNzDEUSa.c"
+ ]
+}
