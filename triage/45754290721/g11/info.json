@@ -1,0 +1,32 @@
+{
+ "id": "g11",
+ "kind": "message",
+ "signature": "Assertion `NumBits <= MAX_INT_BITS && \"bitwidth too large\"' failed.",
+ "frames": [
+  "llvm::IntegerType::get",
+  "clang::CodeGen::CodeGenFunction::EmitAtomicExpr",
+  "clang::StmtVisitorBase<std::add_pointer,",
+  "clang::CodeGen::CodeGenFunction::EmitScalarExpr",
+  "clang::CodeGen::CodeGenFunction::EmitAnyExpr",
+  "clang::CodeGen::CodeGenFunction::EmitIgnoredExpr",
+  "clang::CodeGen::CodeGenFunction::EmitStmt",
+  "clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope"
+ ],
+ "inputs": 1,
+ "jobs": [
+  "mix-0"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "hSSceLHsEvQQ.c",
+ "smallest_size": 181,
+ "files": [
+  "mix,clang,2/hSSceLHsEvQQ.c"
+ ]
+}

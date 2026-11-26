@@ -1,0 +1,36 @@
+Pass::remove-unused-outer-class                             0.22     0.39        0        2               8
+  ClangPass::instantiate-template-type-param-to-int                0.22     0.38        0        2               8
+  ClangPass::replace-dependent-typedef                             0.22     0.38        0        2               8
+  BalancedPass::square-only                                        0.22     0.38        0        0               2
+  ClangPass::copy-propagation                                      0.22     0.38        0        2               8
+  ClangBinarySearchPass::remove-unused-function (30 T)             0.22     0.38        0        0               1
+  IncludesPass                                                     0.11     0.20        0        1               4
+  ClangPass::combine-local-var                                     0.11     0.20        0        1               4
+  ClangPass::move-global-var                                       0.11     0.19        0        1               4
+  ClangPass::unify-function-decl                                   0.11     0.19        0        1               4
+  IntsPass::c                                                      0.00     0.00        0        0               0
+  TernaryPass::b                                                   0.00     0.00        0        0               0
+  BalancedPass::curly3                                             0.00     0.00        0        0               0
+  TernaryPass::c                                                   0.00     0.00        0        0               0
+  SpecialPass::c                                                   0.00     0.00        0        0               0
+  SpecialPass::b                                                   0.00     0.00        0        0               0
+  IntsPass::b                                                      0.00     0.00        0        0               0
+  IntsPass::d                                                      0.00     0.00        0        0               0
+  SpecialPass::a                                                   0.00     0.00        0        0               0
+  BalancedPass::angles                                             0.00     0.00        0        0               0
+  BalancedPass::angles-only                                        0.00     0.00        0        0               0
+  BalancedPass::angles-inside                                      0.00     0.00        0        0               0
+  IfPass                                                           0.00     0.00        0        0               0
+  LineMarkersPass                                                  0.00     0.00        0        0               0
+
+Runtime: 56 seconds
+Reduced test-cases:
+
+--- /home/runner/work/MetaMut/MetaMut/triage/g11/reduced.c ---
+struct {
+  char x[804289383]
+} foo_x, foo_y, foo_z;
+void foo() { __atomic_exchange(&foo_x, &foo_y, &foo_z, __ATOMIC_SEQ_CST); }
+
+cvise exit=0
+reduced: 181 -> 128 bytes, 4 lines
