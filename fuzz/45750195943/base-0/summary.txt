@@ -1,0 +1,58 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef)",
+        null
+      ]
+    ],
+    "mutators": [
+      "base"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "base",
+        "date": 403.889169216156,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,0/FePFEHAlZmnY.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "(anonymous namespace)::CGRecordLowering::lower(bool)",
+        null
+      ]
+    ],
+    "mutators": [
+      "base"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "base",
+        "date": 658.1147470474243,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,1/xpACXkRrCSRH.c"
+      }
+    ]
+  }
+]
+
+{
+  "base": 2
+}

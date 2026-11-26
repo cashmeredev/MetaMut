@@ -1,0 +1,54 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      "./stdlib/./stdlib/abort.c: __GI_abort: 49",
+      "./assert/./assert/assert.c: __assert_fail_base: 96",
+      "./assert/./assert/assert.c: __assert_fail: 105",
+      "??: (anonymous namespace)::CGRecordLowering::lower(bool): ??",
+      "??: clang::CodeGen::CodeGenTypes::ComputeRecordLayout(clang::RecordDecl const*, llvm::StructType*): ??",
+      "??: clang::CodeGen::CodeGenTypes::ConvertRecordDeclType(clang::RecordDecl const*): ??",
+      "??: (anonymous namespace)::ConstStructBuilder::Finalize(clang::QualType): ??",
+      "??: (anonymous namespace)::ConstStructBuilder::BuildStruct(clang::CodeGen::ConstantEmitter&, clang::InitListExpr const*, clang::QualType): ??",
+      "??: clang::CodeGen::ConstantEmitter::tryEmitPrivateForVarInit(clang::VarDecl const&): ??",
+      "??: clang::CodeGen::ConstantEmitter::tryEmitAbstractForInitializer(clang::VarDecl const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitAutoVarAlloca(clang::VarDecl const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitVarDecl(clang::VarDecl const&) [clone .part.0]: ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDecl(clang::Decl const&, bool): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitDeclStmt(clang::DeclStmt const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*): ??",
+      "??: clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl): ??",
+      "??: clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) [clone .part.0]: ??",
+      "??: (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef): ??",
+      "??: clang::ParseAST(clang::Sema&, bool, bool): ??",
+      "??: clang::FrontendAction::Execute(): ??",
+      "??: clang::CompilerInstance::ExecuteAction(clang::FrontendAction&): ??",
+      "??: clang::ExecuteCompilerInvocation(clang::CompilerInstance*): ??",
+      "??: cc1_main(llvm::ArrayRef<char const*>, char const*, void*): ??",
+      "??: ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>): ??",
+      "??: int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::{lambda(llvm::SmallVectorImpl<char const*>&)#1}>(long, llvm::SmallVectorImpl<char const*>&): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const::{lambda()#1}>(long): ??",
+      "??: llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>): ??",
+      "??: clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const [clone .part.0]: ??",
+      "??: clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const: ??",
+      "??: clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&, bool) const: ??",
+      "??: clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&): ??",
+      "??: clang_main(int, char**, llvm::ToolContext const&): ??",
+      "??: main: ??"
+    ],
+    "srcfiles": [
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,1/xpACXkRrCSRH.c",
+        658.1147470474243
+      ]
+    ]
+  }
+]

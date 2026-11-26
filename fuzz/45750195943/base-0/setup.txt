@@ -1,0 +1,23 @@
+CLANG_RUN_ID=45734671771
+LLVM_SHA=99503c9d5b71ba9012b2a97898ca0a5af2a3fced
+INSTRUM_CLANG_NBRS=3884944
+clang version 24.0.0git (https://github.com/llvm/llvm-project 99503c9d5b71ba9012b2a97898ca0a5af2a3fced)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin
+Build config: +assertions
+plain clang ok
+instrumented clang ok
+## basic block map sample
+bb.00E5Cb
+bb.00SpZB
+bb.00mb8V
+ls: write error: Broken pipe
+ls: write error: Broken pipe
+558733: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_size(unsigned long)", 94]]
+558734: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_size(unsigned long)", 95], ["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_size(unsigned long)", 96]]
+558735: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned long>::set_size(unsigned long)", 94]]
+558736: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned long>::set_size(unsigned long)", 95], ["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned long>::set_size(unsigned long)", 96]]
+558737: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_allocation_range(void*, unsigned long)", 103]]
+558738: [["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_allocation_range(void*, unsigned long)", 104], ["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_allocation_range(void*, unsigned long)", 105], ["/root/llvm-src/llvm/include/llvm/ADT/SmallVector.h", "llvm::SmallVectorBase<unsigned int>::set_allocation_range(void*, unsigned long)", 106]]
+558739: [["/root/llvm-src/llvm/include/llvm/ADT/bit.h", "bool llvm::has_single_bit<unsigned long, void>(unsigned long)", 15

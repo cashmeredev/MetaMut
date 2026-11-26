@@ -1,0 +1,40 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      "./stdlib/./stdlib/abort.c: __GI_abort: 49",
+      "./assert/./assert/assert.c: __assert_fail_base: 96",
+      "./assert/./assert/assert.c: __assert_fail: 105",
+      "??: clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): ??",
+      "??: clang::CodeGen::CodeGenFunction::FormX86ResolverCondition(clang::CodeGen::CodeGenFunction::FMVResolverOption const&): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitX86MultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>): ??",
+      "??: clang::CodeGen::CodeGenFunction::EmitMultiVersionResolver(llvm::Function*, llvm::ArrayRef<clang::CodeGen::CodeGenFunction::FMVResolverOption>): ??",
+      "??: clang::CodeGen::CodeGenModule::emitMultiVersionFunctions(): ??",
+      "??: clang::CodeGen::CodeGenModule::Release(): ??",
+      "??: (anonymous namespace)::CodeGeneratorImpl::HandleTranslationUnit(clang::ASTContext&): ??",
+      "??: clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&): ??",
+      "??: clang::ParseAST(clang::Sema&, bool, bool): ??",
+      "??: clang::FrontendAction::Execute(): ??",
+      "??: clang::CompilerInstance::ExecuteAction(clang::FrontendAction&): ??",
+      "??: clang::ExecuteCompilerInvocation(clang::CompilerInstance*): ??",
+      "??: cc1_main(llvm::ArrayRef<char const*>, char const*, void*): ??",
+      "??: ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>): ??",
+      "??: int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::{lambda(llvm::SmallVectorImpl<char const*>&)#1}>(long, llvm::SmallVectorImpl<char const*>&): ??",
+      "??: void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const::{lambda()#1}>(long): ??",
+      "??: llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>): ??",
+      "??: clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, bool*) const [clone .part.0]: ??",
+      "??: clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const: ??",
+      "??: clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&, bool) const: ??",
+      "??: clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*> >&): ??",
+      "??: clang_main(int, char**, llvm::ToolContext const&): ??",
+      "??: main: ??"
+    ],
+    "srcfiles": [
+      [
+        "/home/runner/work/MetaMut/MetaMut/workspace/base,clang,0/FePFEHAlZmnY.c",
+        403.889169216156
+      ]
+    ]
+  }
+]
