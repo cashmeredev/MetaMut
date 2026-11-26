@@ -1,0 +1,71 @@
+clang: /root/llvm-src/llvm/include/llvm/ADT/APInt.h:127: llvm::APInt::APInt(unsigned int, uint64_t, bool, bool): Assertion `llvm::isUIntN(BitWidth, val) && "Value is not an N-bit unsigned value"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: clang/bin/clang results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c:41:1: current parser token 'int'
+2.	results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c:10:1: LLVM IR generation of declaration 'check'
+3.	results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c:10:1: Generating code for declaration 'check'
+4.	results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c:18:5: LLVM IR generation of compound statement ('{}')
+5.	results/fuzz/45754290721/base-0/base,clang,1/crash-inputs/YlRitTBApdOZ.c:23:2: LLVM IR generation of compound statement ('{}')
+ #0 0x000055e4f99103c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (clang/bin/clang+0x29c63c9)
+ #1 0x000055e4f990d0bc llvm::sys::RunSignalHandlers() (clang/bin/clang+0x29c30bc)
+ #2 0x000055e4f990d978 llvm::sys::CleanupOnSignal(unsigned long) (clang/bin/clang+0x29c3978)
+ #3 0x000055e4f984b598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007f5286045330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007f528609ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007f528604527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007f52860288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007f528602881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007f528603b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x000055e4f82ce8fe llvm::APInt::APInt(unsigned int, unsigned long, bool, bool) (clang/bin/clang+0x13848fe)
+#11 0x000055e4f91916f0 llvm::ConstantInt::get(llvm::IntegerType*, unsigned long, bool, bool) (clang/bin/clang+0x22476f0)
+#12 0x000055e4fa0d1b32 EmitX86_64VAArgFromMemory(clang::CodeGen::CodeGenFunction&, clang::CodeGen::Address, clang::QualType) X86.cpp:0:0
+#13 0x000055e4fa0dd932 (anonymous namespace)::X86_64ABIInfo::EmitVAArg(clang::CodeGen::CodeGenFunction&, clang::CodeGen::Address, clang::QualType, clang::CodeGen::AggValueSlot) const X86.cpp:0:0
+#14 0x000055e4fa16d88b clang::CodeGen::CodeGenFunction::EmitVAArg(clang::VAArgExpr*, clang::CodeGen::Address&, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x322388b)
+#15 0x000055e4f9c5a650 clang::StmtVisitorBase<std::add_pointer, (anonymous namespace)::AggExprEmitter, void>::Visit(clang::Stmt*) CGExprAgg.cpp:0:0
+#16 0x000055e4f9c5b28b (anonymous namespace)::AggExprEmitter::Visit(clang::Expr*) CGExprAgg.cpp:0:0
+#17 0x000055e4f9c5b6ae clang::CodeGen::CodeGenFunction::EmitAggExpr(clang::Expr const*, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2d116ae)
+#18 0x000055e4f9c5dc6f (anonymous namespace)::AggExprEmitter::VisitBinAssign(clang::BinaryOperator const*) CGExprAgg.cpp:0:0
+#19 0x000055e4f9c5b28b (anonymous namespace)::AggExprEmitter::Visit(clang::Expr*) CGExprAgg.cpp:0:0
+#20 0x000055e4f9c5b6ae clang::CodeGen::CodeGenFunction::EmitAggExpr(clang::Expr const*, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2d116ae)
+#21 0x000055e4f9c2288c clang::CodeGen::CodeGenFunction::EmitAnyExpr(clang::Expr const*, clang::CodeGen::AggValueSlot, bool) (clang/bin/clang+0x2cd888c)
+#22 0x000055e4f9c44d7a clang::CodeGen::CodeGenFunction::EmitIgnoredExpr(clang::Expr const*) (clang/bin/clang+0x2cfad7a)
+#23 0x000055e4f9df3499 clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2ea9499)
+#24 0x000055e4f9dfc7bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#25 0x000055e4f9dfcb64 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb2b64)
+#26 0x000055e4f9dfcda3 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2eb2da3)
+#27 0x000055e4f9df337d clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2ea937d)
+#28 0x000055e4f9df46f0 clang::CodeGen::CodeGenFunction::EmitSwitchStmt(clang::SwitchStmt const&) (clang/bin/clang+0x2eaa6f0)
+#29 0x000055e4f9dfc7bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#30 0x000055e4f9dfcb64 clang::CodeGen::CodeGenFunction::EmitCompoundStmt(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb2b64)
+#31 0x000055e4f9dfcda3 clang::CodeGen::CodeGenFunction::EmitSimpleStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2eb2da3)
+#32 0x000055e4f9df337d clang::CodeGen::CodeGenFunction::EmitStmt(clang::Stmt const*, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2ea937d)
+#33 0x000055e4f9df91f9 clang::CodeGen::CodeGenFunction::EmitForStmt(clang::ForStmt const&, llvm::ArrayRef<clang::Attr const*>) (clang/bin/clang+0x2eaf1f9)
+#34 0x000055e4f9dfc7bc clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope(clang::CompoundStmt const&, bool, clang::CodeGen::AggValueSlot) (clang/bin/clang+0x2eb27bc)
+#35 0x000055e4f9e68ef1 clang::CodeGen::CodeGenFunction::EmitFunctionBody(clang::Stmt const*) (clang/bin/clang+0x2f1eef1)
+#36 0x000055e4f9e7c8a4 clang::CodeGen::CodeGenFunction::GenerateCode(clang::GlobalDecl, llvm::Function*, clang::CodeGen::CGFunctionInfo const&) (clang/bin/clang+0x2f328a4)
+#37 0x000055e4f9ee6ce8 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f9cce8)
+#38 0x000055e4f9ee0425 clang::CodeGen::CodeGenModule::EmitGlobalDefinition(clang::GlobalDecl, llvm::GlobalValue*) (clang/bin/clang+0x2f96425)
+#39 0x000055e4f9ee0da3 clang::CodeGen::CodeGenModule::EmitGlobal(clang::GlobalDecl) (clang/bin/clang+0x2f96da3)
+#40 0x000055e4f9eec485 clang::CodeGen::CodeGenModule::EmitTopLevelDecl(clang::Decl*) (.part.0) CodeGenModule.cpp:0:0
+#41 0x000055e4fa285f31 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl(clang::DeclGroupRef) ModuleBuilder.cpp:0:0
+#42 0x000055e4fa2792d1 clang::BackendConsumer::HandleTopLevelDecl(clang::DeclGroupRef) (clang/bin/clang+0x332f2d1)
+#43 0x000055e4fda8575c clang::ParseAST(clang::Sema&, bool, bool) (clang/bin/clang+0x6b3b75c)
+#44 0x000055e4fa5ee711 clang::FrontendAction::Execute() (clang/bin/clang+0x36a4711)
+#45 0x000055e4fa5768bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (clang/bin/clang+0x362c8bd)
+#46 0x000055e4fa6c5f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (clang/bin/clang+0x377bf53)
+#47 0x000055e4f82a096a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (clang/bin/clang+0x135696a)
+#48 0x000055e4f829792a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#49 0x000055e4f8297ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#50 0x000055e4fa302abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#51 0x000055e4f984b980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (clang/bin/clang+0x2901980)
+#52 0x000055e4fa303913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#53 0x000055e4fa2bd597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (clang/bin/clang+0x3373597)
+#54 0x000055e4fa2c1244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (clang/bin/clang+0x3377244)
+#55 0x000055e4fa2d0b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (clang/bin/clang+0x3386b84)
+#56 0x000055e4f829d028 clang_main(int, char**, llvm::ToolContext const&) (clang/bin/clang+0x1353028)
+#57 0x000055e4f825427a main (clang/bin/clang+0x130a27a)
+#58 0x00007f528602a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#59 0x00007f528602a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#60 0x000055e4f8296f55 _start (clang/bin/clang+0x134cf55)
+clang: error: clang frontend command failed due to signal (use -v to see invocation)

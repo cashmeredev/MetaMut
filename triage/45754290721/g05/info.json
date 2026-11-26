@@ -1,0 +1,34 @@
+{
+ "id": "g05",
+ "kind": "message",
+ "signature": "Assertion `llvm::isUIntN(BitWidth, val) && \"Value is not an N-bit unsigned value\"' failed.",
+ "frames": [
+  "llvm::APInt::APInt",
+  "llvm::ConstantInt::get",
+  "EmitX86_64VAArgFromMemory",
+  "clang::CodeGen::CodeGenFunction::EmitVAArg",
+  "clang::StmtVisitorBase<std::add_pointer,",
+  "clang::CodeGen::CodeGenFunction::EmitAggExpr",
+  "clang::CodeGen::CodeGenFunction::EmitAggExpr",
+  "clang::CodeGen::CodeGenFunction::EmitAnyExpr"
+ ],
+ "inputs": 3,
+ "jobs": [
+  "base-0"
+ ],
+ "by_custom_mutation": 0,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "YlRitTBApdOZ.c",
+ "smallest_size": 629,
+ "files": [
+  "base,clang,1/YlRitTBApdOZ.c",
+  "base,clang,1/XTzskubfQoLV.c",
+  "base,clang,1/ZbFBOWLRfday.c"
+ ]
+}
