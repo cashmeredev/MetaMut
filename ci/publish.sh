@@ -11,7 +11,7 @@ MESSAGE=$4
 cd "$CHECKOUT"
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-for attempt in 1 2 3 4 5 6; do
+for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
   if git fetch -q --depth 1 origin ci-results; then
     git checkout -q -B ci-results FETCH_HEAD
   else
@@ -25,6 +25,7 @@ for attempt in 1 2 3 4 5 6; do
   if git push -q origin ci-results; then
     exit 0
   fi
-  sleep $((attempt * 7))
+  # several jobs publish at the same time, spread the retries
+  sleep $((RANDOM % 15 + 3))
 done
 exit 1
