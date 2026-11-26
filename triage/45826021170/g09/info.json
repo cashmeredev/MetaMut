@@ -1,0 +1,40 @@
+{
+ "id": "g09",
+ "kind": "message",
+ "signature": "fatal error: error in backend: Broken module found, compilation aborted!",
+ "frames": [
+  "llvm::sys::Process::Exit",
+  "LLVMErrorHandler",
+  "llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl",
+  "llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run",
+  "clang::emitBackendOutput",
+  "clang::BackendConsumer::HandleTranslationUnit",
+  "clang::ParseAST",
+  "clang::FrontendAction::Execute"
+ ],
+ "inputs": 3,
+ "first_hits": 3,
+ "first_hits_by_custom_mutation": 0,
+ "options": [
+  "-O2 -fexperimental-new-constant-interpreter -c",
+  "-O2 -g -c",
+  "-Oz -ffast-math -c"
+ ],
+ "jobs": [
+  "mix-0"
+ ],
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "vVFKLVQDGFlI.c",
+ "smallest_size": 187,
+ "files": [
+  "mix,clang,3/vVFKLVQDGFlI.c",
+  "mix,clang,1/etDArLlDcRiv.c",
+  "mix,clang,1/eGgsdSeDIwue.c"
+ ]
+}

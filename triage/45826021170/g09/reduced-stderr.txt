@@ -1,0 +1,43 @@
+huge 'byval' arguments are unsupported
+ptr @fun
+fatal error: error in backend: Broken module found, compilation aborted!
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/runner/work/MetaMut/MetaMut/clang/bin/clang-24 reduced.c -o /dev/null -w -fno-crash-diagnostics -Oz -ffast-math -c
+1.	<eof> parser at end of file
+2.	Optimizer
+3.	Running pass "verify" on module "reduced.c"
+ #0 0x000055577e1c63c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c63c9)
+ #1 0x000055577e1c30bc llvm::sys::RunSignalHandlers() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c30bc)
+ #2 0x000055577e1c3978 llvm::sys::CleanupOnSignal(unsigned long) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c3978)
+ #3 0x000055577e101a4a llvm::CrashRecoveryContext::HandleExit(int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901a4a)
+ #4 0x000055577e1bdc02 llvm::sys::Process::Exit(int, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29bdc02)
+ #5 0x000055577cb55091 LLVMErrorHandler(void*, char const*, bool) cc1_main.cpp:0:0
+ #6 0x000055577e10cf00 llvm::report_fatal_error(llvm::Twine const&, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x290cf00)
+ #7 0x000055577e10d085 (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x290d085)
+ #8 0x000055577dc0add5 (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x240add5)
+ #9 0x000055577e432df6 llvm::detail::PassModel<llvm::Module, llvm::VerifierPass, llvm::AnalysisManager<llvm::Module>>::runImpl(llvm::detail::PassConcept<llvm::Module, llvm::AnalysisManager<llvm::Module>>&, llvm::Module&, llvm::AnalysisManager<llvm::Module>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2c32df6)
+#10 0x000055577dbd9573 llvm::PassManager<llvm::Module, llvm::AnalysisManager<llvm::Module>>::run(llvm::Module&, llvm::AnalysisManager<llvm::Module>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x23d9573)
+#11 0x000055577e449852 (anonymous namespace)::EmitAssemblyHelper::RunOptimizationPipeline(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>&, std::unique_ptr<llvm::ToolOutputFile, std::default_delete<llvm::ToolOutputFile>>&, clang::BackendConsumer*) BackendUtil.cpp:0:0
+#12 0x000055577e44cb19 (anonymous namespace)::EmitAssemblyHelper::emitAssembly(clang::BackendAction, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) BackendUtil.cpp:0:0
+#13 0x000055577e44d3dd clang::emitBackendOutput(clang::CompilerInstance&, clang::CodeGenOptions&, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2c4d3dd)
+#14 0x000055577eb37d35 clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3337d35)
+#15 0x000055578233b98c clang::ParseAST(clang::Sema&, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b3b98c)
+#16 0x000055577eea4711 clang::FrontendAction::Execute() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x36a4711)
+#17 0x000055577ee2c8bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x362c8bd)
+#18 0x000055577ef7bf53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x377bf53)
+#19 0x000055577cb5696a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x135696a)
+#20 0x000055577cb4d92a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#21 0x000055577cb4dac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#22 0x000055577ebb8abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#23 0x000055577e101980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901980)
+#24 0x000055577ebb9913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#25 0x000055577eb73597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3373597)
+#26 0x000055577eb77244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3377244)
+#27 0x000055577eb86b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3386b84)
+#28 0x000055577cb53028 clang_main(int, char**, llvm::ToolContext const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x1353028)
+#29 0x000055577cb0a27a main (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x130a27a)
+#30 0x00007fd412a2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#31 0x00007fd412a2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#32 0x000055577cb4cf55 _start (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x134cf55)
+clang-24: error: clang frontend command failed with exit code 70 (use -v to see invocation)
