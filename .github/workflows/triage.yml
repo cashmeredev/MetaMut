@@ -1,0 +1,141 @@
+name: triage
+
+# Re-run the crashing programs of one fuzz run, group them by how the compiler
+# fails and shrink one program per group.
+on:
+  push:
+    branches: [clang-fuzz]
+    paths: [ci/triage.env]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+  LLVM_SYMBOLIZER_PATH: /usr/lib/llvm-18/bin/llvm-symbolizer
+
+jobs:
+  classify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      groups: ${{ steps.classify.outputs.groups }}
+      clang_run_id: ${{ steps.params.outputs.clang_run_id }}
+      cc_opt: ${{ steps.params.outputs.cc_opt }}
+      fuzz_run_id: ${{ steps.params.outputs.fuzz_run_id }}
+      reduce_minutes: ${{ steps.params.outputs.reduce_minutes }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load parameters and results
+        id: params
+        run: |
+          fuzz_run_id=$(grep '^FUZZ_RUN_ID=' ci/triage.env | cut -d= -f2)
+          reduce_minutes=$(grep '^REDUCE_MINUTES=' ci/triage.env | cut -d= -f2)
+          git fetch -q --depth 1 origin ci-results
+          mkdir -p results
+          git archive FETCH_HEAD "fuzz/$fuzz_run_id" | tar -x -C results
+          setup=$(ls results/fuzz/$fuzz_run_id/*/setup.txt | head -n1)
+          params=$(ls results/fuzz/$fuzz_run_id/*/fuzz.env | head -n1)
+          {
+            echo "fuzz_run_id=$fuzz_run_id"
+            echo "reduce_minutes=$reduce_minutes"
+            echo "clang_run_id=$(grep '^CLANG_RUN_ID=' "$setup" | cut -d= -f2)"
+            echo "cc_opt=$(grep '^CC_OPT=' "$params" | cut -d= -f2-)"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq llvm-18 zstd
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: clang-plain
+          run-id: ${{ steps.params.outputs.clang_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts
+
+      - name: Classify crashes
+        id: classify
+        run: |
+          mkdir -p clang
+          tar -I zstd -xf artifacts/clang-plain.tar.zst -C clang
+          python3 ci/triage-classify.py clang/bin/clang \
+            "results/fuzz/${{ steps.params.outputs.fuzz_run_id }}" triage \
+            "${{ steps.params.outputs.cc_opt }}"
+          echo "groups=$(cat triage/matrix.json)" >> "$GITHUB_OUTPUT"
+          cat triage/groups.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: triage-groups
+          path: triage
+          retention-days: 14
+
+      - name: Check out repository for publishing
+        uses: actions/checkout@v4
+        with:
+          path: publish
+          fetch-depth: 1
+
+      - name: Publish the groups
+        run: |
+          mkdir -p overview
+          cp triage/groups.txt triage/groups.json overview/
+          bash ci/publish.sh publish overview \
+            "triage/${{ steps.params.outputs.fuzz_run_id }}" \
+            "triage: crash groups of fuzz run ${{ steps.params.outputs.fuzz_run_id }}"
+
+  reduce:
+    needs: classify
+    if: needs.classify.outputs.groups != '[]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJSON(needs.classify.outputs.groups) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq llvm-18 zstd cvise
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: clang-plain
+          run-id: ${{ needs.classify.outputs.clang_run_id }}
+          github-token: ${{ github.token }}
+          path: artifacts
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: triage-groups
+          path: triage
+
+      - name: Reduce
+        run: |
+          mkdir -p clang
+          tar -I zstd -xf artifacts/clang-plain.tar.zst -C clang
+          bash ci/triage-reduce.sh clang/bin/clang "triage/${{ matrix.group }}" \
+            "${{ needs.classify.outputs.cc_opt }}" "${{ needs.classify.outputs.reduce_minutes }}"
+          rm -f "triage/${{ matrix.group }}/interesting.sh"
+          cat "triage/${{ matrix.group }}/reduce-log.txt"
+
+      - name: Check out repository for publishing
+        if: always()
+        uses: actions/checkout@v4
+        with:
+          path: publish
+          fetch-depth: 1
+
+      - name: Publish the reduced program
+        if: always()
+        run: |
+          bash ci/publish.sh publish "triage/${{ matrix.group }}" \
+            "triage/${{ needs.classify.outputs.fuzz_run_id }}/${{ matrix.group }}" \
+            "triage: ${{ matrix.group }} of fuzz run ${{ needs.classify.outputs.fuzz_run_id }}"
