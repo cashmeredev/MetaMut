@@ -1,0 +1,37 @@
+{
+ "id": "g02",
+ "kind": "message",
+ "signature": "Assertion `Result.isAbsent() && \"local created multiple times\"' failed.",
+ "frames": [
+  "EvaluateLValue",
+  "EvaluateRecord",
+  "EvaluateInPlace",
+  "EvaluateArray",
+  "EvaluateInPlace",
+  "EvaluateArray",
+  "EvaluateInPlace",
+  "EvaluateLValue"
+ ],
+ "inputs": 5,
+ "jobs": [
+  "base-1",
+  "mix-0"
+ ],
+ "by_custom_mutation": 1,
+ "levels": [
+  "-O0",
+  "-O1",
+  "-O2",
+  "-O3"
+ ],
+ "valid": true,
+ "smallest": "WYzarSdWdfrH.c",
+ "smallest_size": 2381,
+ "files": [
+  "base,clang,3/WYzarSdWdfrH.c",
+  "base,clang,3/HLETijfRUrMA.c",
+  "mix,clang,0/ggJlewVvQHZt.c",
+  "mix,clang,0/XbaEiVPUhwwd.c",
+  "mix,clang,0/MjIGrgWEfvDB.c"
+ ]
+}

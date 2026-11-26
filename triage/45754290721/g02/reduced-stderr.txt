@@ -1,0 +1,72 @@
+clang-24: /root/llvm-src/clang/lib/AST/ExprConstant.cpp:1810: clang::APValue& {anonymous}::CallStackFrame::createLocal(clang::APValue::LValueBase, const void*, clang::QualType, {anonymous}::ScopeKind): Assertion `Result.isAbsent() && "local created multiple times"' failed.
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace and dumped files.
+Stack dump:
+0.	Program arguments: /home/runner/work/MetaMut/MetaMut/clang/bin/clang-24 reduced.c -o /dev/null -w -fno-crash-diagnostics -O2 -c
+1.	<eof> parser at end of file
+2.	reduced.c:4:13: parsing function body 'main'
+3.	reduced.c:4:13: in compound statement ('{}')
+ #0 0x00005594c14d23c9 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c63c9)
+ #1 0x00005594c14cf0bc llvm::sys::RunSignalHandlers() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c30bc)
+ #2 0x00005594c14cf978 llvm::sys::CleanupOnSignal(unsigned long) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x29c3978)
+ #3 0x00005594c140d598 CrashRecoverySignalHandler(int) CrashRecoveryContext.cpp:0:0
+ #4 0x00007fe2ebc45330 (/lib/x86_64-linux-gnu/libc.so.6+0x45330)
+ #5 0x00007fe2ebc9ebec pthread_kill (/lib/x86_64-linux-gnu/libc.so.6+0x9ebec)
+ #6 0x00007fe2ebc4527e raise (/lib/x86_64-linux-gnu/libc.so.6+0x4527e)
+ #7 0x00007fe2ebc288ff abort (/lib/x86_64-linux-gnu/libc.so.6+0x288ff)
+ #8 0x00007fe2ebc2881b (/lib/x86_64-linux-gnu/libc.so.6+0x2881b)
+ #9 0x00007fe2ebc3b517 (/lib/x86_64-linux-gnu/libc.so.6+0x3b517)
+#10 0x00005594c6acab7c (anonymous namespace)::CallStackFrame::createLocal(clang::APValue::LValueBase, void const*, clang::QualType, (anonymous namespace)::ScopeKind) ExprConstant.cpp:0:0
+#11 0x00005594c6b077f9 (anonymous namespace)::LValueExprEvaluator::VisitCompoundLiteralExpr(clang::CompoundLiteralExpr const*) ExprConstant.cpp:0:0
+#12 0x00005594c6ad9e96 EvaluateLValue(clang::Expr const*, (anonymous namespace)::LValue&, (anonymous namespace)::EvalInfo&, bool) ExprConstant.cpp:0:0
+#13 0x00005594c6b6df01 (anonymous namespace)::RecordExprEvaluator::VisitCastExpr(clang::CastExpr const*) ExprConstant.cpp:0:0
+#14 0x00005594c6b05d8e EvaluateRecord(clang::Expr const*, (anonymous namespace)::LValue const&, clang::APValue&, (anonymous namespace)::EvalInfo&) ExprConstant.cpp:0:0
+#15 0x00005594c6b05eb8 EvaluateInPlace(clang::APValue&, (anonymous namespace)::EvalInfo&, (anonymous namespace)::LValue const&, clang::Expr const*, bool) (.part.0) ExprConstant.cpp:0:0
+#16 0x00005594c6b06b3b (anonymous namespace)::ArrayExprEvaluator::VisitCXXParenListOrInitListExpr(clang::Expr const*, llvm::ArrayRef<clang::Expr*>, clang::Expr const*, clang::QualType) ExprConstant.cpp:0:0
+#17 0x00005594c6b0f98c EvaluateArray(clang::Expr const*, (anonymous namespace)::LValue const&, clang::APValue&, (anonymous namespace)::EvalInfo&) ExprConstant.cpp:0:0
+#18 0x00005594c6b05f09 EvaluateInPlace(clang::APValue&, (anonymous namespace)::EvalInfo&, (anonymous namespace)::LValue const&, clang::Expr const*, bool) (.part.0) ExprConstant.cpp:0:0
+#19 0x00005594c6b0782e (anonymous namespace)::LValueExprEvaluator::VisitCompoundLiteralExpr(clang::CompoundLiteralExpr const*) ExprConstant.cpp:0:0
+#20 0x00005594c6ad9e96 EvaluateLValue(clang::Expr const*, (anonymous namespace)::LValue&, (anonymous namespace)::EvalInfo&, bool) ExprConstant.cpp:0:0
+#21 0x00005594c6b80fac (anonymous namespace)::PointerExprEvaluator::VisitCastExpr(clang::CastExpr const*) ExprConstant.cpp:0:0
+#22 0x00005594c6ae0a93 EvaluatePointer(clang::Expr const*, (anonymous namespace)::LValue&, (anonymous namespace)::EvalInfo&, bool) ExprConstant.cpp:0:0
+#23 0x00005594c6b0fca9 Evaluate(clang::APValue&, (anonymous namespace)::EvalInfo&, clang::Expr const*) ExprConstant.cpp:0:0
+#24 0x00005594c6b7ea39 (anonymous namespace)::IntExprEvaluator::VisitBinaryOperator(clang::BinaryOperator const*) ExprConstant.cpp:0:0
+#25 0x00005594c6b0faf0 Evaluate(clang::APValue&, (anonymous namespace)::EvalInfo&, clang::Expr const*) ExprConstant.cpp:0:0
+#26 0x00005594c6b1080e EvaluateAsRValue((anonymous namespace)::EvalInfo&, clang::Expr const*, clang::APValue&) ExprConstant.cpp:0:0
+#27 0x00005594c6b149bb clang::Expr::EvaluateForOverflow(clang::ASTContext const&) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x80089bb)
+#28 0x00005594c58dfa1e clang::Sema::CheckForIntOverflow(clang::Expr const*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6dd3a1e)
+#29 0x00005594c5913c62 clang::Sema::CheckCompletedExpr(clang::Expr*, clang::SourceLocation, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6e07c62)
+#30 0x00005594c5d1997e clang::Sema::ActOnFinishFullExpr(clang::Expr*, clang::SourceLocation, bool, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x720d97e)
+#31 0x00005594c5c587b4 clang::Sema::ActOnCondition(clang::Scope*, clang::SourceLocation, clang::Expr*, clang::Sema::ConditionKind, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x714c7b4)
+#32 0x00005594c56f20e2 clang::Parser::ParseCondition(clang::ActionResult<clang::Stmt*, true>*, clang::SourceLocation, clang::Sema::ConditionKind, bool, clang::Parser::ForRangeInfo*, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6be60e2)
+#33 0x00005594c576b327 clang::Parser::ParseParenExprOrCondition(clang::ActionResult<clang::Stmt*, true>*, clang::Sema::ConditionResult&, clang::SourceLocation, clang::Sema::ConditionKind, clang::SourceLocation&, clang::SourceLocation&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c5f327)
+#34 0x00005594c576cd2e clang::Parser::ParseIfStatement(clang::SourceLocation*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c60d2e)
+#35 0x00005594c576dbdf clang::Parser::ParseStatementOrDeclarationAfterAttributes(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::ParsedAttributes&, clang::ParsedAttributes&, clang::LabelDecl*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c61bdf)
+#36 0x00005594c576f2eb clang::Parser::ParseStatementOrDeclaration(llvm::SmallVector<clang::Stmt*, 24u>&, clang::Parser::ParsedStmtContext, clang::SourceLocation*, clang::LabelDecl*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c632eb)
+#37 0x00005594c5776f17 clang::Parser::ParseCompoundStatementBody(bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c6af17)
+#38 0x00005594c577776f clang::Parser::ParseFunctionStatementBody(clang::Decl*, clang::Parser::ParseScope&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6c6b76f)
+#39 0x00005594c56634a3 clang::Parser::ParseFunctionDefinition(clang::ParsingDeclarator&, clang::Parser::ParsedTemplateInfo const&, clang::LateParsedAttrList*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b574a3)
+#40 0x00005594c56b643b clang::Parser::ParseDeclGroup(clang::ParsingDeclSpec&, clang::DeclaratorContext, clang::ParsedAttributes&, clang::Parser::ParsedTemplateInfo&, clang::SourceLocation*, clang::Parser::ForRangeInit*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6baa43b)
+#41 0x00005594c565d46c clang::Parser::ParseDeclOrFunctionDefInternal(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec&, clang::AccessSpecifier) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b5146c)
+#42 0x00005594c565dc6f clang::Parser::ParseDeclarationOrFunctionDefinition(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*, clang::AccessSpecifier) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b51c6f)
+#43 0x00005594c566a086 clang::Parser::ParseExternalDeclaration(clang::ParsedAttributes&, clang::ParsedAttributes&, clang::ParsingDeclSpec*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b5e086)
+#44 0x00005594c566b03d clang::Parser::ParseTopLevelDecl(clang::OpaquePtr<clang::DeclGroupRef>&, clang::Sema::ModuleImportState&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b5f03d)
+#45 0x00005594c5647772 clang::ParseAST(clang::Sema&, bool, bool) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x6b3b772)
+#46 0x00005594c21b0711 clang::FrontendAction::Execute() (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x36a4711)
+#47 0x00005594c21388bd clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x362c8bd)
+#48 0x00005594c2287f53 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x377bf53)
+#49 0x00005594bfe6296a cc1_main(llvm::ArrayRef<char const*>, char const*, void*) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x135696a)
+#50 0x00005594bfe5992a ExecuteCC1Tool(llvm::SmallVectorImpl<char const*>&, llvm::ToolContext const&, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>) driver.cpp:0:0
+#51 0x00005594bfe59ac3 int llvm::function_ref<int (llvm::SmallVectorImpl<char const*>&)>::callback_fn<clang_main(int, char**, llvm::ToolContext const&)::'lambda'(llvm::SmallVectorImpl<char const*>&)>(long, llvm::SmallVectorImpl<char const*>&) driver.cpp:0:0
+#52 0x00005594c1ec4abd void llvm::function_ref<void ()>::callback_fn<clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const::'lambda'()>(long) Job.cpp:0:0
+#53 0x00005594c140d980 llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x2901980)
+#54 0x00005594c1ec5913 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const (.part.0) Job.cpp:0:0
+#55 0x00005594c1e7f597 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3373597)
+#56 0x00005594c1e83244 clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3377244)
+#57 0x00005594c1e92b84 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x3386b84)
+#58 0x00005594bfe5f028 clang_main(int, char**, llvm::ToolContext const&) (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x1353028)
+#59 0x00005594bfe1627a main (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x130a27a)
+#60 0x00007fe2ebc2a1ca (/lib/x86_64-linux-gnu/libc.so.6+0x2a1ca)
+#61 0x00007fe2ebc2a28b __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a28b)
+#62 0x00005594bfe58f55 _start (/home/runner/work/MetaMut/MetaMut/clang/bin/clang-24+0x134cf55)
+clang-24: error: clang frontend command failed due to signal (use -v to see invocation)
+timeout: the monitored command dumped core
