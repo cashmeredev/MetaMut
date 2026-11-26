@@ -1,0 +1,42 @@
+00189.c	clang: /root/llvm-src/llvm/lib/Support/APFloat.cpp:602: unsigned int llvm::powerOfFivePartsForExponent(unsigned int): Assertion `power <= maxExponent' failed.
+01265.c	exit code -4
+04429.c	exit code 70
+05936.c	clang: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+06535.c	exit code 70
+07703.c	clang: /root/llvm-src/clang/lib/CodeGen/CodeGenFunction.cpp:355: void clang::CodeGen::CodeGenFunction::FinishFunction(clang::SourceLocation): Assertion `LifetimeExtendedCleanupStack.empty() && "mismatched push/pop of cleanups in EHStack!"' failed.
+08517.c	exit code -4
+10871.c	exit code -4
+11455.c	clang: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+11459.c	exit code -4
+11667.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetBuiltins/X86.cpp:659: llvm::Value* clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): Assertion `Value != 0 && "Invalid CPUStr passed to CpuIs"' failed.
+13129.c	clang: /root/llvm-src/llvm/include/llvm/Support/Casting.h:572: decltype(auto) llvm::cast(From*) [with To = llvm::IntegerType; From = llvm::Type]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+13139.c	exit code -4
+13915.c	exit code -4
+14072.c	timeout
+14672.c	clang: /root/llvm-src/clang/lib/CodeGen/CGRecordLayoutBuilder.cpp:972: void {anonymous}::CGRecordLowering::insertPadding(): Assertion `Offset >= Size' failed.
+15132.c	timeout
+17278.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetInfo.cpp:123: virtual unsigned int clang::CodeGen::TargetCodeGenInfo::getDeviceKernelCallingConv() const: Assertion `getABIInfo().getContext().getLangOpts().OpenCL && "Kernel calling convention only defined for OpenCL"' failed.
+17403.c	timeout
+18597.c	clang: /root/llvm-src/llvm/include/llvm/Support/Casting.h:572: decltype(auto) llvm::cast(From*) [with To = llvm::StructType; From = llvm::Type]: Assertion `isa<To>(Val) && "cast<Ty>() argument of incompatible type!"' failed.
+19042.c	exit code -4
+19889.c	clang: /root/llvm-src/clang/lib/CodeGen/CodeGenFunction.cpp:355: void clang::CodeGen::CodeGenFunction::FinishFunction(clang::SourceLocation): Assertion `LifetimeExtendedCleanupStack.empty() && "mismatched push/pop of cleanups in EHStack!"' failed.
+20935.c	exit code -4
+21241.c	exit code -11
+23432.c	clang: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.
+23763.c	exit code -4
+24213.c	timeout
+27023.c	exit code 70
+27576.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetBuiltins/X86.cpp:659: llvm::Value* clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): Assertion `Value != 0 && "Invalid CPUStr passed to CpuIs"' failed.
+28862.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetBuiltins/X86.cpp:659: llvm::Value* clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): Assertion `Value != 0 && "Invalid CPUStr passed to CpuIs"' failed.
+29703.c	timeout
+29879.c	timeout
+29945.c	timeout
+30556.c	exit code -11
+31629.c	clang: /root/llvm-src/clang/lib/CodeGen/CodeGenTBAA.cpp:647: llvm::MDNode* clang::CodeGen::CodeGenTBAA::getAccessTagInfo(clang::CodeGen::TBAAAccessInfo): Assertion `!Info.isIncomplete() && "Access to an object of an incomplete type!"' failed.
+31778.c	exit code -4
+32627.c	timeout
+33249.c	clang: /root/llvm-src/clang/lib/CodeGen/CodeGenFunction.cpp:355: void clang::CodeGen::CodeGenFunction::FinishFunction(clang::SourceLocation): Assertion `LifetimeExtendedCleanupStack.empty() && "mismatched push/pop of cleanups in EHStack!"' failed.
+33664.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetBuiltins/X86.cpp:659: llvm::Value* clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): Assertion `Value != 0 && "Invalid CPUStr passed to CpuIs"' failed.
+34786.c	exit code 70
+34851.c	clang: /root/llvm-src/clang/lib/CodeGen/TargetBuiltins/X86.cpp:659: llvm::Value* clang::CodeGen::CodeGenFunction::EmitX86CpuIs(llvm::StringRef): Assertion `Value != 0 && "Invalid CPUStr passed to CpuIs"' failed.
+35038.c	clang: /root/llvm-src/clang/lib/CodeGen/CGExpr.cpp:3695: clang::CodeGen::LValue clang::CodeGen::CodeGenFunction::EmitDeclRefLValue(const clang::DeclRefExpr*): Assertion `E->isNonOdrUse() != NOUR_Unevaluated && "should not emit an unevaluated operand"' failed.

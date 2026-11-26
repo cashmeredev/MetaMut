@@ -1,0 +1,104 @@
+[
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        null,
+        "llvm::sys::PrintStackTrace(llvm::raw_ostream&, int)",
+        null
+      ],
+      [
+        null,
+        "llvm::sys::RunSignalHandlers()",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 2428.073716402054,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/oCDBFtprbofb.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 4270.34052324295,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,1/cfbDyJdyrNKQ.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 1179.1988389492035,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/LxEXcFbAFwka.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 8352.73757815361,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,3/onMQKchUuzHY.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::X86FrameLowering::emitPrologue(llvm::MachineFunction&, llvm::MachineBasicBlock&) const",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 2872.666826725006,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,2/DhrvcdImPehU.c"
+      }
+    ]
+  },
+  {
+    "compiler": "/home/runner/work/MetaMut/MetaMut/objects/llvm-project-trunk.obj/bin/clang",
+    "options": "-O2 -c",
+    "traceback": [
+      [
+        "assert.c",
+        "__assert_fail",
+        "105"
+      ],
+      [
+        null,
+        "llvm::CallInst::init(llvm::FunctionType*, llvm::Value*, llvm::ArrayRef<llvm::Value*>, llvm::ArrayRef<llvm::OperandBundleDefT<llvm::Value*> >, llvm::Twine const&)",
+        null
+      ]
+    ],
+    "mutators": [
+      "mix"
+    ],
+    "srcfiles": [
+      {
+        "mutator": "mix",
+        "date": 6252.511294126511,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,2/gdBjVvymKQzI.c"
+      },
+      {
+        "mutator": "mix",
+        "date": 8240.87129831314,
+        "file": "/home/runner/work/MetaMut/MetaMut/workspace/mix,clang,2/PCmVJMkYaOBr.c"
+      }
+    ]
+  }
+]
+
+{
+  "mix": 3
+}
